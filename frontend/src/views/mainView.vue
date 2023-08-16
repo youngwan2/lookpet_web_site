@@ -110,7 +110,7 @@ figure .figure_inner {
 }
 figure .figure_inner h1 {
   /* border: 3px solid aqua; */
-  font: normal 120px/1 'arial';
+  font: normal 12vw/1 'arial';
   color: #fff;
   margin-bottom: 20px;
 }
