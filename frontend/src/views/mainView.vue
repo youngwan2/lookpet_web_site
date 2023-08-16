@@ -8,50 +8,63 @@
         loop
       ></video>
       <div class="figure_inner">
-        <h1>Cat`s Land</h1>
+        <h1>Cat`s Land #2</h1>
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br />
           Id praesentium molestias similique quaerat magni facere in a?
           Adipisci, possimus reprehenderit!
         </p>
-        <a href="#">view detail</a>
+        <button class="btn" @click="gotoPage('/gallery')">Cat`s Gallery</button>
       </div>
     </figure>
+
     <section>
       <div class="inner">
-        <h1>Cat`s News</h1>
+        <h1>Information</h1>
         <div class="wrap">
-          <article>
+          <div class="article">
             <div class="pic">
-              <img src="../../public/img/cat01.jpg" alt="1번째 콘테츠 이미지" />
+              <img
+                src="../../public/img/main_img/main_img_01.jpg"
+                alt="1번째 콘테츠 이미지"
+              />
             </div>
-            <h2><a href="#"></a>Lorem ipsum dolor, sit</h2>
+            <h2><a href="#" @click="gotoPage('/page01')">미정</a></h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-          </article>
+          </div>
 
-          <article>
+          <div class="article">
             <div class="pic">
-              <img src="img/cat05.jpg" alt="2번째 콘텐츠 이미지" />
+              <img
+                src="../../public/img/main_img/main_img_02.jpg"
+                alt="2번째 콘텐츠 이미지"
+              />
             </div>
-            <h2><a href="#"></a>Lorem ipsum dolor, sit</h2>
+            <h2><a href="#" @click="gotoPage('/page01')">미정</a></h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-          </article>
+          </div>
 
-          <article>
+          <div class="article">
             <div class="pic">
-              <img src="img/cat03.jpg" alt="3번째 콘텐츠 이미지" />
+              <img
+                src="../../public/img/main_img/main_img_03.jpg"
+                alt="3번째 콘텐츠 이미지"
+              />
             </div>
-            <h2><a href="#"></a>Lorem ipsum dolor, sit</h2>
+            <h2><a href="#" @click="gotoPage('/page01')">게시판</a></h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-          </article>
+          </div>
 
-          <article>
+          <div class="article">
             <div class="pic">
-              <img src="img/cat04.jpg" alt="4번째 콘텐츠 이미지" />
+              <img
+                src="../../public/img/main_img/main_img_04.jpg"
+                alt="4번째 콘텐츠 이미지"
+              />
             </div>
-            <h2><a href="#"></a>Lorem ipsum dolor, sit</h2>
+            <h2><a href="#" @click="gotoPage('/page01')">Q&A</a></h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -61,7 +74,13 @@
 <script>
 export default {
   name: 'mainView',
-  components: {}
+  components: {},
+  methods: {
+    gotoPage(url) {
+      this.$router.push(url)
+      location.href = url // <== 새로고침이 필요해서 추가함
+    }
+  }
 }
 </script>
 
@@ -100,7 +119,7 @@ figure .figure_inner p {
   color: #888;
   margin-bottom: 60px;
 }
-figure .figure_inner a {
+figure .figure_inner .btn {
   display: block;
   width: 400px;
   height: 30px;
@@ -110,13 +129,15 @@ figure .figure_inner a {
   text-align: center;
   letter-spacing: 1pxx;
   transition: all 0.5s;
+  background: none;
 }
-figure .figure_inner a:hover {
+figure .figure_inner .btn:hover {
   background: #fff;
   color: #555;
+  cursor: pointer;
 }
 
-/*news*/
+/*section*/
 section {
   width: 100%;
   padding: 200px 0px;
@@ -139,22 +160,22 @@ section .inner .wrap::after {
   display: block;
   clear: both;
 }
-section .inner .wrap article {
+section .inner .wrap .article {
   width: 280px;
   float: left;
   margin-right: 20px;
 }
-section .inner .wrap article:last-child {
+section .inner .wrap .article:last-child {
   margin-right: 0px;
 }
-section .inner .wrap article h2 {
+section .inner .wrap .article h2 {
   margin-bottom: 10px;
 }
-section .inner .wrap article h2 a {
+section .inner .wrap .article h2 a {
   font: bold 16px/1 'arial';
   color: #555;
 }
-section .inner .wrap article .pic {
+section .inner .wrap .article .pic {
   width: 100%;
   height: 120px;
   background: #333;
@@ -162,7 +183,7 @@ section .inner .wrap article .pic {
   position: relative;
   overflow: hidden;
 }
-section .inner .wrap article .pic img {
+section .inner .wrap .article .pic img {
   object-fit: cover;
   width: 100%;
   height: 100%;
