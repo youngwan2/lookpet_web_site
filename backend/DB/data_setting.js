@@ -1,19 +1,23 @@
+// 데이터베이스 연결 함수
+const DB_CONNECTION = require('../DB/dbConnection/connection');
+
 // 모델 가져오기
 const catModel = require('./schema/catModel');
 const dogModel = require('./schema/dogModel');
 const cattipModel = require('./schema/cattipModel');
 const dogtipModel = require('./schema/dogtipModel');
 
-// 데이터베이스 연결 함수
-const DB_CONNECTION = require('../dbConnection/connection');
 
 // 디비 저장 할 데이터
+const withpet = require('../../withpet.json')
 const catData = require('../../고양이/cat.json');
 const dogData = require('../../강아지/dog.json');
 const cattipData = require('../../고양이/cat-tip.json');
 const dogtipData = require('../../강아지/dog-tip.json');
 
-function save() {
+console.log(withpet)
+
+ function save() {
   // 고양이 종별
   catModel
     .insertMany(catData)
@@ -53,4 +57,5 @@ function save() {
     });
 }
 DB_CONNECTION();
+save()
 module.exports = save;

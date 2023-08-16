@@ -1,19 +1,19 @@
 <template>
   <section id="wrap">
-    <MyHeader></MyHeader>
-    <router-view/>
-    <MyFooter></MyFooter>
+    <HeaderVue></HeaderVue>
+    <router-view />
+    <FooterVue></FooterVue>
   </section>
 </template>
 
 <script>
-import MyHeader from '@/components/HeaderView.vue'
-import MyFooter from '@/components/FooterView.vue'
+import HeaderVue from '../components/HeaderView.vue'
+import FooterVue from '../components/FooterView.vue'
 
 export default {
   components: {
-    MyHeader,
-    MyFooter
+    HeaderVue,
+    FooterVue
   }
 }
 </script>
