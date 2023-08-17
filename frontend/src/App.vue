@@ -10,4 +10,7 @@ import FooterView from './components/FooterView.vue'
   </div>
 </template>
 <style>
+*{
+  margin: 0;
+}
 </style>

@@ -28,6 +28,14 @@ const router = createRouter({
         )
     },
     {
+      path: '/cat/breed/detail/:id',
+      name: 'cat-breed-detail',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catDetail.vue'
+        )
+    },
+    {
       path: '/community',
       name: 'community',
       component: () =>
