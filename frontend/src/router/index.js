@@ -16,7 +16,7 @@ const router = createRouter({
       name: 'dog-breed',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu01View.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/dogBreed.vue'
         )
     },
     {

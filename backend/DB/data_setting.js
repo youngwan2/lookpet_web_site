@@ -10,10 +10,10 @@ const dogtipModel = require('./schema/dogtipModel');
 
 // 디비 저장 할 데이터
 const withpet = require('../../withpet.json')
-const catData = require('../../고양이/cat.json');
-const dogData = require('../../강아지/dog.json');
-const cattipData = require('../../고양이/cat-tip.json');
-const dogtipData = require('../../강아지/dog-tip.json');
+const catData = require('../../데이터/고양이/cat.json');
+const dogData = require('../../데이터/강아지/dog.json');
+const cattipData = require('../../데이터/고양이/cat-tip.json');
+const dogtipData = require('../../데이터/강아지/dog-tip.json');
 
 
  function save() {
