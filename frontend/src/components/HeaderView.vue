@@ -1,63 +1,58 @@
 <template>
-  <Header>
+  <header class="header">
+    <h1>
+      <RouterLink to="/">Look Pet</RouterLink>
+    </h1>
 
     <nav>
       <div class="inner">
-        <h1><a href="#">Logo</a></h1>
-        <ul id="gnb">
-          <li v-for="(item, index) in menulist" :key="index" @click="goToPage(item.link)">
-            <button v-html="item.menutext"></button>
-          </li>
-        </ul>
-
+        <RouterLink to="/dog/breed">강아지</RouterLink>
+        <RouterLink to="/cat/breed">고양이</RouterLink>
+        <RouterLink to="/community">커뮤니티</RouterLink>
+        <RouterLink to="/service">서비스</RouterLink>
       </div>
     </nav>
     <ul class="util">
       <li>Login</li>
       <li>Sign Up</li>
     </ul>
-  </Header>
+  </header>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      menulist: [
-        { menutext: '강아지', link: '/menu01' },
-        { menutext: '고양이', link: '/menu02' },
-        { menutext: '커뮤니티', link: '/menu03' },
-        { menutext: '서비스', link: '/menu04' }
-      ]
     }
   },
   methods: {
-    goToPage(target) {
-      if (this.$router.currentRoute.path !== target) {
-        this.$router.push(target)
-      }
-    }
+
   }
 }
 </script>
 
 <style scoped>
-header {
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid #ddd;
 }
 
 header nav .inner {
   max-width: 1180px;
-  height: 120px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0px auto;
-}
-
-header h1 {
-  margin-top: 5rem;
 }
 
 header nav .inner h1 a {
@@ -65,7 +60,7 @@ header nav .inner h1 a {
   color: #444;
 }
 
-header .util {
+.header .util {
   position: absolute;
   width: 170px;
   top: 20px;
@@ -73,7 +68,7 @@ header .util {
 
 }
 
-header .util li {
+.header .util li {
   float: left;
   display: block;
   font: 15px/1 'arial';

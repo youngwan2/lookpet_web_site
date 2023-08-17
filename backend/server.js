@@ -11,8 +11,7 @@ app.use('/', express.static(__dirname + '/dist'));
 express.urlencoded({ extended: false });
 
 const PORT = process.env.PORT || 3000;
-/* app.get("/animal/map/hospital",()=>{
-}) */
+
 app.get('/common/hospital', () => {});
 
 app.get('/', (req, res) => {
@@ -30,10 +29,27 @@ app.get('/dog', (req, res) => {
   res.json({ name: 'dog' });
 });
 
-app.get('/cat', (req, res) => {
-  res.json({ name: 'cat' });
+app.get('/cat/breed', (req, res) => {
+  catModel.find({},{_id:0}).then((result)=>{
+    console.log(result)
+    res.json(result);
+  })
+  
 });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+app.get('/dog/breed/:id',(req,res)=>{
+  const index = req.params
+  dogModel.findOne({id:params}).then((result)=>{
+    res.json(result)
+
+  })
+
+
+
+})
+
+

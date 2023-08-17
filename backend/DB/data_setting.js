@@ -15,7 +15,6 @@ const dogData = require('../../강아지/dog.json');
 const cattipData = require('../../고양이/cat-tip.json');
 const dogtipData = require('../../강아지/dog-tip.json');
 
-console.log(withpet)
 
  function save() {
   // 고양이 종별

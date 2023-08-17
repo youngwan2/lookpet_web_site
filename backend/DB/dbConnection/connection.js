@@ -5,7 +5,6 @@ const { DB_USER, DB_PW, DB_HOST } = process.env;
 const mongoose = require('mongoose');
 const DB_URL = `mongodb://${DB_USER}:${DB_PW}@${DB_HOST}/LOOK_PET_DB`;
 
-
 // 데이터베이스 연결 함수
 const DB_CONNECTION = async () => {
   await mongoose

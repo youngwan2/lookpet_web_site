@@ -12,62 +12,35 @@ const router = createRouter({
     //   children: [{ path: '/main', component: mainView }]
     // },
     {
-      path: '/',
-      name: 'root',
-      component: () =>
-        import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../layout/layoutView.vue'
-        ),
-      redirect: '/main',
-      children: [
-        {
-          path: '/main',
-          name: 'main',
-          component: () =>
-            import(
-              /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mainView.vue'
-            )
-        }
-      ]
-    },
-    {
-      path: '/menu01',
-      name: 'menu01',
+      path: '/dog/breed',
+      name: 'dog-breed',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu01View.vue'
         )
     },
     {
-      path: '/menu02',
-      name: 'menu02',
+      path: '/cat/breed',
+      name: 'cat-breed',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu02View.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catBreed.vue'
         )
     },
     {
-      path: '/menu03',
-      name: 'menu03',
+      path: '/community',
+      name: 'community',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu03View.vue'
         )
     },
     {
-      path: '/menu04',
-      name: 'menu04',
+      path: '/service',
+      name: 'service',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu04View.vue'
-        )
-    },
-    {
-      path: '/menu05',
-      name: 'menu05',
-      component: () =>
-        import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu05View.vue'
         )
     },
     {
@@ -76,14 +49,6 @@ const router = createRouter({
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catsGallery.vue'
-        )
-    },
-    {
-      path: '/page01',
-      name: 'page01',
-      component: () =>
-        import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/page01View.vue'
         )
     }
   ]
