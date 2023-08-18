@@ -11,8 +11,8 @@
         <RouterLink to="/service">서비스</RouterLink>
       </nav>
       <ul class="util">
-        <li>Login</li>
-        <li>Sign Up</li>
+        <router-link to="/auth/login">Login</router-link>
+        <li>Logout</li>
       </ul>
     </div>
   </header>

@@ -1,9 +1,3 @@
-  const arr =[1,2,3]
 
 
-
-
-
-
-
-  
+console.log(crypto.randomBytes(64))

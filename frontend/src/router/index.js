@@ -58,6 +58,30 @@ const router = createRouter({
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu04View.vue'
         )
+    },
+    {
+      path: '/auth/login',
+      name: 'login',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/loginView.vue'
+        )
+    },
+    {
+      path: '/auth/signup',
+      name: 'signup',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/signupView.vue'
+        )
+    },
+    {
+      path: '/gallery',
+      name: 'gallery',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catsGallery.vue'
+        )
     }
   ]
 })
