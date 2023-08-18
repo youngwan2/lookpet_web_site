@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 // 강아지정보 스키마 생성
 const CatsSchema = new Schema({
-  id: Number, //기본키(식별키)
+  id: String, //기본키(식별키)
   image: String,
   name: String,
   ko_name: String,

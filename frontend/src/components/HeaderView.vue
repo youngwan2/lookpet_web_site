@@ -4,7 +4,6 @@
       <h1>
         <RouterLink to="/">Look Pet</RouterLink>
       </h1>
-
       <nav class="menu">
         <RouterLink to="/dog/breed">강아지</RouterLink>
         <RouterLink to="/cat/breed">고양이</RouterLink>
@@ -27,7 +26,6 @@ export default {
   methods: {}
 }
 </script>
-
 <style scoped>
 a {
   text-decoration: none;
@@ -50,7 +48,6 @@ li {
   justify-content: space-around;
   align-items: center;
 }
-
 .menu a {
   margin: 10px;
 }

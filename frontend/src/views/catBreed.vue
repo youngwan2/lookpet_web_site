@@ -1,8 +1,10 @@
 <template>
   <div class="cat_breed_section">
+    <h2 class="title">냥이 사전</h2>
+    <span class="info_text">고양이/품종정보</span>
     <section>
-      <h2>고양이 모음집(임시)</h2>
-      <form action="#" class="cat_seacrh_form" @submit.prevent="submit">
+      <!-- 고양이 품종 검색창(필터링)이 표시되는 영역-->
+      <form class="cat_seacrh_form" @submit.prevent="submit">
         <label for="cat_search"><svg xmlns="http://www.w3.org/2000/svg" height="1em"
             viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
@@ -10,10 +12,14 @@
           </svg></label>
         <input type="text" id="cat_search">
       </form>
+
+      <!-- 고양이 품종 목록이 렌더링되어 표시되는 영역-->
       <ul class="cat_ul">
-        <li class="cat_items" v-for="(cat) in catBreedInfo" :key="cat.id">
-          <div class="cat_image"></div>
-          <p class="cat_name">{{ cat.name }}</p>
+        <li class="cat_items" v-for="(cat, i) in catBreedInfo" :key="cat.id" @click="getDetail(i + 1)">
+          <router-link :to="`/cat/breed/detail/${i + 1}`">
+            <div class="cat_image"></div>
+            <p class="cat_name">{{ cat.name }}({{ cat.ko_name }})</p>
+          </router-link>
         </li>
       </ul>
     </section>
@@ -30,12 +36,21 @@ export default {
   async mounted() {
     await axios.get('http://localhost:3000/cat/breed').then((response) => {
       console.log(response)
+
       if (response.status === 200) {
         this.catBreedInfo = response.data
       }
     }).catch((error) => {
       console.error("cat 정보를 받아오는 중 에러가 발생하였습니다:", error)
     })
+  },
+  methods: {
+    submit() {
+      console.log("전송!")
+    },
+    getDetail(i) {
+      console.log(`${i}번 고양이`)
+    }
   }
 }
 </script>
@@ -58,34 +73,59 @@ a {
   text-decoration: none;
 }
 
-/*컨테이너*/
+/** 페이지 전체 컨테이너 */
+.cat_breed_section {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1500px;
+}
+
+/** 페이지 제목 */
+.title {
+  text-align: center;
+  margin-top: 2.3rem;
+}
+
+/** 상단 안내 메시지 */
+.info_text {
+  position: absolute;
+  right: 5px;
+  font-size: 11px;
+  top: 2rem;
+}
 
 /* 검색창 폼 */
 .cat_seacrh_form {
-  max-width: 400px;
+  max-width: 500px;
   background-color: white;
   box-shadow: 0 0 5px 2px rgb(220, 220, 220);
   border-radius: 50px;
   margin: 2rem auto;
-  padding: 12px
+  padding: 10px
 }
 
 /* 검색창 input*/
 .cat_seacrh_form input {
   max-width: 300px;
-  width: 100%;
-  padding: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 120%;
+  padding: 18px 12px 15px 12px;
   border: none;
 }
 
-/* 검색창 input 라벨 */
+.cat_seacrh_form input:focus {
+  outline: none;
+  font-size: 16px;
+}
 
-.cat_seacrh_form label{
+/* 검색창 input 라벨 */
+.cat_seacrh_form label {
   font-size: 1.25rem;
 }
 
-.cat_seacrh_form label svg{
-  margin-top: 10px;
+.cat_seacrh_form label svg {
+  margin: 15px 0 0 8px;
 }
 
 section {
@@ -118,4 +158,5 @@ section {
 .cat_items .cat_name {
   background-color: burlywood;
   padding: 10px;
-}</style>
+}
+</style>

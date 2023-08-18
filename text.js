@@ -1,12 +1,9 @@
-const fs = require('fs')
+  const arr =[1,2,3]
 
 
 
-fs.readFile(__dirname+ '/cat.json',(err,data)=>{
-    let json = data.toString()
 
-    let trans = JSON.parse(json)
 
-    
 
-})
+
+  
