@@ -37,7 +37,8 @@ app.get('/cat/breed', (req, res) => {
 
 app.get('/cat/breed/:id', (req, res) => {
   console.log(req.params);
-  const { id } = req.params;
+  const { id} = req.params;  
+  
   catModel
     .findOne({ id: id })
     .then((result) => {
@@ -54,4 +55,3 @@ app.get('/cat/breed/:id', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
