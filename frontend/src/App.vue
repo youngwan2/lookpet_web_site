@@ -9,5 +9,4 @@ import FooterView from './components/FooterView.vue'
     <footer-view />
   </div>
 </template>
-<style>
-</style>
+<style></style>

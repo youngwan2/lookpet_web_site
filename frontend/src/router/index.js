@@ -20,6 +20,14 @@ const router = createRouter({
         )
     },
     {
+      path: '/dog/breed/detail/:id',
+      name: 'dog-breed/detail',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/dogDetail.vue'
+        )
+    },
+    {
       path: '/cat/breed',
       name: 'cat-breed',
       component: () =>
@@ -41,14 +49,6 @@ const router = createRouter({
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu04View.vue'
-        )
-    },
-    {
-      path: '/gallery',
-      name: 'gallery',
-      component: () =>
-        import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catsGallery.vue'
         )
     }
   ]

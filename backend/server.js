@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const DB_CONNECTION = require('./DB/dbConnection/connection')
 const catModel = require('./DB/schema/catModel')
+const dogModel = require('./DB/schema/dogModel')
 
 DB_CONNECTION()
 app.use(cors())
@@ -26,12 +27,10 @@ app.post('/auth/login', (req, res) => {
 })
 
 app.get('/dog/breed', (req, res) => {
-  // dogModel.find({},{_id:0}).then((result)=>{
-  // console.log(result)
-  // res.json(result);
-  // })
-
-  res.json({ name: 'dog' })
+  dogModel.find({}, { _id: 0 }).then((result) => {
+    console.log(result)
+    res.json(result)
+  })
 })
 
 app.get('/cat/breed', (req, res) => {
@@ -40,13 +39,12 @@ app.get('/cat/breed', (req, res) => {
     res.json(result)
   })
 })
-app.get('/dog/breed/:id', (req, res) => {
-  const index = req.params
-  dogModel.findOne({ id: params }).then((result) => {
+app.get('/dog/breed/detail/:id', (req, res) => {
+  const { id } = req.params
+  dogModel.findOne({ id: id }).then((result) => {
     res.json(result)
   })
-
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-  })
+})
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
 })
