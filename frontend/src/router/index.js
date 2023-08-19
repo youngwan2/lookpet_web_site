@@ -1,26 +1,88 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import layoutView from '@/layout/layoutView.vue'
-import mainView from '@/views/mainView.vue'
-import menu01View from '@/views/menu01View.vue'
-import menu02View from '@/views/menu02View.vue'
-import menu03View from '@/views/menu03View.vue'
-import menu04View from '@/views/menu04View.vue'
-import menu05View from '@/views/menu05View.vue'
+// import layoutView from '@/layout/layoutView.vue'
+// import mainView from '@/views/mainView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    // {
+    //   path: '/',
+    //   component: layoutView,
+    //   redirect: '/main',
+    //   children: [{ path: '/main', component: mainView }]
+    // },
     {
-      path: '/',
-      component: layoutView,
-      redirect: '/main',
-      children: [{ path: '/main', component: mainView }]
+      path: '/dog/breed',
+      name: 'dog-breed',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/dogBreed.vue'
+        )
     },
-    { path: '/menu01', component: menu01View },
-    { path: '/menu02', component: menu02View },
-    { path: '/menu03', component: menu03View },
-    { path: '/menu04', component: menu04View },
-    { path: '/menu05', component: menu05View }
+    {
+      path: '/dog/breed/detail/:id',
+      name: 'dog-breed/detail',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/dogDetail.vue'
+        )
+    },
+    {
+      path: '/cat/breed',
+      name: 'cat-breed',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catBreed.vue'
+        )
+    },
+    {
+      path: '/cat/breed/detail/:id',
+      name: 'cat-breed-detail',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catDetail.vue'
+        )
+    },
+    {
+      path: '/community',
+      name: 'community',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu03View.vue'
+        )
+    },
+    {
+      path: '/service',
+      name: 'service',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu04View.vue'
+        )
+    },
+    {
+      path: '/auth/login',
+      name: 'login',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/loginView.vue'
+        )
+    },
+    {
+      path: '/auth/signup',
+      name: 'signup',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/signupView.vue'
+        )
+    },
+    {
+      path: '/gallery',
+      name: 'gallery',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catsGallery.vue'
+        )
+    }
   ]
 })
 

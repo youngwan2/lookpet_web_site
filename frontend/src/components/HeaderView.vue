@@ -1,101 +1,54 @@
 <template>
-  <Header>
-    <nav>
-      <div class="inner">
-        <h1><a href="#">Logo</a></h1>
-        <ul id="gnb">
-          <li
-            v-for="(item, index) in menulist"
-            :key="index"
-            @click="goToPage(item.link)"
-          >
-            <button v-html="item.menutext"></button>
-          </li>
-        </ul>
-        <ul class="util">
-          <li>Login</li>
-          <li>Sign Up</li>
-        </ul>
-      </div>
-    </nav>
-  </Header>
+  <header class="header">
+    <div class="header_inner">
+      <h1>
+        <RouterLink to="/">Look Pet</RouterLink>
+      </h1>
+      <nav class="menu">
+        <RouterLink to="/dog/breed">강아지</RouterLink>
+        <RouterLink to="/cat/breed">고양이</RouterLink>
+        <RouterLink to="/community">커뮤니티</RouterLink>
+        <RouterLink to="/service">서비스</RouterLink>
+      </nav>
+      <ul class="util">
+        <router-link to="/auth/login">Login</router-link>
+        <li>Logout</li>
+      </ul>
+    </div>
+  </header>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      menulist: [
-        { menutext: 'menu01', link: '/menu01' },
-        { menutext: 'menu02', link: '/menu02' },
-        { menutext: 'menu03', link: '/menu03' },
-        { menutext: 'menu04', link: '/menu04' },
-        { menutext: 'menu05', link: '/menu05' }
-      ]
-    }
+    return {}
   },
-  methods: {
-    goToPage(target) {
-      if (this.$router.currentRoute.path !== target) {
-        this.$router.push(target)
-      }
-    }
-  }
+  methods: {}
 }
 </script>
-
 <style scoped>
-header {
+a {
+  text-decoration: none;
+  color: white;
+}
+
+li {
+  list-style: none;
+}
+
+.header {
   width: 100%;
-  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  background-color: burlywood;
 }
-header nav .inner {
-  width: 1180px;
-  height: 120px;
-  margin: 0px auto;
-  position: relative;
-}
-header nav .inner h1 {
-  position: absolute;
-  left: 0px;
-  bottom: 15px;
-}
-header nav .inner h1 a {
-  font: bold 24px/1 'arial';
-  color: #444;
-}
-header nav .inner .util {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-}
-header nav .inner .util li {
-  float: left;
-  display: block;
-  font: 15px/1 'arial';
-  color: #999;
-  padding: 0px 15px;
-}
-nav {
-  padding: 8px;
-}
-nav .inner #gnb {
+.header .header_inner {
+  max-width: 1500px;
+  margin: 0 auto;
   display: flex;
-  position: relative;
+  justify-content: space-around;
+  align-items: center;
 }
-nav ul > li {
-  flex: 1;
-  text-align: center;
-  margin-top: 85px;
-}
-nav ul > li > button {
-  color: #555;
-  font-size: 18px;
-  font-weight: 700;
-  background: none;
-  border: none;
-}
-nav ul > li > button:hover {
-  cursor: pointer;
+.menu a {
+  margin: 10px;
 }
 </style>
