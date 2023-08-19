@@ -86,7 +86,7 @@ nav .inner #gnb {
 nav ul > li {
   flex: 1;
   text-align: center;
-  padding-top: 85px;
+  margin-top: 85px;
 }
 nav ul > li > button {
   color: #555;
