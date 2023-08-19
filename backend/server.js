@@ -10,8 +10,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 // 라우터 모음
-const userRouter = require('./router/user');
-
+const userRouter = require("./router/user");
+const dogRouter = require("./router/dog");
 /* 로그인 + 회원가입 */
 app.use('/', userRouter);
 // '/' + '/auth/login'
@@ -19,8 +19,7 @@ app.use('/', userRouter);
 
 app.use('/', express.static(__dirname + '/dist'));
 
-const userRouter = require("./routes/user");
-const dogRouter = require("./routes/dog");
+
 
 app.post('/', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
@@ -85,6 +84,9 @@ app.get('/dog/breed/detail/:id', (req, res) => {
       );
     });
 });
+
+
+const PORT = process.env.PORT ||3000
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

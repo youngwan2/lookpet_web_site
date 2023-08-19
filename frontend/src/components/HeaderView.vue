@@ -9,6 +9,38 @@
         <RouterLink to="/cat/breed">고양이</RouterLink>
         <RouterLink to="/community">커뮤니티</RouterLink>
         <RouterLink to="/service">서비스</RouterLink>
+        <article class="drop_box">
+          <ul class="drop_item">
+            <p>강아지</p>
+            <RouterLink to="/dog/breed">품종 정보</RouterLink>
+            <br />
+            <RouterLink to="/dog/tip">멍 팁</RouterLink>
+          </ul>
+          <ul class="drop_item">
+            <p>고양이</p>
+            <RouterLink to="/cat/breed">품종 정보</RouterLink
+            ><br />
+            <RouterLink to="/cat/tip">냥 팁</RouterLink>
+          </ul>
+          <ul class="drop_item">
+            <p>커뮤니티</p>
+            <RouterLink to="/community">커뮤니티</RouterLink
+            ><br />
+          </ul>
+          <ul class="drop_item">
+            <p>서비스</p>
+            <RouterLink to="/service/hospital">동물병원정보조회</RouterLink
+            ><br />
+            <RouterLink to="/service/culture"
+              >반려동물동반가능시설조회</RouterLink
+            ><br />
+            <RouterLink to="/service/">반려동물 지능 테스트</RouterLink
+            ><br />
+            <RouterLink to="/service">반려동물 우울증 테스트</RouterLink
+            ><br />
+          </ul>
+          <div class="dog_foot"></div>
+        </article>
       </nav>
       <ul class="util">
         <router-link to="/auth/login">Login</router-link>
@@ -22,6 +54,14 @@
 export default {
   data() {
     return {}
+  },
+  watch: {
+    scrollY() {
+      window.addEventListener('scroll', () => {
+        console.log(window.scrollY)
+        return window.scrollY
+      })
+    }
   },
   methods: {}
 }
@@ -39,6 +79,7 @@ li {
 .header {
   width: 100%;
   padding: 20px 0;
+  z-index: 100000;
   background-color: burlywood;
 }
 .header .header_inner {
@@ -50,5 +91,85 @@ li {
 }
 .menu a {
   margin: 10px;
+  height: 100%;
+}
+
+.header:hover .drop_box {
+  visibility: visible;
+  z-index: 100;
+  opacity: 1;
+  height: 25%;
+}
+
+.drop_box {
+  position: absolute;
+  z-index: 10000;
+  transition: 1s;
+  height: 0%;
+  width: 100%;
+  background: linear-gradient(30deg, rgb(221, 92, 67), rgb(255, 144, 53));
+  visibility: hidden;
+  left: 0;
+  box-shadow: 2px 5px 5px 2px rgba(43, 43, 43, 0.426);
+  top: 5.1rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  opacity: 0;
+}
+
+.dog_foot {
+  background-image: url('../assets/dog.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 1;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 50px;
+  height: 50px;
+}
+
+.drop_item {
+  margin: 10px auto;
+  line-height: 1.45;
+  font-size: 15px;
+  display: inline-block;
+}
+.drop_item p {
+  text-align: center;
+  margin: 10px;
+  font-weight: 600;
+  color: white;
+  font-size: 1.25rem;
+}
+
+/* 미디어 쿼리 */
+@media screen and (max-width: 823px) {
+  .drop_box {
+    flex-direction: column;
+    width: 30%;
+    transform: translate(-50px);
+    transform-origin: center right;
+    height: 100%;
+    align-content: stretch;
+    text-align: left;
+    justify-content: start;
+  }
+
+  .header:hover .drop_box {
+    transform: translate(0);
+
+    height: 100%;
+    width: 60%;
+  }
+
+  .drop_item {
+    margin: 10px 0;
+  }
+  .drop_item p {
+    text-align: left;
+  }
 }
 </style>
