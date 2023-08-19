@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header_inner">
-      <h1>
+      <h1 class="title">
         <RouterLink to="/">Look Pet</RouterLink>
       </h1>
       <nav class="menu">
@@ -76,11 +76,15 @@ li {
   list-style: none;
 }
 
+.title >a {
+  color: tomato;
+}
 .header {
   width: 100%;
   padding: 20px 0;
   z-index: 100000;
-  background-color: burlywood;
+
+  background-color: #ece7dd;
 }
 .header .header_inner {
   max-width: 1500px;
@@ -91,6 +95,8 @@ li {
 }
 .menu a {
   margin: 10px;
+  color: tomato;
+  font-weight: 600;
   height: 100%;
 }
 
@@ -107,7 +113,7 @@ li {
   transition: 1s;
   height: 0%;
   width: 100%;
-  background: linear-gradient(30deg, rgb(221, 92, 67), rgb(255, 144, 53));
+  background: linear-gradient(30deg, rgb(255, 120, 93), rgb(255, 144, 53));
   visibility: hidden;
   left: 0;
   box-shadow: 2px 5px 5px 2px rgba(43, 43, 43, 0.426);
@@ -137,6 +143,11 @@ li {
   font-size: 15px;
   display: inline-block;
 }
+
+.menu .drop_item a{
+    color:white;
+    font-weight: 500;
+  }
 .drop_item p {
   text-align: center;
   margin: 10px;
@@ -170,6 +181,9 @@ li {
   }
   .drop_item p {
     text-align: left;
+  }
+  .menu .drop_item a{
+    color:white;
   }
 }
 </style>

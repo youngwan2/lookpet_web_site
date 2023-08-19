@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import layoutView from '@/layout/layoutView.vue'
-// import mainView from '@/views/mainView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
