@@ -66,14 +66,6 @@ const router = createRouter({
         )
     },
     {
-      path: '/service',
-      name: 'service',
-      component: () =>
-        import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu04View.vue'
-        )
-    },
-    {
       path: '/service/hospital',
       name: 'service-hospital',
       component: () =>

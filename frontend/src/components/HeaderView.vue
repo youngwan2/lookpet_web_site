@@ -8,7 +8,7 @@
         <RouterLink to="/dog/breed">강아지</RouterLink>
         <RouterLink to="/cat/breed">고양이</RouterLink>
         <RouterLink to="/community">커뮤니티</RouterLink>
-        <RouterLink to="/service">서비스</RouterLink>
+        <RouterLink to="/service/hospital">서비스</RouterLink>
         <article class="drop_box">
           <ul class="drop_item">
             <p>강아지</p>

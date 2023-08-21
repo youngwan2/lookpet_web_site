@@ -37,8 +37,9 @@ export default {
   async mounted() {
     try {
       const response = await axios.get('http://localhost:3000/dog/breed')
-      console.log(response)
-      this.dogBreedInfo = response.data
+      if (response.status === 200) {
+        this.dogBreedInfo = response.data
+      }
     } catch (error) {
       console.error('dog 정보를 받아오는 중 에러가 발생하였습니다:', error)
     }
