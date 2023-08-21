@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import layoutView from '@/layout/layoutView.vue'
-// import mainView from '@/views/mainView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -28,6 +26,14 @@ const router = createRouter({
         )
     },
     {
+      path: '/dog/tip',
+      name: 'dog-tip',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/dog/dogTip.vue'
+        )
+    },
+    {
       path: '/cat/breed',
       name: 'cat-breed',
       component: () =>
@@ -44,11 +50,19 @@ const router = createRouter({
         )
     },
     {
+      path: '/cat/tip',
+      name: 'cat-tip',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/cat/catTip.vue'
+        )
+    },
+    {
       path: '/community',
       name: 'community',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu03View.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/communityView.vue'
         )
     },
     {
@@ -57,6 +71,30 @@ const router = createRouter({
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/menu04View.vue'
+        )
+    },
+    {
+      path: '/service/hospital',
+      name: 'service-hospital',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/hospitalView.vue'
+        )
+    },
+    {
+      path: '/service/culture',
+      name: 'service-culture',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/cultureView.vue'
+        )
+    },
+    {
+      path: '/service/iq-test',
+      name: 'service-iqtest',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/IQTestView.vue'
         )
     },
     {
@@ -73,14 +111,6 @@ const router = createRouter({
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/signupView.vue'
-        )
-    },
-    {
-      path: '/gallery',
-      name: 'gallery',
-      component: () =>
-        import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catsGallery.vue'
         )
     }
   ]
