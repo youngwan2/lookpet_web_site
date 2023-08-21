@@ -25,13 +25,6 @@ app.post('/', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
 });
 
-app.post('/auth/login', (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-
-  res.send('Hello World!');
-});
-
 app.get('/cat/breed', (req, res) => {
   catModel.find({}, { _id: 0 }).then((result) => {
     console.log(result);
