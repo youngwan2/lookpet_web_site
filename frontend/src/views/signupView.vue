@@ -11,6 +11,9 @@
             name="username"
             v-model="username"
           />
+          <button class="double_check_btn" type="button" @click="doubleCheck">
+            확인
+          </button>
         </div>
         <br />
         <div class="password_con">
@@ -31,7 +34,9 @@
           />
         </div>
         <br />
-        <button type="submit" class="signup_btn">회원가입</button>
+        <button type="submit" class="signup_btn" :disabled="!isCheck">
+          회원가입
+        </button>
       </div>
     </form>
   </div>
@@ -43,10 +48,23 @@ export default {
     return {
       username: '',
       password: '',
-      email: ''
+      email: '',
+      message: '',
+      isCheck: false
     }
   },
   methods: {
+    doubleCheck() {
+      axios
+        .post('http://localhost:3000/auth/check', { username: this.username })
+        .then((res) => {
+          this.message = res.data.message
+          this.isCheck = res.data.success
+        })
+        .catch((error) => {
+          console.log('회원가입 시도 중 문제 발생::', error)
+        })
+    },
     signupRequest() {
       const userInfo = {
         username: this.username,

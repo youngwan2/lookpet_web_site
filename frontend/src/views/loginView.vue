@@ -48,7 +48,15 @@ export default {
       axios
         .post('http://localhost:3000/auth/login', userInfo)
         .then((res) => {
-          console.log(res)
+          // if (res.status === 200) {
+          axios
+            .get('http://localhost:3000/auth/login', {
+              withCredentials: true
+            })
+            .then((result) => {
+              console.log(result.data)
+            })
+          //   }
         })
         .catch((error) => {
           console.log('로그인 시도 중 문제 발생::', error)

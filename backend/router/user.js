@@ -21,7 +21,7 @@ router.post('/auth/login', (req, res) => {
       if (result) {
         res.json({ message: '서명된 쿠키가 생성되었습니다..' });
       } else {
-        res.status(401).json({message:'비밀번호가 일치하지 않습니다.'})
+        res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' });
       }
     });
   });
@@ -30,7 +30,7 @@ router.post('/auth/login', (req, res) => {
 // 로그인이 성공한다면, 쿠키를 생성하여 브라우저로 전송한다.
 router.get('/auth/login', (req, res) => {
   res.cookie('loginAuth', 'true');
-  res.json({username:'fjdsklfjdskljfdsklfjdfjdsk'})
+  res.json({ username: 'fjdsklfjdskljfdsklfjdfjdsk' });
 });
 
 //회원가입
