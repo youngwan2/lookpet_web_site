@@ -25,7 +25,8 @@
         </div>
         <span><router-link to="/auth/signup">회원가입</router-link></span>
         <br />
-        <button type="submit" class="login_btn">로그인</button>
+        <button type="submit" class="login_btn">로그인</button> <br>
+        <span style="left:15px;font-size: 13px; margin-top: 10px; position: absolute;" v-show="!success">{{ error }}</span>
       </div>
     </form>
   </div>
@@ -36,30 +37,38 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      error: '', // 비밀번호 틀리면 담기는 에러 메시지
+      success: true
     }
   },
   methods: {
-    loginRequest() {
+    async loginRequest() {
       const userInfo = {
         username: this.username,
         password: this.password
       }
-      axios
+      await axios
         .post('http://localhost:3000/auth/login', userInfo)
-        .then((res) => {
-          // if (res.status === 200) {
-          axios
-            .get('http://localhost:3000/auth/login', {
+        .then(async (res) => {
+          console.log(res)
+
+          await axios
+            .get(`http://localhost:3000/auth/login?name=${this.username}`, {
               withCredentials: true
             })
             .then((result) => {
-              console.log(result.data)
+              console.log('쿠키 생성후 데이터:', result.data)
             })
-          //   }
+            .catch((error) => {
+              console.log(error)
+            })
+          window.location.replace('/')
         })
         .catch((error) => {
-          console.log('로그인 시도 중 문제 발생::', error)
+          this.error = error.response.data.message
+          this.success = error.response.data.success
+          console.log(this.error)
         })
     }
   }

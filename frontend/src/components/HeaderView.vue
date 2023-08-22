@@ -43,8 +43,12 @@
         </article>
       </nav>
       <ul class="util">
-        <router-link to="/auth/login">Login</router-link>
-        <li>Logout</li>
+        <router-link to="/auth/login" v-if="loginUsername.length < 2"
+          >Login</router-link
+        >
+        <li v-if="loginUsername.length > 2" @click="logout(loginUsername)">
+          Logout
+        </li>
       </ul>
     </div>
   </header>
@@ -53,7 +57,12 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      username: ''
+    }
+  },
+  props: {
+    loginUsername: String
   },
   watch: {
     scrollY() {
@@ -63,7 +72,16 @@ export default {
       })
     }
   },
-  methods: {}
+  methods: {
+    logout(username) {
+      console.log(username)
+      document.cookie = `username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+      window.location.replace('/')
+    }
+  },
+  mounted() {
+    console.log(this.loginUsername)
+  }
 }
 </script>
 <style scoped>
@@ -76,7 +94,7 @@ li {
   list-style: none;
 }
 
-.title >a {
+.title > a {
   color: tomato;
 }
 .header {
@@ -144,10 +162,10 @@ li {
   display: inline-block;
 }
 
-.menu .drop_item a{
-    color:white;
-    font-weight: 500;
-  }
+.menu .drop_item a {
+  color: white;
+  font-weight: 500;
+}
 .drop_item p {
   text-align: center;
   margin: 10px;
@@ -182,8 +200,8 @@ li {
   .drop_item p {
     text-align: left;
   }
-  .menu .drop_item a{
-    color:white;
+  .menu .drop_item a {
+    color: white;
   }
 }
 </style>
