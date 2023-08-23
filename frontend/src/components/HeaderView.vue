@@ -49,7 +49,9 @@
         <li v-if="loginUsername.length > 2" @click="logout(loginUsername)">
           Logout
         </li>
-        <router-link to="/mypage" v-if="loginUsername.length >2">mypage</router-link>
+        <router-link to="/mypage" v-if="loginUsername.length > 2"
+          >mypage</router-link
+        >
       </ul>
     </div>
   </header>
@@ -102,7 +104,6 @@ li {
   width: 100%;
   padding: 20px 0;
   z-index: 100000;
-
   background-color: #ece7dd;
 }
 .header .header_inner {
@@ -122,7 +123,7 @@ li {
   height: 100%;
 }
 
-.header:hover .drop_box {
+.menu:hover .drop_box {
   visibility: visible;
   z-index: 100;
   opacity: 1;
@@ -132,7 +133,7 @@ li {
 .drop_box {
   position: absolute;
   z-index: 10000;
-  transition: 1s;
+  transition: 0.5s;
   height: 0%;
   width: 100%;
   background: linear-gradient(30deg, rgb(255, 120, 93), rgb(255, 144, 53));

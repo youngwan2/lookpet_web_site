@@ -68,6 +68,22 @@ const router = createRouter({
         )
     },
     {
+      path: '/community/newpost',
+      name: 'community-newpost',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/add.vue'
+        )
+    },
+    {
+      path: '/community/updatepost',
+      name: 'community-updatepost',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/update.vue'
+        )
+    },
+    {
       path: '/service/hospital',
       name: 'service-hospital',
       component: () =>

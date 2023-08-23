@@ -23,7 +23,9 @@
           </tr>
         </tbody>
       </table>
-      <button>글쓰기</button>
+      <router-link class="post_add_btn" to="/community/newpost" v-if="auth"
+        >글쓰기</router-link
+      >
     </section>
     <ul id="pagination_container">
       <li>1</li>
@@ -37,7 +39,17 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      auth: false
+    }
+  },
+  mounted() {
+    const username = document.cookie.split('=')[1]
+    if (username.length > 2) {
+      this.auth = true
+    } else {
+      this.auth = false
+    }
   }
 }
 </script>
@@ -55,14 +67,23 @@ li {
   margin: 5px;
   padding: 10px;
 }
+
+a {
+  text-decoration: none;
+}
+
+/* 페이지 전체 컨테이너 */
 .board_container {
-  width: 100%;
+  width: 95%;
+  padding: 3rem 0 0 0;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 .title {
   text-align: center;
 }
 .board {
-  width: 95%;
+  width: 100%;
   text-align: center;
   margin-top: 30px;
   position: relative;
@@ -85,5 +106,13 @@ td {
 
 .post_title {
   min-width: 400px;
+}
+
+/* 글쓰기 버튼 */
+.post_add_btn {
+  border: 1px solid black;
+  position: absolute;
+  margin: 17.9px 0;
+  padding: 5px;
 }
 </style>

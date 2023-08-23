@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <QuillEditor theme="snow" toolbar="full" />
   </div>
 </template>
