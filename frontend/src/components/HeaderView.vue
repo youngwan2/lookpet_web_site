@@ -49,6 +49,7 @@
         <li v-if="loginUsername.length > 2" @click="logout(loginUsername)">
           Logout
         </li>
+        <router-link to="/mypage" v-if="loginUsername.length >2">mypage</router-link>
       </ul>
     </div>
   </header>
@@ -87,7 +88,7 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-  color: white;
+  color: tomato;
 }
 
 li {

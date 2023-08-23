@@ -106,6 +106,22 @@ const router = createRouter({
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/signupView.vue'
         )
+    },
+    {
+      path: '/mypage',
+      name: 'mypage',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypageView.vue'
+        )
+    },
+    {
+      path: '/mypage/register',
+      name: 'mypage-register',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/petRegisterView.vue'
+        )
     }
   ]
 })
