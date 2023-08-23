@@ -5,10 +5,10 @@
         <RouterLink to="/">Look Pet</RouterLink>
       </h1>
       <nav class="menu">
-        <RouterLink to="/dog/breed">강아지</RouterLink>
-        <RouterLink to="/cat/breed">고양이</RouterLink>
-        <RouterLink to="/community">커뮤니티</RouterLink>
-        <RouterLink to="/service/hospital">서비스</RouterLink>
+        <RouterLink to="/dog/breed">PUPPY</RouterLink>
+        <RouterLink to="/cat/breed">CAT</RouterLink>
+        <RouterLink to="/community">COMMUNITY</RouterLink>
+        <RouterLink to="/service/hospital">SERVICE</RouterLink>
         <article class="drop_box">
           <ul class="drop_item">
             <p>강아지</p>
@@ -95,7 +95,7 @@ li {
 }
 
 .title > a {
-  color: tomato;
+  color: orange;
 }
 .header {
   width: 100%;
@@ -111,9 +111,12 @@ li {
   justify-content: space-around;
   align-items: center;
 }
+.meun {
+  font: 'arial';
+}
 .menu a {
   margin: 10px;
-  color: tomato;
+  color: orange;
   font-weight: 600;
   height: 100%;
 }

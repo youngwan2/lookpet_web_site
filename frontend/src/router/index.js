@@ -3,12 +3,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    // {
-    //   path: '/',
-    //   component: layoutView,
-    //   redirect: '/main',
-    //   children: [{ path: '/main', component: mainView }]
-    // },
+    {
+      path: '/',
+      name: 'mainView',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../components/mainView.vue'
+        )
+    },
     {
       path: '/dog/breed',
       name: 'dog-breed',

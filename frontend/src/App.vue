@@ -8,7 +8,8 @@ const loginUsername = document.cookie.split('=')[1] ?? ''
 <template>
   <div id="app">
     <HeaderView :loginUsername="loginUsername" />
-    <router-view />
+    <router-view></router-view>
+
     <model-view />
     <footer-view />
   </div>
