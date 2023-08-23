@@ -7,7 +7,7 @@
         <div class="username_con">
           <input
             type="text"
-            placeholder="아이디"
+            placeholder="ID(영문/숫자 조합 4자 이상)"
             name="username"
             v-model="username"
           />
@@ -19,7 +19,7 @@
         <div class="password_con">
           <input
             type="password"
-            placeholder="비밀번호"
+            placeholder="PW(영문/숫자 조합 8자 이상)"
             name="password"
             v-model="password"
           />
@@ -28,7 +28,7 @@
         <div class="email_con">
           <input
             type="email"
-            placeholder="이메일"
+            placeholder="example@address.com"
             name="email"
             v-model="email"
           />
@@ -90,6 +90,7 @@ export default {
       // 정규표현식에 모두 통과한 경우에만 회원가입 요청을 보낸다.
       if (result1 && result2 && result3) {
         console.log('보냈다')
+        window.location.replace('/auth/login')
         axios
           .post('http://localhost:3000/auth/signup', userInfo)
           .then((res) => {

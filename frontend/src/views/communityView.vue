@@ -1,7 +1,10 @@
 <template>
-  <header>
-    <h1>여기는 커뮤니티 페이지</h1>
-  </header>
+  <section>
+    <header>
+      <h1>여기는 커뮤니티 페이지</h1>
+    </header>
+    <div></div>
+  </section>
 </template>
 <script>
 export default {
