@@ -1,12 +1,9 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cors = require("cors");
-const DB_CONNECTION = require("./DB/dbConnection/connection");
-const catModel = require("./DB/schema/catModel");
-const cattipModel = require("./DB/schema/cattipModel");
-const dogModel = require("./DB/schema/dogModel");
-const dogtipModel = require("./DB/schema/dogtipModel");
-const cookieParser = require("cookie-parser");
+const cors = require('cors');
+const DB_CONNECTION = require('./DB/dbConnection/connection');
+
+const cookieParser = require('cookie-parser');
 
 DB_CONNECTION();
 app.use(cookieParser());
@@ -14,149 +11,54 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: '*',
     credentials: true,
   })
 );
 // 라우터 모음
-const userRouter = require("./router/user");
-const dogRouter = require("./router/dog");
-const serviceRouter = require("./router/service");
-const mypageRouter = require("./router/mypage");
+const userRouter = require('./router/user');
+const dogRouter = require('./router/dog');
+const serviceRouter = require('./router/service');
+const mypageRouter = require('./router/mypage');
+const catRouter = require('./router/cat');
+const communityRouter = require('./router/community');
+
 /* 로그인 + 회원가입 */
-app.use("/", userRouter);
+app.use('/', userRouter);
 // '/' + '/auth/login'
 //     + '/auth/signup'
 
 /* 서비스(병원정보,문화시설정보) */
-app.use("/", serviceRouter);
+app.use('/', serviceRouter);
 // '/' + '/service/hospital'
 //     + '/service/culture'
 
 /* 펫 등록(마이페이지) */
-app.use("/",mypageRouter)
+app.use('/', mypageRouter);
 // '/' + '/mypage
 // '/' + '/mypage/register
 
-app.use("/", express.static(__dirname + "/dist"));
+/* 펫 등록(마이페이지) */
+app.use('/', mypageRouter);
+// '/' + '/mypage
+// '/' + '/mypage/register
 
-app.post("/", (req, res) => {
-  res.sendFile(__dirname + "/dist/index.html");
-});
+/* 커뮤니티 게시판*/
+app.use('/', communityRouter);
+app.use('/', express.static(__dirname + '/dist'));
 
-app.post("/auth/login", (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+/* 고양이 */
+app.use('/', catRouter);
+/* 강아지 */
+app.use('/', dogRouter);
 
-  res.send("Hello World!");
-});
-
-app.get("/cat/breed", (req, res) => {
-  catModel.find({}, { _id: 0 }).then((result) => {
-    // console.log(result);
-    res.json(result);
-  });
-});
-
-app.get("/cat/breed/:id", (req, res) => {
-  console.log(req.params);
-  const { id } = req.params;
-  catModel
-    .findOne({ id: id })
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((error) => {
-      console.log(
-        "데이터베이스에서 데이터를 가져오던 중 문제가 발생하였습니다.::",
-        error
-      );
-    });
-});
-
-app.get("/cat/cattip", (req, res) => {
-  console.log("cattip쿼리:", req.query);
-  const { page } = req.query;
-  cattipModel
-    .countDocuments({})
-    .count()
-    .then((totalCount) => {
-      cattipModel
-        .find({}, { _id: 0 })
-        .skip((page - 1 * 1) * 10) // 지정한 수 만큼 데이터를 생략한다.
-        .limit(10) // 지정한 수 만큼만 데이터를 가져온다.
-        .then((result) => {
-          console.log(result);
-          const totalPage = totalCount / 10;
-          console.log("총페이지:", totalPage);
-          res.json({ result, totalCount, page, totalPage });
-        })
-        .catch((error) => {
-          console.log("고양이 팁 정보를 가져오던 중 문제 발생::", error);
-        });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
-
-app.get("/dog/breed", (req, res) => {
-  dogModel
-    .find({}, { _id: 0 })
-    .then((result) => {
-      // console.log(result);
-      res.json(result);
-    })
-    .catch((error) => {
-      console.log(
-        "데이터베이스에서 데이터를 가져오던 중 문제가 발생하였습니다.::",
-        error
-      );
-    });
-});
-
-app.get("/dog/breed/detail/:id", (req, res) => {
-  const { id } = req.params;
-  dogModel
-    .findOne({ id: id })
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((error) => {
-      console.log(
-        "데이터베이스에서 데이터를 가져오던 중 문제가 발생하였습니다.::",
-        error
-      );
-    });
-});
-
-app.get("/dog/dogtip", (req, res) => {
-  console.log("dogtip쿼리:", req.query);
-  const { page } = req.query;
-  dogtipModel
-    .countDocuments({})
-    .count()
-    .then((totalCount) => {
-      dogtipModel
-        .find({}, { _id: 0 })
-        .skip((page - 1 * 1) * 10) // 지정한 수 만큼 데이터를 생략한다.
-        .limit(10) // 지정한 수 만큼만 데이터를 가져온다.
-        .then((result) => {
-          console.log(result);
-          const totalPage = totalCount / 10;
-          console.log("총페이지:", totalPage);
-          res.json({ result, totalCount, page, totalPage });
-        })
-        .catch((error) => {
-          console.log("강아지 팁 정보를 가져오던 중 문제 발생::", error);
-        });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/dist/index.html');
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+

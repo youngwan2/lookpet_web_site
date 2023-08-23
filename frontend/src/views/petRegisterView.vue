@@ -30,7 +30,7 @@
         </div>
         <div class="pet_age">
           <span>나이 :</span>
-          <input type="text" v-model="age" />
+          <input type="number" v-model="age" min="1" />
         </div>
         <div class="pet_introduce">
           <span>아이 소개 :</span>
@@ -105,6 +105,11 @@ export default {
 }
 </script>
 <style scoped>
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .gender_icon {
   font-size: 1.4rem;
   font-weight: 800;
