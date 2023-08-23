@@ -22,6 +22,7 @@ app.use(
 const userRouter = require("./router/user");
 const dogRouter = require("./router/dog");
 const serviceRouter = require("./router/service");
+const mypageRouter = require("./router/mypage");
 /* 로그인 + 회원가입 */
 app.use("/", userRouter);
 // '/' + '/auth/login'
@@ -31,6 +32,11 @@ app.use("/", userRouter);
 app.use("/", serviceRouter);
 // '/' + '/service/hospital'
 //     + '/service/culture'
+
+/* 펫 등록(마이페이지) */
+app.use("/",mypageRouter)
+// '/' + '/mypage
+// '/' + '/mypage/register
 
 app.use("/", express.static(__dirname + "/dist"));
 

@@ -3,24 +3,40 @@
     <h1>펫 등록</h1>
     <div class="register_card">
       <form @submit.prevent="petRegister" class="pet_register_form">
-        <div>
-          <img src="" alt="" />
+        <div class="pet_image">
+          <img v-if="petimage" :src="petimage" alt="pet_image" />
+          <!-- <label for="pet_image_input">이미지를 올려주세요. </label> -->
+          <input
+            class="pet_image_input"
+            type="file"
+            accept="image/*"
+            @change="imageUpload"
+          />
         </div>
         <div class="pet_name">
-          <span>이름:</span>
-          <input type="text" />
+          <span>이름 :</span>
+          <input type="text" v-model="petname" />
         </div>
         <div class="pet_breeds">
-          <span>종:</span>
-          <input type="text" />
+          <span>종 :</span>
+          <input type="text" v-model="breeds" />
         </div>
-        <div class="pet_breeds">
-          <span>성별:</span>
-          ♂
+        <div class="pet_gender">
+          <span>성별 :</span>
+          <span class="gender_icon" id="gender_male">♂</span>
           <input type="checkbox" v-model="gender" value="♂" />
-          ♀
+          <span class="gender_icon" id="gender_female">♀</span>
           <input type="checkbox" v-model="gender" value="♀" />
         </div>
+        <div class="pet_age">
+          <span>나이 :</span>
+          <input type="text" v-model="age" />
+        </div>
+        <div class="pet_introduce">
+          <span>아이 소개 :</span>
+          <input type="text" v-model="introduce" />
+        </div>
+        <button type="submit" class="pet_register">펫 등록하기</button>
       </form>
       <div></div>
     </div>
@@ -32,6 +48,7 @@ export default {
   name: 'register',
   data() {
     return {
+      petimage: '',
       petname: '',
       breeds: '',
       gender: [],
@@ -45,8 +62,20 @@ export default {
     }
   },
   methods: {
+    imageUpload(e) {
+      const image = e.target.files[0]
+      if (image) {
+        const reader = new FileReader()
+        reader.onload = () => {
+          this.petimage = reader.result
+          console.log(this.petimage)
+        }
+        reader.readAsDataURL(image)
+      }
+    },
     petRegister() {
       const petInfo = {
+        petimage: this.petimage,
         petname: this.petname,
         breeds: this.breeds,
         gender: this.gender,
@@ -75,4 +104,37 @@ export default {
   }
 }
 </script>
-<style></style>
+<style scoped>
+.gender_icon {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+#gender_male {
+  color: blue;
+}
+#gender_female {
+  color: red;
+}
+.pet_image_input {
+  /* display: none; */
+}
+.pet_register {
+  margin: 10px;
+  border: none;
+  border-radius: 20px;
+  width: 100px;
+  height: 60px;
+  background: rgb(255, 145, 0);
+  font-weight: 800;
+  font-size: 1em;
+  transition: 0.1s ease-in;
+}
+.pet_register:hover {
+  box-shadow: 3px 3px 10px rgb(230, 81, 81);
+  background: rgb(236, 37, 104);
+  transform: scale(1.01);
+}
+.pet_register:active {
+  box-shadow: -3px -3px 5px rgb(122, 46, 46);
+}
+</style>
