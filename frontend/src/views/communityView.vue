@@ -1,19 +1,32 @@
 <template>
-  <div>
-    <QuillEditor theme="snow" toolbar="full" />
-  </div>
+  <header>
+    <h1>여기는 커뮤니티 페이지</h1>
+  </header>
 </template>
 <script>
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css'
-import '@vueup/vue-quill/dist/vue-quill.bubble.css'
 export default {
-  components: {
-    QuillEditor
-  },
+  name: 'communityView',
   data() {
     return {}
   }
 }
 </script>
-<style></style>
+
+<style scoped>
+@charset "utf-8";
+* {
+  margin: 0px;
+  padding: 0px;
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+body {
+  background: #efefef;
+}
+</style>
