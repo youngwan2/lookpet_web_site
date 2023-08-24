@@ -5,8 +5,11 @@
       <form @submit.prevent="petRegister" class="pet_register_form">
         <div class="pet_image">
           <img v-if="petimage" :src="petimage" alt="pet_image" />
-          <!-- <label for="pet_image_input">이미지를 올려주세요. </label> -->
+          <label for="pet_image_input" v-if="inputState"
+            >이미지를 올려주세요.
+          </label>
           <input
+            id="pet_image_input"
             class="pet_image_input"
             type="file"
             accept="image/*"
@@ -121,7 +124,7 @@ input[type='number']::-webkit-outer-spin-button {
   color: red;
 }
 .pet_image_input {
-  /* display: none; */
+  visibility: hidden;
 }
 .pet_register {
   margin: 10px;

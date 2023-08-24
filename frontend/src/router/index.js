@@ -84,6 +84,14 @@ const router = createRouter({
         )
     },
     {
+      path: '/community/detail/:id',
+      name: 'community-detailpost',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/postDetail.vue'
+        )
+    },
+    {
       path: '/service/hospital',
       name: 'service-hospital',
       component: () =>

@@ -9,6 +9,7 @@ const PostSchema = new Schema({
   },
   title: String,
   content: String,
+  preview: String,
   views: Number,
   author: String,
   date: {

@@ -2,27 +2,21 @@
   <div>
     <section class="board_container">
       <h1 class="title">자유 게시판</h1>
-      <table class="board">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th class="post_title">제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- 각 게시글 별 디테일 이동 -->
-          <tr>
-            <td>1</td>
-            <td>고양이가 좋아하는 먹이</td>
-            <td>캣빠</td>
-            <td>2023-08-23</td>
-            <td>11</td>
-          </tr>
-        </tbody>
-      </table>
+      <div
+        v-for="post in posts"
+        :key="post.id"
+        class="post_items"
+        @click="moveToDetail(post.id)"
+      >
+        <p class="post_id">{{ post.id }}</p>
+        <h3>{{ post.title }}</h3>
+        <p class="content">{{ post.preview }}</p>
+        <div style="display: flex" class="author">
+          <p>{{ post.author }}</p>
+          <p>{{ post.date }}</p>
+        </div>
+      </div>
+
       <router-link class="post_add_btn" to="/community/newpost" v-if="auth"
         >글쓰기</router-link
       >
@@ -37,18 +31,36 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
-      auth: false
+      auth: false,
+      posts: []
     }
   },
   mounted() {
-    const username = document.cookie.split('=')[1]
-    if (username.length > 2) {
+    this.getBoardList()
+    const username = document.cookie?.split('=')[1]
+    if (username?.length > 2) {
       this.auth = true
     } else {
       this.auth = false
+    }
+  },
+  methods: {
+    getBoardList() {
+      axios
+        .get('http://localhost:3000/board')
+        .then((response) => {
+          this.posts = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    moveToDetail(id) {
+      this.$router.push({ path: `/community/detail/${id}` })
     }
   }
 }
@@ -82,30 +94,48 @@ a {
 .title {
   text-align: center;
 }
-.board {
-  width: 100%;
+
+/* post_items */
+
+.post_id {
+  border-radius: 20px;
+  margin: 5px 0 10px 0;
+  max-width: 60px;
+  min-width: 28px;
   text-align: center;
-  margin-top: 30px;
-  position: relative;
-  left: 50%;
-  transform: translate(-50%);
-  border-collapse: collapse;
+  background-color: rgba(218, 165, 32, 0.583);
+}
+.post_items {
+  border: 1px dashed rgb(216, 158, 77);
+  margin: 10px auto;
+  padding: 10px;
+  max-width: 900px;
+  border-radius: 10px;
 }
 
-tr {
-  border: 1px solid black;
+/* 콘텐츠 */
+.content {
+  padding: 10px 0 18px 0;
+  width: 200px;
+  color: rgb(101, 100, 100);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-th {
-  border: 1px solid rgb(67, 64, 64);
-  border-bottom: 3px double black;
+
+/* 작성자/작성일자 */
+
+.author {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-td {
+.author p {
+  font-size: 13px;
+  margin: 5px 5px 0 0;
+  border-radius: 20px;
   padding: 5px;
-  border: 1px solid rgb(90, 88, 88);
-}
-
-.post_title {
-  min-width: 400px;
+  background-color: rgb(249, 243, 210);
 }
 
 /* 글쓰기 버튼 */

@@ -44,7 +44,8 @@ export default {
       post: {
         title: '',
         content: '',
-        author: ''
+        author: '',
+        preview: ''
       }
     }
   },
@@ -58,18 +59,14 @@ export default {
   },
   methods: {
     addPost() {
-      console.log(this.editorContent)
-      console.log(this.postTitle)
-
       this.post.title = this.postTitle
       this.post.content = this.editorContent
       this.post.author = document.cookie?.split('=')[1]
-
-      console.log(this.post)
       axios
         .post('http://localhost:3000/board', this.post)
         .then((result) => {
           console.log('전송 성공!', result)
+          this.$router.push({ path: '/community' })
         })
         .catch((error) => {
           console.log('전송실패..', error)
@@ -80,10 +77,10 @@ export default {
     },
 
     // 서버로 전송할 데이터 생성
-    getHTML() {
+    getHTML(e) {
       const content = this.$refs.content
       this.editorContent = content.getHTML()
-      console.log(this.editorContent)
+      this.post.preview = content.getText()
     },
 
     // 미리보기에 사용
@@ -95,7 +92,7 @@ export default {
 </script>
 <style scoped>
 .newpost_container {
-  max-width: 1700px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .post_title {
