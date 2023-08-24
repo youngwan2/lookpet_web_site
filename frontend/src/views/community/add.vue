@@ -19,8 +19,14 @@
     </article>
 
     <article v-if="isPreview" class="preview_container">
-      <QuillEditor @ready="setHTML" ref="preview" readOnly></QuillEditor>
-      <button @click="previewPost" class="preview_return_btn">돌아가기</button>
+      <div class="layout">미리보기</div>
+      <QuillEditor
+        @ready="setHTML"
+        ref="preview"
+        readOnly
+        style="margin: 0 auto; max-width: 1200px; background: white"
+      ></QuillEditor>
+      <button @click="previewPost" class="preview_return_btn">X</button>
     </article>
   </section>
 </template>
@@ -77,7 +83,7 @@ export default {
     },
 
     // 서버로 전송할 데이터 생성
-    getHTML(e) {
+    getHTML() {
       const content = this.$refs.content
       this.editorContent = content.getHTML()
       this.post.preview = content.getText()
@@ -139,9 +145,19 @@ export default {
 }
 
 /* 미리보기 */
-.preview_container {
+
+.layout {
+  color:white;
+  text-align: center;
   width: 100%;
-  background: white;
+  padding: 12px 0;
+  background: rgb(252, 111, 41);
+  z-index: 10;
+  position: absolute;
+}
+.preview_container {
+  background: rgb(248, 212, 185);
+  width: 100%;
   position: fixed;
   left: 0;
   top: 0;
@@ -166,15 +182,19 @@ export default {
 
 .preview_return_btn {
   position: absolute;
-  bottom: 2rem;
-  left: 50%;
+  top: 2px;
+  right: 10px;
+  font-size: 1.25em;
+  z-index: 100;
+  border: none;
+  color:white;
+  background: transparent;
   border-radius: 25px;
   padding: 12px 10px;
-  transform: translate(-50%);
 }
 
 .preview_return_btn:hover {
-  background: tomato;
-  color: white;
+  cursor:pointer;
+  color: rgb(241, 125, 125);
 }
 </style>

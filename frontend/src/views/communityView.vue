@@ -2,6 +2,7 @@
   <div>
     <section class="board_container">
       <h1 class="title">자유 게시판</h1>
+      <span style="position: fixed; right: 40px; background: rgba(1, 1, 1, 0.088);">현재 페이지: {{ currentPage }}/{{ totalPageCount }}</span>
       <div
         v-for="post in posts"
         :key="post.id"
@@ -21,13 +22,19 @@
         >글쓰기</router-link
       >
     </section>
-    <ul id="pagination_container">
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-    </ul>
+    <article class="pagination">
+      <ul id="pagination_container">
+        <li @click="prevSwitch" v-show="currentPage > 1">prev</li>
+        <li
+          v-for="(page, i) in pageList"
+          :key="page"
+          @click="pageSwitch(i + 1)"
+        >
+          {{ page }}
+        </li>
+        <li @click="nextSwitch">next</li>
+      </ul>
+    </article>
   </div>
 </template>
 <script>
@@ -36,48 +43,117 @@ export default {
   data() {
     return {
       auth: false,
-      posts: []
+      posts: [],
+      currentPage: 1,
+      perPage: 10,
+      currentPageGroup: 1,
+      lastPage: 10,
+      firstPage: 1,
+      pageList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      totalPageCount: 0
     }
   },
   mounted() {
     this.getBoardList()
+    this.pageSwitch(this.currentPage)
+
     const username = document.cookie?.split('=')[1]
     if (username?.length > 2) {
       this.auth = true
     } else {
       this.auth = false
     }
+
+    // 페이지네이션 정보
   },
   methods: {
+    /* 게시글 목록 불러오기 */
     getBoardList() {
+      this.currentPageGroup = Math.ceil(this.currentPage / this.perPage)
       axios
-        .get('http://localhost:3000/board')
+        .get(`http://localhost:3000/board?page=${this.currentPage}`)
         .then((response) => {
-          this.posts = response.data
+          this.posts = response.data.result
+          this.totalPageCount = response.data.totalCount
+
+          console.log(this.totalPageCount)
         })
         .catch((error) => {
           console.log(error)
         })
     },
+
+    /* 디테일 페이지 이동 */
     moveToDetail(id) {
       this.$router.push({ path: `/community/detail/${id}` })
+    },
+
+    /* 페이지네이션 함수 */
+    pageSwitch(pageNum) {
+      this.currentPage = pageNum * 1
+      this.lastPage = this.currentPageGroup * this.perPage
+      this.firstPage = this.lastPage - this.perPage + 1
+
+      // this.getBoardList()
+      const list = []
+      if (this.lastPage >= this.totalPageCount) {
+        this.lastPage = this.totalPageCount
+      }
+
+      for (let i = this.firstPage; i <= this.lastPage; i++) {
+        list.push(i)
+      }
+      this.pageList = list
+    },
+
+    /* 이전 페이지 이동 */
+    prevSwitch() {
+      if (this.currentPage > 1) {
+        this.currentPage--
+        this.getBoardList()
+      }
+    },
+
+    /* 다음 페이지 이동 */
+    nextSwitch() {
+      if (this.currentPage < this.totalPageCount) {
+        this.currentPage++
+        this.getBoardList()
+      }
     }
   }
 }
 </script>
 <style scoped>
-#pagination_container {
-  display: flex;
+/* 페이지네이션 */
+.pagination {
   position: relative;
-  left: 50%;
-  transform: translate(-8%);
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+#pagination_container {
   padding: 0;
 }
 li {
+  display: inline-block;
   list-style: none;
-  border: 1px solid gray;
-  margin: 5px;
-  padding: 10px;
+  border-radius: 20px;
+  margin: 0 2px;
+  transition: 0.5s;
+  box-shadow: 1px 1px 0 0 goldenrod, -1px -1px 0 0 rgb(200, 172, 11);
+  padding: 10px 15px;
+}
+
+li:hover {
+  box-shadow: inset 50px 50px 0 0 rgb(246, 180, 12);
+  color: white;
+}
+
+@keyframes round {
+  from {
+    background: black;
+  }
 }
 
 a {
@@ -87,6 +163,8 @@ a {
 /* 페이지 전체 컨테이너 */
 .board_container {
   width: 95%;
+  max-width: 900px;
+  position: relative;
   padding: 3rem 0 0 0;
   margin: 0 auto;
   min-height: 100vh;
@@ -106,11 +184,12 @@ a {
   background-color: rgba(218, 165, 32, 0.583);
 }
 .post_items {
-  border: 1px dashed rgb(216, 158, 77);
   margin: 10px auto;
+  box-shadow: 1px 2px 2px rgba(152, 141, 15, 0.344);
   padding: 10px;
   max-width: 900px;
   border-radius: 10px;
+  transition: 0.5s;
 }
 
 /* 콘텐츠 */
@@ -140,9 +219,18 @@ a {
 
 /* 글쓰기 버튼 */
 .post_add_btn {
-  border: 1px solid black;
+  box-shadow: 2px 2px 0 0 rgb(170, 146, 13);
+  border-radius: 10px;
   position: absolute;
+  background: rgb(245, 207, 109);
+  top: 2rem;
+  right: 5px;
+  color: black;
   margin: 17.9px 0;
   padding: 5px;
+}
+
+.post_add_btn:hover {
+  background: gold;
 }
 </style>

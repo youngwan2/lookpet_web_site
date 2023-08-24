@@ -12,8 +12,16 @@
           </div>
           <p class="comment">오 귀엽고 깜찍 하네요!</p>
           <p class="sub_comment">
-            <span role="button" @click="openInput">댓글달기</span><br />
-            <textarea name="" id="" rows="5"></textarea>
+            <span role="button" @click="openInput">{{ subCommentBtnName }}</span
+            ><br />
+            <textarea v-show="isOpen" name="" id="" rows="5"></textarea>
+            <button
+              class="sub_comment_add_btn"
+              v-show="isOpen"
+              @click="subCommentAdd"
+            >
+              등록
+            </button>
           </p>
         </li>
       </ul>
@@ -25,11 +33,19 @@ export default {
   name: 'commentVue',
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      subCommentBtnName: '댓글'
     }
   },
   methods: {
-    openInput() {}
+    openInput() {
+      this.isOpen = !this.isOpen
+      this.subCommentBtnName = !this.isOpen ? '댓글' : '취소'
+    },
+    subCommentAdd() {
+      // 코멘트를 저장하는 데이터베이스에 댓글 목록을 저장해야 함
+      // 댓글을 저장 시 댓글을 단 유저의 고유 아이디, 게시글의 아이디, 코멘트 등 전달
+    }
   }
 }
 </script>
@@ -71,13 +87,12 @@ li {
   padding: 0 6px;
   justify-content: right;
 }
-
 .sub_comment span {
   border-radius: 20px;
   display: inline-block;
   font-size: 13px;
   margin: 5px 0;
-  padding: 5px;
+  padding: 5px 12px;
   background-color: rgb(232, 184, 61);
 }
 
@@ -91,6 +106,18 @@ li {
   border-radius: 10px;
   border-color: gray;
   width: 100%;
+}
+
+.sub_comment_add_btn {
+  padding: 5px 12px;
+  border: none;
+  margin: 2px 0;
+  background: gold;
+  border-radius: 15px;
+}
+
+.sub_comment_add_btn:hover {
+  background: rgb(240, 188, 56);
 }
 
 /* 서브 코멘트 input */

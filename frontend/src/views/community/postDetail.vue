@@ -10,7 +10,7 @@
         ref="postContent"
         @ready="setHTML"
         class="editor"
-        style="min-height: 60vh; border-radius: 5px"
+        style="min-height: 70vh; border-radius: 5px"
       />
       <!-- 작성자/작성일자 -->
       <div
@@ -26,7 +26,7 @@
         </div>
         <!-- 수정/삭제 버튼 -->
         <article class="control_box">
-          <button>수정</button>
+          <button @click="postUpdate(post.id)">수정</button>
           <button @click="postDel">삭제</button>
         </article>
       </div>
@@ -67,16 +67,24 @@ export default {
       this.$refs.postContent.setHTML(`${post.content}`)
     },
     postDel() {
-      axios
-        .delete(`http://localhost:3000/board/${this.post.id}`)
-        .then((response) => {
-          if (response.status === 200) {
-            this.$router.push({ path: '/community' })
-          }
-        })
-        .catch((error) => {
-          console.log('게시글 삭제 중 문제가 발생하였습니다 ::', error)
-        })
+      const isAgree = confirm('정말 삭제하시겠습니까?')
+
+      if (isAgree) {
+        axios
+          .delete(`http://localhost:3000/board/${this.post.id}`)
+          .then((response) => {
+            if (response.status === 200) {
+              this.$router.push({ path: '/community' })
+            }
+          })
+          .catch((error) => {
+            console.log('게시글 삭제 중 문제가 발생하였습니다 ::', error)
+          })
+      }
+    },
+    postUpdate(id) {
+      // 업데이트 가능한 게시글 수정 화면으로 넘어가야 함
+      console.log(id)
     }
   }
 }
@@ -91,23 +99,28 @@ export default {
 
 .post_title {
   padding: 10px;
+  font-size: 2rem;
+  position: relative;
+  text-align: center;
+  top: 30px;
+  z-index: 11;
 }
 
 .layout {
   width: 100%;
   max-width: 1200px;
-  height: 40px;
-  background-color: black;
+  height: 56px;
+  background-color: rgb(255, 255, 255);
   position: absolute;
   z-index: 10;
-  top: 3.3rem;
+  top: 3rem;
 }
 
 /* 작성자/작성일자 */
 .etc {
   margin: 1.3rem 0;
   padding: 10px;
-  border: 1px solid rgb(190, 187, 187);
+  border: 1px solid rgb(224, 212, 212);
   width: 170px;
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
@@ -115,18 +128,20 @@ export default {
 
 .etc .author {
   color: rgb(0, 0, 0);
+  border-radius: 20px;
+  display: inline-block;
+  padding: 3px 0;
   font-weight: 500;
 }
 
 .etc .date {
   font-size: 14px;
-  color: rgb(133, 133, 133);
+  color: rgb(89, 89, 89);
 }
 
 /* 수정/삭제 버튼 */
 .control_box {
   height: 61px;
-  box-shadow: 2px 2px 3px 0 rgba(179, 175, 175, 0.62);
   border: 1px solid rgb(190, 187, 187);
   width: 170px;
   display: flex;
@@ -138,7 +153,7 @@ export default {
 
 .control_box button {
   border: none;
-  box-shadow: 2px 3px 1px 1px rgba(77, 76, 76, 0.585);
+  box-shadow: 1px 2px 1px 0 rgba(77, 76, 76, 0.585);
   border-radius: 10px;
   color: white;
   background-color: rgb(0, 0, 0);
@@ -151,6 +166,6 @@ export default {
   cursor: pointer;
   color: white;
   background-color: rgb(208, 170, 119);
-  box-shadow: 0 0 0 0, inset 2px 4px 1px 1px rgba(0, 0, 0, 0.707);
+  box-shadow: 0 0 0 0, inset 2px 4px 1px 1px rgba(0, 0, 0, 0.469);
 }
 </style>
