@@ -92,6 +92,14 @@ const router = createRouter({
         )
     },
     {
+      path: '/community/modify/:id',
+      name: 'community-modifypost',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/update.vue'
+        )
+    },
+    {
       path: '/service/hospital',
       name: 'service-hospital',
       component: () =>

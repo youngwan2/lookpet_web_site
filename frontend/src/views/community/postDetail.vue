@@ -2,7 +2,9 @@
   <div class="detail_container">
     <section>
       <!-- 포스트 제목 -->
-      <h2 class="post_title">{{ post.title }}</h2>
+      <h2 class="post_title">
+        {{ post.title || '제목이 들어가는 자리입니다.' }}
+      </h2>
       <div class="layout"></div>
       <!-- 포스트 콘텐츠  -->
       <QuillEditor
@@ -26,7 +28,7 @@
         </div>
         <!-- 수정/삭제 버튼 -->
         <article class="control_box">
-          <button @click="postUpdate(post.id)">수정</button>
+          <button @click="moveToUpdatePage(post.id)">수정</button>
           <button @click="postDel">삭제</button>
         </article>
       </div>
@@ -82,8 +84,9 @@ export default {
           })
       }
     },
-    postUpdate(id) {
+    moveToUpdatePage(id) {
       // 업데이트 가능한 게시글 수정 화면으로 넘어가야 함
+      this.$router.push({ path: `/community/modify/${id}` })
       console.log(id)
     }
   }

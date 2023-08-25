@@ -2,7 +2,10 @@
   <div>
     <section class="board_container">
       <h1 class="title">자유 게시판</h1>
-      <span style="position: fixed; right: 40px; background: rgba(1, 1, 1, 0.088);">현재 페이지: {{ currentPage }}/{{ totalPageCount }}</span>
+      <span
+        style="position: fixed; right: 40px; background: rgba(1, 1, 1, 0.088)"
+        >현재 페이지: {{ currentPage }}/{{ totalPageCount }}</span
+      >
       <div
         v-for="post in posts"
         :key="post.id"
@@ -22,9 +25,12 @@
         >글쓰기</router-link
       >
     </section>
+    <!-- 페이지네이션 -->
     <article class="pagination">
       <ul id="pagination_container">
+        <!-- 이전 -->
         <li @click="prevSwitch" v-show="currentPage > 1">prev</li>
+        <!-- 페이지 번호 -->
         <li
           v-for="(page, i) in pageList"
           :key="page"
@@ -32,6 +38,7 @@
         >
           {{ page }}
         </li>
+        <!-- 다음  -->
         <li @click="nextSwitch">next</li>
       </ul>
     </article>
@@ -49,14 +56,21 @@ export default {
       currentPageGroup: 1,
       lastPage: 10,
       firstPage: 1,
-      pageList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      pageList: [],
       totalPageCount: 0
     }
   },
   mounted() {
     this.getBoardList()
-    this.pageSwitch(this.currentPage)
 
+    const list = []
+    for (let i = 1; i < this.totalPageCount; i++) {
+      list.push(i)
+      this.pageList = list
+    }
+    console.log(this.pageList)
+  },
+  created() {
     const username = document.cookie?.split('=')[1]
     if (username?.length > 2) {
       this.auth = true
@@ -73,10 +87,8 @@ export default {
       axios
         .get(`http://localhost:3000/board?page=${this.currentPage}`)
         .then((response) => {
-          this.posts = response.data.result
           this.totalPageCount = response.data.totalCount
-
-          console.log(this.totalPageCount)
+          this.posts = response.data.result
         })
         .catch((error) => {
           console.log(error)
@@ -94,7 +106,6 @@ export default {
       this.lastPage = this.currentPageGroup * this.perPage
       this.firstPage = this.lastPage - this.perPage + 1
 
-      // this.getBoardList()
       const list = []
       if (this.lastPage >= this.totalPageCount) {
         this.lastPage = this.totalPageCount
@@ -176,6 +187,7 @@ a {
 /* post_items */
 
 .post_id {
+  box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.305);
   border-radius: 20px;
   margin: 5px 0 10px 0;
   max-width: 60px;
