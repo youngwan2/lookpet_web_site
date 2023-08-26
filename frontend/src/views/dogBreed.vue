@@ -18,8 +18,14 @@
       <ul class="dog_ul">
         <li class="dog_items" v-for="(dog, i) in dogBreedInfo" :key="dog.id">
           <router-link :to="'/dog/breed/detail/' + (i + 1)">
-            <div class="dog_image"></div>
-            <p class="dog_name">{{ dog.name }}</p>
+            <img
+              class="dog_image"
+              :src="require(`@/assets/db_dog_image/${dog.image}`)"
+            />
+            <p class="dog_name">
+              {{ dog.name }} <br />
+              ({{ dog.ko_name }})
+            </p>
           </router-link>
         </li>
       </ul>
@@ -109,10 +115,9 @@ section {
 }
 
 .dog_image {
-  width: 200px;
-  height: 200px;
-  border-radius: 15px;
-  border-bottom: none;
+  width: 230px;
+  height: 230px;
+  border-bottom: 4px solid rgb(198, 111, 17);
 }
 
 .dog_items {
@@ -123,7 +128,9 @@ section {
 }
 
 .dog_items .dog_name {
-  background-color: burlywood;
-  padding: 10px;
+  font-size: 15px;
+  height: 35px;
+  padding: 0px 10px 10px 0;
+  color: rgb(0, 0, 0);
 }
 </style>

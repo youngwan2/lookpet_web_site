@@ -1,11 +1,15 @@
 <template>
-  <div class="detail_container">
+  <div class="detail_container" ref="detail">
+    <span v-show="loading" class="loading_spinner">로딩중..</span>
     <h2 class="title">{{ catDetailInfo.name }}({{ catDetailInfo.ko_name }})</h2>
-
-    <section>
+    <section class="detail_into_container">
       <div class="top_detail_info">
         <figure>
-          <img :src="imagePath" alt="" />
+          <img
+            v-if="catDetailInfo.image"
+            :src="require(`@/assets/db_cat_image/${catDetailInfo.image}`)"
+            :alt="catDetailInfo.name"
+          />
         </figure>
         <div>
           <ul>
@@ -62,11 +66,14 @@ export default {
   name: 'catDetail',
   data() {
     return {
-      catDetailInfo: {},
-      imagePath: ''
+      catDetailInfo: '',
+      imagePath: '',
+      loading: true
     }
   },
   mounted() {
+    this.$refs.detail.scrollIntoView({ behavior: 'smooth' })
+    this.loading = true
     const breedId = this.$route.params.id
     console.log(breedId)
     axios
@@ -75,6 +82,8 @@ export default {
         if (response.status === 200) {
           this.catDetailInfo = response.data
           console.log(response)
+          console.log(this.catDetailInfo.image)
+          this.loading = false
         }
       })
       .catch((error) => {
@@ -86,11 +95,17 @@ export default {
 <style scoped>
 /* 페이지 제목(동물명) */
 .title {
-  margin: 15px 0;
+  font-size: 1.7rem;
+  padding: 0 8px;
+  margin: 30px 0;
+  color: rgb(182, 114, 36);
+  text-shadow: 5px 5px 1px rgb(255, 215, 170);
 }
 /* 컨텐츠 전체 컨테이너(바깥 외곽) */
 .detail_container {
-  width: 80%;
+  width: 100%;
+  padding: 0px 15px;
+  max-width: 900px;
   margin: 1.5rem auto 0 auto;
   min-height: 100vh;
 }
@@ -105,7 +120,7 @@ li {
 
 .top_detail_info li {
   list-style: none;
-  margin: 15px 15px;
+  margin: 15px 30px;
 }
 
 .top_detail_info li p {
@@ -119,17 +134,17 @@ li {
 }
 
 .top_detail_info img {
-  box-shadow: 5px 5px 5px 2px rgba(128, 128, 128, 0.616);
-  max-width: 350px;
+  box-shadow: 1px 1px 4px 3px rgba(24, 24, 24, 0.424);
+  max-width: 330px;
   border-radius: 10px;
   min-width: 330px;
+  max-height: 440px;
   width: 100%;
   height: 100%;
 }
 
 li span {
   display: inline-block;
-
   border-radius: 20px;
   background-color: burlywood;
   padding: 5px 7.5px;
@@ -144,5 +159,29 @@ li span {
   margin-top: 7.5px;
   line-height: 1.5;
   padding: 0 0 0 6px;
+}
+
+/* 로딩 스피너 */
+.loading_spinner {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  font-size: 2.5rem;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 768px) {
+  .top_detail_info {
+    flex-direction: column;
+  }
+
+  .top_detail_info li {
+    margin: 1.5rem 0;
+
+  }
+
+  .detail_container {
+    text-align: center;
+  }
 }
 </style>

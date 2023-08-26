@@ -7,7 +7,7 @@ router.get('/dog/breed', (req, res) => {
   dogModel
     .find({}, { _id: 0 })
     .then((result) => {
-      // console.log(result);
+      console.log(result);
       res.json(result);
     })
     .catch((error) => {

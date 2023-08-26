@@ -17,6 +17,7 @@
           prev
         </li>
         <li
+         :class="focus"
           class="page_shifter"
           v-for="(page, i) in pageList"
           :key="i"
@@ -27,7 +28,7 @@
         <li
           class="page_shifter"
           @click="nextPage"
-          v-show="totalPage > lastPage"
+          v-show="totalPage !== currentPage"
         >
           next
         </li>
@@ -51,7 +52,6 @@ export default {
       pageList: [1, 2, 3, 4, 5],
       maxPage: 0,
       totalPage: 0,
-      focusPage: 1,
       focus: ''
     }
   },
@@ -72,10 +72,6 @@ export default {
       this.lastPage = this.displayPage * this.currentPageGroup
       this.firstPage = this.lastPage - this.displayPage + 1
 
-      console.log('첫페이지:', this.firstPage)
-      console.log('마지막페이지:', this.lastPage)
-      console.log('현재페이지:', this.currentPage)
-      console.log(this.pageList.length)
       const list = []
       if (this.lastPage >= this.totalPage) {
         this.lastPage = this.totalPage
@@ -84,7 +80,6 @@ export default {
         list.push(i)
       }
       this.pageList = list
-      console.log(this.pageList)
     },
     /* 다음 페이지 이동 버튼 함수 */
     nextPage() {
@@ -94,7 +89,6 @@ export default {
         this.currentPage++
         this.getAxios(this.currentPage)
         this.paginationControlFunc(this.currentPage)
-        console.log('현재페이지:', this.currentPage)
       }
     },
 
@@ -106,7 +100,6 @@ export default {
         this.getAxios(this.currentPage)
         this.paginationControlFunc(this.currentPage)
       }
-      console.log('현재페이지:', this.currentPage)
     },
 
     /* 서버로 부터 고양이 팁 정보를 가져오는 비동기 함수 */

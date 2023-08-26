@@ -27,7 +27,7 @@
         <li
           class="page_shifter"
           @click="nextPage"
-          v-show="totalPage > lastPage"
+          v-show="totalPage !== currentPage"
         >
           next
         </li>
@@ -58,7 +58,6 @@ export default {
   methods: {
     // 각 번호 버튼 클릭 시페이지 이동을 담당하는 함수
     getNextPage(e) {
-      console.log(e.target.innerText)
       const i = e.target.innerText * 1
       this.currentPage = i
       this.getAxios(this.currentPage)
@@ -72,11 +71,8 @@ export default {
       this.lastPage = this.displayPage * this.currentPageGroup
       this.firstPage = this.lastPage - this.displayPage + 1
 
-      console.log('첫페이지:', this.firstPage)
-      console.log('마지막페이지:', this.lastPage)
-      console.log('현재페이지:', this.currentPage)
-      console.log(this.pageList.length)
       const list = []
+      console.log(this.totalPage)
       if (this.lastPage >= this.totalPage) {
         this.lastPage = this.totalPage
       }
@@ -84,13 +80,10 @@ export default {
         list.push(i)
       }
       this.pageList = list
-      console.log(this.pageList)
     },
     /* 다음 페이지 이동 버튼 함수 */
     nextPage() {
-      console.log('다음 페이지 이동중')
-      console.log(this.maxPage)
-      if (this.currentPage <= this.maxPage) {
+      if (this.currentPage <= this.totalPage) {
         this.currentPage++
         this.getAxios(this.currentPage)
         this.paginationControlFunc(this.currentPage)
@@ -100,7 +93,6 @@ export default {
 
     /* 이전 페이지 이동 버튼 함수 */
     prevPage() {
-      console.log('이전 페이지 이동중')
       if (this.currentPage > 1) {
         this.currentPage = this.currentPage - 1
         this.getAxios(this.currentPage)
@@ -114,10 +106,7 @@ export default {
       axios
         .get(`http://localhost:3000/dog/dogtip?page=${this.currentPage || 1}`)
         .then((response) => {
-          console.log(response)
           this.getTip = response.data.result
-          this.totalTipCnt = response.data.totalCount * 1
-          this.maxPage = this.totalTipCnt / this.displayPage
           this.totalPage = response.data.totalPage
           this.focusPage = response.data.page
         })

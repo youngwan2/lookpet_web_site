@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="board">
     <section class="board_container">
       <h1 class="title">자유 게시판</h1>
       <span
@@ -61,6 +61,7 @@ export default {
     }
   },
   mounted() {
+    this.$refs.board.scrollIntoView({ behavior: 'smooth' })
     this.getBoardList()
 
     const list = []
@@ -83,6 +84,7 @@ export default {
   methods: {
     /* 게시글 목록 불러오기 */
     getBoardList() {
+      this.$refs.board.scrollIntoView({ behavior: 'smooth' })
       this.currentPageGroup = Math.ceil(this.currentPage / this.perPage)
       axios
         .get(`http://localhost:3000/board?page=${this.currentPage}`)

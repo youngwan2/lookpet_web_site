@@ -5,20 +5,34 @@
     <section>
       <!-- 고양이 품종 검색창(필터링)이 표시되는 영역-->
       <form class="cat_seacrh_form" @submit.prevent="submit">
-        <label for="cat_search"><svg xmlns="http://www.w3.org/2000/svg" height="1em"
-            viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+        <label for="cat_search"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="1em"
+            viewBox="0 0 512 512"
+          >
+            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
-              d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-          </svg></label>
-        <input type="text" id="cat_search">
+              d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+            /></svg
+        ></label>
+        <input type="text" id="cat_search" @keyup="search" />
       </form>
 
       <!-- 고양이 품종 목록이 렌더링되어 표시되는 영역-->
       <ul class="cat_ul">
-        <li class="cat_items" v-for="(cat, i) in catBreedInfo" :key="cat.id" @click="getDetail(i + 1)">
+        <li
+          class="cat_items"
+          v-for="(cat, i) in catBreedInfo"
+          :key="cat.id"
+          @click="getDetail(i + 1)"
+        >
           <router-link :to="`/cat/breed/detail/${i + 1}`">
-            <div class="cat_image"></div>
-            <p class="cat_name">{{ cat.name }}({{ cat.ko_name }})</p>
+            <img
+              :src="require(`@/assets/db_cat_image/${cat.image}`)"
+              class="cat_image"
+            />
+            <p class="cat_name">{{ cat.name }} <br> ({{ cat.ko_name }})</p>
           </router-link>
         </li>
       </ul>
@@ -34,22 +48,26 @@ export default {
     }
   },
   async mounted() {
-    await axios.get('http://localhost:3000/cat/breed').then((response) => {
-      console.log(response)
-
-      if (response.status === 200) {
-        this.catBreedInfo = response.data
-      }
-    }).catch((error) => {
-      console.error("cat 정보를 받아오는 중 에러가 발생하였습니다:", error)
-    })
+    await axios
+      .get('http://localhost:3000/cat/breed')
+      .then((response) => {
+        if (response.status === 200) {
+          this.catBreedInfo = response.data
+        }
+      })
+      .catch((error) => {
+        console.error('cat 정보를 받아오는 중 에러가 발생하였습니다:', error)
+      })
   },
   methods: {
     submit() {
-      console.log("전송!")
+      console.log('전송!')
     },
     getDetail(i) {
       console.log(`${i}번 고양이`)
+    },
+    search(e) {
+      this.value = e.target.value
     }
   }
 }
@@ -101,7 +119,7 @@ a {
   box-shadow: 0 0 5px 2px rgb(220, 220, 220);
   border-radius: 50px;
   margin: 2rem auto;
-  padding: 10px
+  padding: 10px;
 }
 
 /* 검색창 input*/
@@ -142,21 +160,24 @@ section {
 }
 
 .cat_image {
-  width: 400px;
-  height: 300px;
-  border-radius: 15px;
-  border-bottom: none;
+  width: 230px;
+  height: 230px;
+  border-bottom: 4px solid rgb(198, 111, 17);
 }
 
 .cat_items {
   box-shadow: 0 0 5px 2px rgb(223, 222, 222);
   margin: 10px;
+  max-width: 230px;
+  max-height: 300px;
   text-align: center;
   padding: 1px 0;
 }
 
 .cat_items .cat_name {
-  background-color: burlywood;
-  padding: 10px;
+  font-size: 15px;
+  height: 35px;
+  padding: 0px 10px 10px 0;
+  color:rgb(0, 0, 0);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="detail_container">
+  <div class="detail_container" ref="detail">
     <section>
       <!-- 포스트 제목 -->
       <h2 class="post_title">
@@ -52,6 +52,7 @@ export default {
     }
   },
   mounted() {
+    this.$refs.detail.scrollIntoView({ behavior: 'smooth' })
     const { id } = this.$route.params
     console.log(id)
     axios
