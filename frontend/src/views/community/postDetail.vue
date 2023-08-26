@@ -32,7 +32,7 @@
           <button @click="postDel">삭제</button>
         </article>
       </div>
-      <comment />
+      <comment :postId="post.id" />
     </section>
   </div>
 </template>
