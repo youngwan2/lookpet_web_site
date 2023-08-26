@@ -19,9 +19,9 @@
 - 그외..
 
 ## 참여자
-- youngwan2(https://github.com/youngwan2)
-- naritaeng(https://github.com/naritaeng)
-- ljy12888(https://github.com/ljy12888)
+- youngwan2(https://github.com/youngwan2) :: 프론트엔드/백엔드
+- naritaeng(https://github.com/naritaeng) :: 프론트엔드/백엔드
+- ljy12888(https://github.com/ljy12888) :: 프론트엔드
 
 ## 라이센스
 - 준비중..
