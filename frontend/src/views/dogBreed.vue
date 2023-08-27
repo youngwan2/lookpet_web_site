@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page_container">
     <span v-show="isLoading" class="loading_spinner">로딩중...</span>
     <section>
       <h1 class="dog_title">멍이사전</h1>
@@ -77,6 +77,16 @@ a {
 }
 
 /*컨테이너*/
+.page_container {
+  animation: appear 1s 1 ease-in-out;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 
 /* 검색창 폼 */
 .dog_seacrh_form {

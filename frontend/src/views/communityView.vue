@@ -2,6 +2,7 @@
   <div ref="board">
     <section class="board_container">
       <h1 class="title">자유 게시판</h1>
+      <p style="text-align: center; padding: 10px; font-size: 14px;">참고) 현재는 테스트를 위해 로그인된 유저가 모든 게시글 수정 삭제 가능</p>
       <span
         style="position: fixed; right: 40px; background: rgba(1, 1, 1, 0.088)"
         >현재 페이지: {{ currentPage }}/{{ totalPageCount }}</span

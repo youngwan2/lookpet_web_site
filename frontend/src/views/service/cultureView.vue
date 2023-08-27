@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div class="culture_container">
     <div class="culture_title">
       <h1>반려동물 동반가능 문화시설 정보 조회</h1>
       <span class="page_message"
         >현재 페이지: {{ currentPage }}/{{ totalPage }}</span
       >
     </div>
+
+    <!--  카테고리 -->
     <div class="category_box">
       <button
         class="category_menu"
@@ -16,6 +18,7 @@
         {{ p }}
       </button>
     </div>
+    <!-- 시설 목록 -->
     <div class="culture_list">
       <table class="culture_table">
         <tr v-for="data in cultureInfo" :key="data.id">
@@ -23,6 +26,7 @@
         </tr>
       </table>
     </div>
+    <!-- 페이지네이션 -->
     <nav class="pagination_nav">
       <ul class="pagination_box">
         <li class="page_shifter" @click="prevPage" v-show="currentPage !== 1">
@@ -140,9 +144,9 @@ export default {
     getCategoryInfo() {
       axios
         .get(
-          `http://localhost:3000/service/culture/?category=${this.category}&page=${
-            this.currentPage || 1
-          }`
+          `http://localhost:3000/service/culture/?category=${
+            this.category
+          }&page=${this.currentPage || 1}`
         )
         .then((response) => {
           if (response.status === 200) {
@@ -184,18 +188,31 @@ export default {
 </script>
 
 <style scoped>
+.culture_container {
+  min-height: 100vh;
+  animation: appear 1s 1 ease-in-out
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 .culture_title {
+  margin: 30px;
   text-align: center;
   border-bottom: 1px solid gray;
 }
 .category_box {
   padding: 10px;
+  text-align: center;
   border-bottom: 1px solid gray;
 }
 .category_menu {
-  border:none;
+  border: none;
   margin: 0 0 10px 10px;
-  padding:5px;
+  padding: 5px;
   background: beige;
   transition: 0.1s ease-in;
 }
@@ -243,12 +260,12 @@ export default {
   background: rgb(255, 211, 154);
   cursor: pointer;
 }
-.culture_list{
-  margin:20px;
-  width:100%;
+.culture_list {
+  margin: 20px;
+  width: 100%;
 }
-.culture_name{
-  width:100%;
+.culture_name {
+  width: 100%;
   border-bottom: 1px solid gray;
 }
 </style>

@@ -24,7 +24,13 @@
         @ready="setHTML"
         ref="preview"
         readOnly
-        style="margin: 0 auto; max-width: 1200px; background: white"
+        style="
+          margin: 0 auto;
+          max-width: 1200px;
+          background: white;
+          box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.194),
+            -5px 20px 10px 0 rgba(0, 0, 0, 0.194);
+        "
       ></QuillEditor>
       <button @click="previewPost" class="preview_return_btn">X</button>
     </article>
@@ -68,6 +74,9 @@ export default {
       this.post.title = this.postTitle
       this.post.content = this.editorContent
       this.post.author = document.cookie?.split('=')[1]
+      if (this.post.title === '' || this.post.content.length <= 5) {
+        return alert('제목을 입력해주세요.')
+      }
       axios
         .post('http://localhost:3000/board', this.post)
         .then((result) => {
@@ -102,7 +111,8 @@ export default {
   margin: 0 auto;
 }
 .post_title {
-  width: 100%;
+  width: 98.7%;
+  margin: 10px 0 0 0;
   border: none;
   border-bottom: 2px solid black;
   padding: 35px 0 26px 15px;
@@ -147,7 +157,7 @@ export default {
 /* 미리보기 */
 
 .layout {
-  color:white;
+  color: white;
   text-align: center;
   width: 100%;
   padding: 12px 0;
@@ -187,14 +197,14 @@ export default {
   font-size: 1.25em;
   z-index: 100;
   border: none;
-  color:white;
+  color: white;
   background: transparent;
   border-radius: 25px;
   padding: 12px 10px;
 }
 
 .preview_return_btn:hover {
-  cursor:pointer;
+  cursor: pointer;
   color: rgb(241, 125, 125);
 }
 </style>

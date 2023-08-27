@@ -4,7 +4,6 @@
       <input type="text" v-model="post.title" class="post_title" />
       <QuillEditor
         style="min-height: 60vh"
-        theme="snow"
         toolbar="full"
         @ready="setHTML"
         @textChange="getHTML"
@@ -12,7 +11,7 @@
       />
       <div class="control_box">
         <button @click="updatedPostSendToServer(postId)">수정</button>
-        <button>취소</button>
+        <button @click="pageMove">취소</button>
       </div>
     </section>
   </div>
@@ -77,6 +76,9 @@ export default {
       this.preview = content.getText() // 입력한 텍스트만 담긴다.
 
       console.log(this.editorContent, this.preview)
+    },
+    pageMove() {
+      this.$router.push({ path: `/community/detail/${this.postId * 1}` })
     }
   }
 }
@@ -93,7 +95,9 @@ export default {
 
 .post_title {
   border: none;
+  margin: 7px 0 0 0;
   text-align: center;
+  z-index: -2;
   font-size: 2rem;
   padding: 40px 0;
   max-width: 1000px !important;

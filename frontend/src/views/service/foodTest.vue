@@ -30,9 +30,7 @@
           기회가 되셨으면 좋겠어요!
         </p>
         <br />
-        <a class="test_link" href="https://smore.im/quiz/fiTDV7SHp1"
-          >테스트 도전!</a
-        >
+        <a class="test_link" href="#">준비중..</a>
       </div>
     </div>
   </div>
@@ -48,10 +46,9 @@ export default {
 </script>
 
 <style scoped>
-
 .page_title {
   text-align: center;
-  max-width:920px;
+  max-width: 920px;
   border-radius: 5px;
   padding: 10px 0;
   box-shadow: inset -2px -2px 0 0 goldenrod, inset 2px 2px 0 0 goldenrod;
@@ -60,7 +57,8 @@ export default {
 }
 
 @keyframes top {
-  from {transform: translate(-100px, -100px) rotate(10deg);
+  from {
+    transform: translate(-100px, -100px) rotate(10deg);
     opacity: 0;
   }
 }
@@ -79,7 +77,7 @@ export default {
 }
 
 .title {
-  color:white;
+  color: white;
   font-size: 1.5rem;
   font-weight: 600;
   padding: 5px 0;
@@ -124,9 +122,9 @@ export default {
   transition: 0.5s;
 }
 
-:is(.dog,.cat):hover {
+:is(.dog, .cat):hover {
   background: rgb(255, 247, 204);
-  transform: translate(0,-30px);
+  transform: translate(0, -30px);
   box-shadow: 10px 20px 5px 0 rgba(0, 0, 0, 0.199);
 }
 

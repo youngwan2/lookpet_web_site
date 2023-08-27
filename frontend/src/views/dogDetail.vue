@@ -93,8 +93,15 @@ export default {
   padding: 10px;
   min-height: 100vh;
   height: 100%;
+  animation: appear 1s 1 ease-in-out;
 }
 
+@keyframes appear {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 /* 서브 카테고리 공통 */
 
 .text_con {

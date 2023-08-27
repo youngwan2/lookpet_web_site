@@ -108,8 +108,15 @@ export default {
   max-width: 900px;
   margin: 1.5rem auto 0 auto;
   min-height: 100vh;
+  animation: appear 1s 1 ease-in-out
 }
 
+@keyframes appear {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 ul {
   padding-left: 0;
 }

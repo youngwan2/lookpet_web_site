@@ -11,6 +11,7 @@
         readOnly
         ref="postContent"
         @ready="setHTML"
+        theme="snow"
         class="editor"
         style="min-height: 70vh; border-radius: 5px"
       />

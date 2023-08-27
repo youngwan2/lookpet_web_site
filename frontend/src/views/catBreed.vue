@@ -103,6 +103,14 @@ a {
   position: relative;
   margin: 0 auto;
   max-width: 1500px;
+  animation: appear 1s 1 ease-in-out
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 /** 페이지 제목 */

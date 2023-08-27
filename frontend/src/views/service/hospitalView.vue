@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page_container">
     <div class="hospital_title">
       <h1>동물병원 정보 조회</h1>
       <span class="page_message"
@@ -190,18 +190,32 @@ export default {
 </script>
 
 <style scoped>
+
+.page_container {
+  min-height: 100vh;
+  animation: appear 1s 1 ease-in-out
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 .hospital_title {
   text-align: center;
+  margin: 30px;
   border-bottom: 1px solid gray;
 }
 .region_box {
   padding: 10px;
   border-bottom: 1px solid gray;
+  text-align: center;
 }
 .region_menu {
-  border:none;
+  border: none;
   margin: 0 0 10px 10px;
-  padding:5px;
+  padding: 5px;
   background: beige;
   transition: 0.1s ease-in;
 }
@@ -249,12 +263,12 @@ export default {
   background: rgb(255, 211, 154);
   cursor: pointer;
 }
-.hospital_list{
-  margin:20px;
-  width:100%;
+.hospital_list {
+  margin: 20px;
+  width: 100%;
 }
-.hospital_name{
-  width:100%;
+.hospital_name {
+  width: 100%;
   border-bottom: 1px solid gray;
 }
 </style>
