@@ -32,6 +32,7 @@
         <li @click="prevSwitch" v-show="currentPage > 1">prev</li>
         <!-- 페이지 번호 -->
         <li
+          :class="{ focus: page === currentPage }"
           v-for="(page, i) in pageList"
           :key="page"
           @click="pageSwitch(i + 1)"
@@ -39,7 +40,9 @@
           {{ page }}
         </li>
         <!-- 다음  -->
-        <li @click="nextSwitch">next</li>
+        <li @click="nextSwitch" v-show="totalPageCount !== currentPage">
+          next
+        </li>
       </ul>
     </article>
   </div>
@@ -53,6 +56,7 @@ export default {
       posts: [],
       currentPage: 1,
       perPage: 10,
+      focusedPage: 1,
       currentPageGroup: 1,
       lastPage: 10,
       firstPage: 1,
@@ -69,7 +73,6 @@ export default {
       list.push(i)
       this.pageList = list
     }
-    console.log(this.pageList)
   },
   created() {
     const username = document.cookie?.split('=')[1]
@@ -91,6 +94,7 @@ export default {
         .then((response) => {
           this.totalPageCount = response.data.totalCount
           this.posts = response.data.result
+          this.pageList = this.totalPageCount
         })
         .catch((error) => {
           console.log(error)
@@ -108,15 +112,17 @@ export default {
       this.lastPage = this.currentPageGroup * this.perPage
       this.firstPage = this.lastPage - this.perPage + 1
 
-      const list = []
+      // 마지막 페이지가 전체 페이지 수 보다 크거나 같으면
+      // 전체 페이지 수를 마지막 페이지 수로 할당한다.
       if (this.lastPage >= this.totalPageCount) {
         this.lastPage = this.totalPageCount
       }
 
       for (let i = this.firstPage; i <= this.lastPage; i++) {
-        list.push(i)
+        this.pageList = i
       }
-      this.pageList = list
+      this.focusedPage = pageNum // focusedPage 속성을 업데이트합니다
+      this.getBoardList()
     },
 
     /* 이전 페이지 이동 */
@@ -159,6 +165,12 @@ li {
 }
 
 li:hover {
+  box-shadow: inset 50px 50px 0 0 rgb(246, 180, 12);
+  color: white;
+}
+
+/* 각 페이지 별로 포커스된 경우에만 배경색을 적용한다. */
+li.focus {
   box-shadow: inset 50px 50px 0 0 rgb(246, 180, 12);
   color: white;
 }

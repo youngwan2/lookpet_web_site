@@ -116,11 +116,11 @@ const router = createRouter({
         )
     },
     {
-      path: '/service/iq-test',
-      name: 'service-iqtest',
+      path: '/service/foodtest',
+      name: 'service-foodtest',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/IQTestView.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/foodTest.vue'
         )
     },
     {

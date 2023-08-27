@@ -17,7 +17,7 @@
           prev
         </li>
         <li
-         :class="focus"
+          :class="{ focus: page === currentPage }"
           class="page_shifter"
           v-for="(page, i) in pageList"
           :key="i"
@@ -52,7 +52,7 @@ export default {
       pageList: [1, 2, 3, 4, 5],
       maxPage: 0,
       totalPage: 0,
-      focus: ''
+      focus: 'focus'
     }
   },
   methods: {
@@ -230,7 +230,13 @@ export default {
 }
 
 .page_shifter:hover {
-  background: rgb(255, 211, 154);
+  background: rgb(255, 242, 146);
+  color:black;
   cursor: pointer;
+}
+
+li.focus {
+  background: rgb(255, 174, 0);
+  color:white;
 }
 </style>

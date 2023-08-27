@@ -13,8 +13,8 @@ const PostSchema = new Schema({
   views: Number,
   author: String,
   date: {
-    type: Date,
-    default: Date.now(),
+    type: String,
+    default: new Date().toLocaleString('ko-KR'),
   },
 });
 

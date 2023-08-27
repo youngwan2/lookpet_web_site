@@ -3,9 +3,6 @@
     <div class="inner">
       <div class="upper">
         <h1>DS Academy</h1>
-        <ul>
-          <li><a href="#">project</a></li>
-        </ul>
       </div>
 
       <div class="lower">
@@ -26,7 +23,7 @@ footer {
   border-top: 1px solid #888;
 }
 footer .inner {
-  width: 1180px;
+  max-width: 1180px;
   margin: 0px auto;
 }
 footer .inner .upper {

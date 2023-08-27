@@ -1,5 +1,6 @@
 <template>
   <div class="cat_breed_section">
+    <span v-show="isLoading" class="loading_spinner">로딩중...</span>
     <h2 class="title">냥이 사전</h2>
     <span class="info_text">고양이/품종정보</span>
     <section>
@@ -32,7 +33,10 @@
               :src="require(`@/assets/db_cat_image/${cat.image}`)"
               class="cat_image"
             />
-            <p class="cat_name">{{ cat.name }} <br> ({{ cat.ko_name }})</p>
+            <p class="cat_name">
+              {{ cat.name }} <br />
+              ({{ cat.ko_name }})
+            </p>
           </router-link>
         </li>
       </ul>
@@ -44,15 +48,18 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      catBreedInfo: []
+      catBreedInfo: [],
+      isLoading: true
     }
   },
   async mounted() {
+    this.isLoading = true
     await axios
       .get('http://localhost:3000/cat/breed')
       .then((response) => {
         if (response.status === 200) {
           this.catBreedInfo = response.data
+          this.isLoading = false
         }
       })
       .catch((error) => {
@@ -178,6 +185,22 @@ section {
   font-size: 15px;
   height: 35px;
   padding: 0px 10px 10px 0;
-  color:rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+}
+
+.loading_spinner {
+  font-size: 3rem;
+  position: fixed;
+  left: 50%;
+  top: 0;
+  line-height: 500px;
+  color: white;
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.712);
+  font-weight: 900;
+  transform: translate(-50%);
+  width: 100%;
+  text-align: center;
+  height: 100vh;
+  background: rgba(60, 59, 58, 0.231);
 }
 </style>

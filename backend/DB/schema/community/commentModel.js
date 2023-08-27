@@ -7,7 +7,7 @@ const commentSchema = new Schema({
   author: String,
   date: {
     type: String,
-    default: new Date().toLocaleString("ko-KR", { timeZone: "UTC" }),
+    default: new Date().toLocaleString("ko-KR"),
   },
 });
 

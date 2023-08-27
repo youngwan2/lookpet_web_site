@@ -1,5 +1,6 @@
 <template>
   <div>
+    <span v-show="isLoading" class="loading_spinner">로딩중...</span>
     <section>
       <h1 class="dog_title">멍이사전</h1>
       <form action="#" class="dog_seacrh_form" @submit.prevent="submit">
@@ -12,7 +13,8 @@
             <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
               d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
-            /></svg></label>
+            /></svg
+        ></label>
         <input type="text" id="dog_search" />
       </form>
       <ul class="dog_ul">
@@ -37,14 +39,17 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      dogBreedInfo: []
+      dogBreedInfo: [],
+      isLoading: true
     }
   },
   async mounted() {
+    this.isLoading = true
     try {
       const response = await axios.get('http://localhost:3000/dog/breed')
       if (response.status === 200) {
         this.dogBreedInfo = response.data
+        this.isLoading = false
       }
     } catch (error) {
       console.error('dog 정보를 받아오는 중 에러가 발생하였습니다:', error)
@@ -91,6 +96,10 @@ a {
   border: none;
 }
 
+.dog_seacrh_form input:focus {
+  outline: none;
+}
+
 /* 검색창 input 라벨 */
 
 .dog_seacrh_form label {
@@ -132,5 +141,20 @@ section {
   height: 35px;
   padding: 0px 10px 10px 0;
   color: rgb(0, 0, 0);
+}
+.loading_spinner {
+  font-size: 3rem;
+  position: fixed;
+  left: 50%;
+  top: 0;
+  line-height: 500px;
+  color: white;
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.712);
+  font-weight: 900;
+  transform: translate(-50%);
+  width: 100%;
+  text-align: center;
+  height: 100vh;
+  background: rgba(128, 128, 128, 0.407);
 }
 </style>
