@@ -77,7 +77,7 @@ export default {
     const breedId = this.$route.params.id
     console.log(breedId)
     axios
-      .get(`http://localhost:3000/cat/breed/${breedId}`)
+      .get(`/cat/breed/${breedId}`)
       .then((response) => {
         if (response.status === 200) {
           this.catDetailInfo = response.data

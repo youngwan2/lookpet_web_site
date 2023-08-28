@@ -46,7 +46,7 @@ export default {
   async mounted() {
     this.isLoading = true
     try {
-      const response = await axios.get('http://localhost:3000/dog/breed')
+      const response = await axios.get('/dog/breed')
       if (response.status === 200) {
         this.dogBreedInfo = response.data
         this.isLoading = false

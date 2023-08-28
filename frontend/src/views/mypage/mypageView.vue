@@ -65,7 +65,7 @@ export default {
   async mounted() {
     this.username = document.cookie.split('=')[1]
     await axios
-      .get('http://localhost:3000/mypage', {
+      .get('/mypage', {
         params: { username: this.username }
       })
       .then((res) => {

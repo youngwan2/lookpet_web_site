@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
+const history = require('connect-history-api-fallback');
 const cors = require('cors');
 const DB_CONNECTION = require('./DB/dbConnection/connection');
 
 const cookieParser = require('cookie-parser');
 
 DB_CONNECTION();
+app.use(history());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -60,5 +62,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
