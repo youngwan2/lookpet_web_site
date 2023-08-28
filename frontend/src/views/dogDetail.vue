@@ -71,7 +71,7 @@ export default {
     try {
       const id = this.$route.params.id
       const res = await axios.get(
-        `http://localhost:3000/dog/breed/detail/${id}`
+        `/dog/breed/detail/${id}`
       )
       this.dogDetail = res.data
       console.log(this.dogDetail)

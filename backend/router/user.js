@@ -76,6 +76,7 @@ router.post('/auth/signup', (req, res) => {
         .insertMany(userInfo)
         .then((result) => {
           console.log('유저정보를 저장하였습니다.');
+          res.json({ message: '회원가입 처리되었습니다.' });
         })
         .catch((error) => {
           console.log('에러발생:', error);

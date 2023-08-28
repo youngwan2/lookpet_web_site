@@ -56,7 +56,7 @@ export default {
   methods: {
     doubleCheck() {
       axios
-        .post('http://localhost:3000/auth/check', { username: this.username })
+        .post('/auth/check', { username: this.username })
         .then((res) => {
           this.message = res.data.message
           this.isCheck = res.data.success
@@ -92,7 +92,7 @@ export default {
         console.log('보냈다')
         window.location.replace('/auth/login')
         axios
-          .post('http://localhost:3000/auth/signup', userInfo)
+          .post('/auth/signup', userInfo)
           .then((res) => {
             console.log(res)
           })

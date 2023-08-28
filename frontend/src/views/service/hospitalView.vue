@@ -146,7 +146,7 @@ export default {
     getAreaInfo() {
       axios
         .get(
-          `http://localhost:3000/service/hospital/?region=${this.area}&page=${
+          `/service/hospital/?region=${this.area}&page=${
             this.currentPage || 1
           }`
         )
@@ -171,7 +171,7 @@ export default {
   // 페이지 첫 화면 세팅
   async mounted() {
     await axios
-      .get('http://localhost:3000/service/hospital')
+      .get('/service/hospital')
       .then((response) => {
         if (response.status === 200) {
           this.hospitalInfo = response.data.result

@@ -55,7 +55,7 @@ export default {
   async mounted() {
     this.isLoading = true
     await axios
-      .get('http://localhost:3000/cat/breed')
+      .get('/cat/breed')
       .then((response) => {
         if (response.status === 200) {
           this.catBreedInfo = response.data
