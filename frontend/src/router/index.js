@@ -144,15 +144,23 @@ const router = createRouter({
       name: 'mypage',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypageView.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/mypageView.vue'
         )
     },
     {
       path: '/mypage/register',
-      name: 'mypage-register',
+      name: 'register',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/petRegisterView.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/petRegisterView.vue'
+        )
+    },
+    {
+      path: '/mypage/petedit/:id',
+      name: 'petedit',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/petEditView.vue'
         )
     }
   ]

@@ -21,10 +21,22 @@
           <div class="pet_info_detail">
             <span>나이</span><span>{{ pet.age }}</span>
           </div>
+          <div class="pet_info_detail">
+            <span>아이 소개</span><br />
+            <span>{{ pet.introduce }}</span>
+          </div>
         </div>
-        <div class="pet_info_detail">
-          <span>아이 소개</span><br />
-          <span>{{ pet.introduce }}</span>
+        <div class="card_btn_box">
+          <button
+            class="card_btn"
+            id="edit_btn"
+            @click="editPetInfo(pet.petId)"
+          >
+            수정
+          </button>
+          <button class="card_btn" id="delete_btn" @click="deleteData">
+            삭제
+          </button>
         </div>
       </div>
     </div>
@@ -43,6 +55,12 @@ export default {
       username: '',
       petInfo: {}
     }
+  },
+  methods: {
+    editPetInfo(id) {
+      this.$router.push({ path: `/mypage/petedit/${id}` })
+    },
+    deleteData() {}
   },
   async mounted() {
     this.username = document.cookie.split('=')[1]
@@ -67,6 +85,7 @@ export default {
 }
 .pet_list {
   display: flex;
+  height: 600px;
 }
 .mypage_title {
   text-align: center;
@@ -98,9 +117,10 @@ export default {
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
+  background: rgb(245, 236, 220);
 }
 .pet_image_box {
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 .pet_info_detail {
   margin-bottom: 10px;
@@ -110,5 +130,43 @@ export default {
   border-radius: 5px;
   margin-right: 10px;
   padding: 2px;
+}
+.card_btn_box {
+  position: relative;
+  top: 120px;
+  left: 60px;
+  opacity: 0;
+  transition: 0.2s ease-in;
+}
+.card_btn {
+  margin: 0 5px;
+  border: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
+  transition: 0.1s ease;
+}
+.card_btn:hover {
+  transform: scale(1.05);
+  box-shadow: 3px 3px 10px gray;
+}
+.card_btn:active {
+  box-shadow: -1px -1px 5px gray;
+}
+#edit_btn {
+  background: rgb(167, 196, 143);
+}
+#delete_btn {
+  background: rgb(236, 120, 52);
+}
+#edit_btn:hover {
+  background: rgb(115, 148, 88);
+}
+#delete_btn:hover {
+  background: rgb(243, 99, 16);
+}
+.pet_card:hover .card_btn_box {
+  opacity: 1;
+  transform: translate(0, -10px);
 }
 </style>

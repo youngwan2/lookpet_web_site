@@ -20,25 +20,79 @@ router.get('/mypage', (req, res) => {
 })
 
 /* 마이페이지 펫 등록 */
-router.post('/mypage/register', (req, res) => {
+router.post('/mypage/register', async (req, res) => {
   const { username, petimage, petname, breeds, gender, age, introduce } =
     req.body
-  const petInfo = {
-    username,
-    petimage,
-    petname,
-    breeds,
-    gender,
-    age,
-    introduce
+  try {
+    // Find the highest pet ID currently in the database
+    const highestPet = await mypetModel.findOne().sort({ petId: -1 }).limit(1)
+
+    let newPetId
+    if (highestPet) {
+      newPetId = highestPet.petId + 1
+    } else {
+      newPetId = 1
+    }
+
+    const petInfo = {
+      petId: newPetId,
+      username,
+      petimage,
+      petname,
+      breeds,
+      gender,
+      age,
+      introduce
+    }
+
+    await mypetModel.insertMany(petInfo)
+
+    console.log('펫 정보가 등록되었습니다.:', petInfo)
+    res.json({ message: '펫 정보가 등록되었습니다.', petInfo })
+  } catch (error) {
+    console.log('펫 정보 등록에 오류가 생겼습니다.:', error)
+    res.status(500).json({ error })
   }
+})
+
+// 마이페이지 해당 펫 id값을 찾아 불러오기
+router.get('/mypage/petedit/:id', (req, res) => {
+  console.log(req.params.id)
+  const { id } = req.params.id
+  console.log(id)
+
   mypetModel
-    .insertMany(petInfo)
+    .findOne({ id: id })
     .then((result) => {
-      console.log('펫 정보가 등록되었습니다.:', result)
+      if (!result) {
+        return res
+          .status(404)
+          .json({ error: '해당 펫 정보가 존재하지 않습니다.' })
+      }
+      console.log(result)
+      res.json(result)
     })
     .catch((error) => {
-      console.log('펫 정보 등록에 오류가 생겼습니다.:', error)
+      console.log('펫 정보를 불러오는중에 에러가 발생했습니다:', error)
+      res.status(500).json({ error })
+    })
+})
+
+// 해당 펫 id값을 가진 데이터를 찾아 수정된 데이터 업데이트하기
+router.post('/mypage/petedit/:id', (req, res) => {
+  // console.log(req.params.id)
+  const id = req.params.id
+  const body = req.body.newPetInfo
+  console.log('id:', id)
+  console.log('body내용:', body)
+  mypetModel
+    .updateOne({ id: id * 1 }, body)
+    .then((result) => {
+      console.log(result)
+      res.json({ message: '데이터 업데이트가 완료되었습니다.' })
+    })
+    .catch((e) => {
+      console.log('데이터 수정 중에 오류가 발생했습니다.', e)
     })
 })
 

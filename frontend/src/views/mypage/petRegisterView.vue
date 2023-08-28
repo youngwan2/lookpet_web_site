@@ -71,7 +71,7 @@ export default {
     async imageUpload(e) {
       const image = e.target.files[0]
       if (image) {
-        const resizedImageFile = await this.resizeImage(image, 200, 200)
+        const resizedImageFile = await this.resizeImage(image, 300, 300)
         const reader = new FileReader()
         reader.onload = () => {
           this.petimage = reader.result
