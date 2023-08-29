@@ -7,6 +7,10 @@ import modelView from './components/modelView.vue'
 //   console.log(window.innerWidth)
 // })
 
+if (process.env.NODE_ENV === 'development') {
+  console.log(process.env.VUE_APP_KAKAO)
+}
+
 const loginUsername = document.cookie.split('=')[1] ?? ''
 </script>
 <template>

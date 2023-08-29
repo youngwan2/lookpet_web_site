@@ -10,6 +10,15 @@
       <!-- <address>2023 DS ACADEMY<br />SENIER PROJECT.</address> -->
     </header>
 
+    <setion class="banner">
+      <video
+        class="banner_video"
+        src="../assets/video/video01.mp4"
+        muted
+        loop
+        autoplay
+      ></video>
+    </setion>
     <!-- section -->
     <section>
       <article
@@ -26,7 +35,7 @@
             <figure>
               <video
                 class="article_figure_video"
-                src="../assets/video/video01.mp4"
+                src="../assets/video/video05.mp4"
                 muted
                 loop
               ></video>
@@ -110,7 +119,6 @@
       <div class="txt">
         <h1>01</h1>
         <p>Healing`<br /><br />Movie01</p>
-
         <span id="close_text" v-on:click="close">CLOSE</span>
       </div>
       <figure id="figure_text">
@@ -123,9 +131,11 @@
       </figure>
     </aside>
   </main>
+  <directMenu></directMenu>
 </template>
 
 <script>
+import directMenu from '../components/directMenu.vue'
 export default {
   data() {
     return {}
@@ -156,6 +166,9 @@ export default {
       aside.classList.remove('on')
       aside.querySelector('video').pause()
     }
+  },
+  components: {
+    directMenu
   }
 }
 </script>
@@ -187,15 +200,15 @@ main {
 main header {
   width: 20%;
   height: 100%;
-  padding: 27vh 5vw;
+  padding: 23vh 5vw;
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
   justify-content: center;
   position: relative;
   z-index: 3;
+  float: left;
   /*    background: #333;*/
-
   /* border:10px solid pink; */
 }
 main header h1 {
@@ -203,16 +216,6 @@ main header h1 {
   font-size: 0px;
   color: orange;
   cursor: pointer;
-}
-/* main h1 hover */
-main header h1::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 2px;
-  background: #777;
-  margin-top: 2px;
-  transition: 1.5s;
 }
 main header h1:hover main header h1::after {
   width: 120px;
@@ -229,12 +232,18 @@ main header h1 span {
 main header p {
   color: white;
 }
-main header address {
-  font: normal 11px/1.2 'arial';
-  color: #888;
-  display: absolute;
-}
 
+/* banner */
+main .banner {
+  width: 65%;
+  float: left;
+}
+main .banner .banner_video {
+  width: 100%;
+  object-fit: cover;
+  filter: saturate(50%);
+  margin-top: 10%;
+}
 /* nav */
 main nav {
   position: absolute;
@@ -402,9 +411,13 @@ main aside .txt p {
   margin-bottom: 60px;
 }
 main aside .txt span {
+  font-size: 30px;
   cursor: pointer;
-  color: orange;
+  color: white;
   margin-left: 10%;
+}
+main aside .txt span:hover {
+  color: orange;
 }
 main aside figure {
   width: 72%;

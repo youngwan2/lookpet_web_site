@@ -6,12 +6,13 @@
       </h1>
       <span class="menu_icon" @click="menuOpen">三</span>
       <nav class="menu">
-        <RouterLink to="/dog/breed" class="menu_item">PUPPY</RouterLink>
-        <RouterLink to="/cat/breed" class="menu_item">CAT</RouterLink>
-        <RouterLink to="/community" class="menu_item">COMMUNITY</RouterLink>
-        <RouterLink to="/service/hospital" class="menu_item"
-          >SERVICE</RouterLink
+        <RouterLink to="/dog/breed" class="menu_item">강아지</RouterLink>
+        <RouterLink to="/cat/breed" class="menu_item">고양이</RouterLink>
+        <RouterLink to="/community" class="menu_item">커뮤니티</RouterLink>
+        <RouterLink to="/tools/hospital" class="menu_item"
+          >부가서비스</RouterLink
         >
+        <RouterLink to="/service/qna" class="menu_item">고객센터</RouterLink>
 
         <article class="drop_box" :class="menuOpenClassName" ref="dropBox">
           <ul class="drop_item">
@@ -32,16 +33,19 @@
             ><br />
           </ul>
           <ul class="drop_item">
-            <p>서비스</p>
-            <RouterLink to="/service/hospital">동물병원정보조회</RouterLink
+            <p>부가서비스</p>
+            <RouterLink to="/tools/hospital">동물병원정보조회</RouterLink
             ><br />
-            <RouterLink to="/service/culture"
-              >반려동물동반가능시설조회</RouterLink
+            <RouterLink to="/tools/culture">반려동물동반가능시설조회</RouterLink
             ><br />
-            <RouterLink to="/service/foodtest"
-              >멍냥이 푸드지식 테스트</RouterLink
+            <RouterLink to="/tools/foodtest">멍냥이 푸드지식 테스트</RouterLink
             ><br />
-            <RouterLink to="/service">반려동물 우울증 테스트</RouterLink
+            <RouterLink to="/tools">반려동물 우울증 테스트</RouterLink
+            ><br />
+          </ul>
+          <ul class="drop_item">
+            <p>고객센터</p>
+            <RouterLink to="/service/qna">QnA</RouterLink
             ><br />
           </ul>
           <!-- 강아지 발자국 이미자 -->

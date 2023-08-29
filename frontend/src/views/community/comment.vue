@@ -74,6 +74,7 @@ export default {
     axios
       .get(`http://localhost:3000/board/${postId}/comment`)
       .then((response) => {
+        console.log(response.data.result)
         this.commentReceivedFromDB = response.data.result
         this.commentTotal = response.data.result.length
 
@@ -114,7 +115,7 @@ export default {
       const commentInfo = {
         postId: this.postId,
         comment: this.comment,
-        author: this.author || '익명'
+        author: document.cookie.split('=')[1] || '익명'
       }
 
       console.log(commentInfo)
