@@ -94,7 +94,7 @@
         <div class="inner">
           <div class="con">
             <img src="../assets/icon/hospital.svg" />
-            <h2 @click="gotoPage('/service/hospital')">
+            <h2 @click="gotoPage('/tools/hospital')">
               06.동물병원 정보 조회
             </h2>
             <p>현재 위치에서 가까운 동물병원을 확인할 수 있습니다.</p>
@@ -105,7 +105,7 @@
         <div class="inner">
           <div class="con">
             <img src="../assets/icon/with_dog.png" />
-            <h2 @click="gotoPage('/service/culture')">
+            <h2 @click="gotoPage('/tools/culture')">
               07.반려동물 동반 가능 시설조회
             </h2>
             <p>반려동물과 함께 갈수 있는 시설을 확인할 수 있습니다.</p>
@@ -116,7 +116,7 @@
         <div class="inner">
           <div class="con">
             <img src="../assets/icon/quiz.png" />
-            <h2 @click="gotoPage('/service/foodtest')">
+            <h2 @click="gotoPage('/tools/foodtest')">
               08.멍냥이 푸드 지식 테스트
             </h2>
             <p>멍냥이에 대한 퀴즈를 풀어 보세요.</p>
@@ -127,7 +127,7 @@
         <div class="inner">
           <div class="con">
             <img src="../assets/icon/우울증.png" />
-            <h2 @click="gotoPage('/service')">09.반려동물 우울증 테스트</h2>
+            <h2 @click="gotoPage('/tools')">09.반려동물 우울증 테스트</h2>
             <p>우리 반려동물이 얼마나 우울한지 테스트 해 보세요.</p>
           </div>
         </div>
