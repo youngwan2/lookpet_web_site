@@ -190,7 +190,7 @@ export default {
 <style scoped>
 .culture_container {
   min-height: 100vh;
-  animation: appear 1s 1 ease-in-out
+  animation: appear 1s 1 ease-in-out;
 }
 
 @keyframes appear {

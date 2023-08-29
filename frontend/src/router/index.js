@@ -11,6 +11,7 @@ const router = createRouter({
           /* webpackChunkName: "about",webpackPrefetch:true */ '../components/mainView.vue'
         )
     },
+    // 강아지/고양이 카테고리
     {
       path: '/dog/breed',
       name: 'dog-breed',
@@ -59,6 +60,7 @@ const router = createRouter({
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/cat/catTip.vue'
         )
     },
+    // 커뮤니티
     {
       path: '/community',
       name: 'community',
@@ -99,30 +101,42 @@ const router = createRouter({
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/update.vue'
         )
     },
+    // 각종 부가서비스
     {
-      path: '/service/hospital',
-      name: 'service-hospital',
+      path: '/tools/hospital',
+      name: 'tools-hospital',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/hospitalView.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/tools/hospitalView.vue'
         )
     },
     {
-      path: '/service/culture',
-      name: 'service-culture',
+      path: '/tools/culture',
+      name: 'tools-culture',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/cultureView.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/tools/cultureView.vue'
         )
     },
     {
-      path: '/service/foodtest',
-      name: 'service-foodtest',
+      path: '/tools/foodtest',
+      name: 'tools-foodtest',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/foodTest.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/tools/foodTest.vue'
         )
     },
+    // 고객센터
+    {
+      path: '/service/qna',
+      name: 'service-qna',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/Qna.vue'
+        )
+    },
+
+    // 로그인/회원가입
     {
       path: '/auth/login',
       name: 'login',
@@ -139,6 +153,8 @@ const router = createRouter({
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/signupView.vue'
         )
     },
+
+    // 마이 페이지
     {
       path: '/mypage',
       name: 'mypage',
