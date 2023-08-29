@@ -117,7 +117,7 @@ export default {
       //   ]
 
       axios
-        .post('/mypage/register', petInfo)
+        .post('http://localhost:3000/mypage/register', petInfo)
         .then((res) => {
           console.log(res)
         })

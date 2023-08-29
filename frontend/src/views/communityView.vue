@@ -91,7 +91,7 @@ export default {
       this.$refs.board.scrollIntoView({ behavior: 'smooth' })
       this.currentPageGroup = Math.ceil(this.currentPage / this.perPage)
       axios
-        .get(`/board?page=${this.currentPage}`)
+        .get(`http://localhost:3000/board?page=${this.currentPage}`)
         .then((response) => {
           this.totalPageCount = response.data.totalCount
           this.posts = response.data.result

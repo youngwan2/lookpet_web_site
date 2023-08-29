@@ -37,45 +37,45 @@ function save() {
       console.log('강아지 데이터 저장 중 문제가 발생하였습니다.:', error)
     })
 
-  // // 고양이 팁
-  // cattipModel
-  //   .insertMany(cattipData)
-  //   .then(() => {
-  //     console.log('고양이팁 데이터가 정상적으로 저장되었습니다.')
-  //   })
-  //   .catch((error) => {
-  //     console.log('고양이 팁 데이터 저장중 문제가 발생하였습니다.:', error)
-  //   })
-  // // 강아지 팁
-  // dogtipModel
-  //   .insertMany(dogtipData)
-  //   .then(() => {
-  //     console.log('강아지팁 데이터가 정상적으로 저장되었습니다.')
-  //   })
-  //   .catch((error) => {
-  //     console.log('강아지 팁 데이터 저장중 문제가 발생하였습니다.:', error)
-  //   })
-  // // 병원정보
-  // hospitalModel
-  //   .insertMany(hospitalData)
-  //   .then(() => {
-  //     console.log('병원정보 데이터가 정상적으로 저장되었습니다.')
-  //   })
-  //   .catch((error) => {
-  //     console.log('병원정보 데이터 저장중 문제가 발생하였습니다.:', error)
-  //   })
-  // // 동반가능문화시설
-  // cultureModel
-  //   .insertMany(cultureData)
-  //   .then(() => {
-  //     console.log('동반가능문화시설 데이터가 정상적으로 저장되었습니다.')
-  //   })
-  //   .catch((error) => {
-  //     console.log(
-  //       '동반가능문화시설 데이터 저장중 문제가 발생하였습니다.:',
-  //       error
-  //     )
-  //   })
+  // 고양이 팁
+  cattipModel
+    .insertMany(cattipData)
+    .then(() => {
+      console.log('고양이팁 데이터가 정상적으로 저장되었습니다.')
+    })
+    .catch((error) => {
+      console.log('고양이 팁 데이터 저장중 문제가 발생하였습니다.:', error)
+    })
+  // 강아지 팁
+  dogtipModel
+    .insertMany(dogtipData)
+    .then(() => {
+      console.log('강아지팁 데이터가 정상적으로 저장되었습니다.')
+    })
+    .catch((error) => {
+      console.log('강아지 팁 데이터 저장중 문제가 발생하였습니다.:', error)
+    })
+  // 병원정보
+  hospitalModel
+    .insertMany(hospitalData)
+    .then(() => {
+      console.log('병원정보 데이터가 정상적으로 저장되었습니다.')
+    })
+    .catch((error) => {
+      console.log('병원정보 데이터 저장중 문제가 발생하였습니다.:', error)
+    })
+  // 동반가능문화시설
+  cultureModel
+    .insertMany(cultureData)
+    .then(() => {
+      console.log('동반가능문화시설 데이터가 정상적으로 저장되었습니다.')
+    })
+    .catch((error) => {
+      console.log(
+        '동반가능문화시설 데이터 저장중 문제가 발생하였습니다.:',
+        error
+      )
+    })
 }
 DB_CONNECTION()
 save()

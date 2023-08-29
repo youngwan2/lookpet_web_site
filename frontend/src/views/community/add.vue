@@ -78,7 +78,7 @@ export default {
         return alert('제목을 입력해주세요.')
       }
       axios
-        .post('/board', this.post)
+        .post('http://localhost:3000/board', this.post)
         .then((result) => {
           console.log('전송 성공!', result)
           this.$router.push({ path: '/community' })

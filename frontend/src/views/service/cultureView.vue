@@ -144,7 +144,7 @@ export default {
     getCategoryInfo() {
       axios
         .get(
-          `/service/culture/?category=${
+          `http://localhost:3000/service/culture/?category=${
             this.category
           }&page=${this.currentPage || 1}`
         )
@@ -169,7 +169,7 @@ export default {
   // 페이지 첫 화면 세팅
   async mounted() {
     await axios
-      .get('/service/culture')
+      .get('http://localhost:3000/service/culture')
       .then((response) => {
         if (response.status === 200) {
           this.cultureInfo = response.data.result

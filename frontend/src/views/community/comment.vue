@@ -72,7 +72,7 @@ export default {
     /* 서버로 부터 유저가 등록한 댓글 목록을 가져온다. */
     const postId = this.$route.params.id
     axios
-      .get(`/board/${postId}/comment`)
+      .get(`http://localhost:3000/board/${postId}/comment`)
       .then((response) => {
         this.commentReceivedFromDB = response.data.result
         this.commentTotal = response.data.result.length
@@ -119,7 +119,7 @@ export default {
 
       console.log(commentInfo)
       axios
-        .post(`/board/${this.postId}/comment`, {
+        .post(`http://localhost:3000/board/${this.postId}/comment`, {
           commentInfo
         })
         .then((response) => {

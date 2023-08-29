@@ -105,7 +105,7 @@ export default {
     /* 서버로 부터 고양이 팁 정보를 가져오는 비동기 함수 */
     getAxios() {
       axios
-        .get(`/cat/cattip?page=${this.currentPage || 1}`)
+        .get(`http://localhost:3000/cat/cattip?page=${this.currentPage || 1}`)
         .then((response) => {
           console.log(response)
           this.getTip = response.data.result
