@@ -15,6 +15,15 @@
         class="editor"
         style="min-height: 70vh; border-radius: 5px"
       />
+      <!-- 좋아요/싫어요 -->
+      <article class="like_box">
+        <p>
+          좋아요<span>{{ liked }}</span>
+        </p>
+        <p>
+          싫어요<span>{{ unliked }}</span>
+        </p>
+      </article>
       <!-- 작성자/작성일자 -->
       <div
         style="
@@ -49,7 +58,9 @@ export default {
   },
   data() {
     return {
-      post: []
+      post: [],
+      liked: 0,
+      unliked: 0
     }
   },
   mounted() {
@@ -61,6 +72,7 @@ export default {
       .then((response) => {
         this.post = response.data[0]
         this.setHTML(this.post)
+        console.log(response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -172,5 +184,19 @@ export default {
   color: white;
   background-color: rgb(208, 170, 119);
   box-shadow: 0 0 0 0, inset 2px 4px 1px 1px rgba(0, 0, 0, 0.469);
+}
+
+/* 좋아요/싫어요 */
+.like_box {
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+}
+
+.like_box p {
+  margin: 0 5px;
+  box-shadow: 1px 1px 3px rgb(176, 131, 17);
+  padding: 6px 10px;
+  border-radius: 10px;
 }
 </style>
