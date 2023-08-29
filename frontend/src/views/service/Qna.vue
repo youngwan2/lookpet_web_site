@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     open() {
-        console.log(this.$refs.item)
+      console.log(this.$refs.item)
     }
   }
 }
