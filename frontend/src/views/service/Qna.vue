@@ -39,7 +39,7 @@ export default {
       ]
     }
   },
-  methods() {
+  methods: {
     open() {
         console.log(this.$refs.item)
     }
