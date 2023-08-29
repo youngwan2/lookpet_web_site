@@ -112,7 +112,7 @@ export default {
         tmImage.load(PATH.modelPath, PATH.metadataPath).then((model) => {
           model.predict(img).then((predictions) => {
             predictions.forEach((data) => {
-              if (data.probability >= 0.3 && data.probability <= 1) {
+              if (data.probability >= 0.5 && data.probability <= 1) {
                 prediction.class = ' 가족님의 품종은' + data.className + '이며'
                 prediction.predict =
                   '예측 확률은' +

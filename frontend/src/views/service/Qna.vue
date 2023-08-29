@@ -72,6 +72,7 @@ export default {
     }
   },
   mounted() {
+    // qna 게시글 갯수 만큼 배열을 생성하고 해당 값은 off 로 채운다
     this.state = new Array(this.items.length).fill('off')
   }
 }
