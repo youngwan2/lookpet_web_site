@@ -89,7 +89,7 @@ export default {
     updatePetInfo(id) {
       console.log(id)
       const newPetInfo = {
-        petId: this.petInfo.petId,
+        petId: id,
         username: this.petInfo.username,
         petimage: this.petimage,
         petname: this.petname,
@@ -113,15 +113,13 @@ export default {
     }
   },
   async mounted() {
-    const petId = this.$route.params.petId
+    const petId = this.$route.params.id
     console.log(petId)
     await axios
       .get(`http://localhost:3000/mypage/petedit/${petId}`)
       .then((res) => {
-        console.log(res)
         this.petInfo = res.data
         this.petimage = res.data.petimage
-        console.log(this.petInfo.petname)
       })
       .catch((e) => {
         console.log('해당 펫 정보를 불러오는중에 에러가 발생했습니다.:', e)

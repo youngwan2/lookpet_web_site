@@ -108,6 +108,14 @@ const router = createRouter({
         )
     },
     {
+      path: '/service/hospital/detail/:id',
+      name: 'hospital-detail',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/hospitalDetailView.vue'
+        )
+    },
+    {
       path: '/service/culture',
       name: 'service-culture',
       component: () =>

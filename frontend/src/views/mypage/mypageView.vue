@@ -30,11 +30,15 @@
           <button
             class="card_btn"
             id="edit_btn"
-            @click="editPetInfo(pet.petId)"
+            @click="editPetData(pet.petId)"
           >
             수정
           </button>
-          <button class="card_btn" id="delete_btn" @click="deleteData">
+          <button
+            class="card_btn"
+            id="delete_btn"
+            @click="delPetData(pet.petId)"
+          >
             삭제
           </button>
         </div>
@@ -57,10 +61,26 @@ export default {
     }
   },
   methods: {
-    editPetInfo(id) {
+    editPetData(id) {
       this.$router.push({ path: `/mypage/petedit/${id}` })
     },
-    deleteData() {}
+    delPetData(id) {
+      console.log(id)
+      const isAgree = confirm('정말 삭제하시겠습니까?')
+
+      if (isAgree) {
+        axios
+          .delete(`http://localhost:3000/mypage/${id}`)
+          .then((response) => {
+            if (response.status === 200) {
+              window.location.reload()
+            }
+          })
+          .catch((error) => {
+            console.log('게시글 삭제 중 문제가 발생하였습니다 ::', error)
+          })
+      }
+    }
   },
   async mounted() {
     this.username = document.cookie.split('=')[1]
@@ -114,13 +134,18 @@ export default {
 }
 .pet_card {
   border: 3px solid orange;
-  padding: 10px;
+  /* padding: 10px; */
+  padding-bottom: 40px;
   margin: 10px;
   border-radius: 10px;
   background: rgb(245, 236, 220);
+  position: relative;
 }
 .pet_image_box {
-  margin: 10px 0;
+  margin: 10px;
+}
+.pet_info {
+  margin: 10px;
 }
 .pet_info_detail {
   margin-bottom: 10px;
@@ -132,9 +157,9 @@ export default {
   padding: 2px;
 }
 .card_btn_box {
-  position: relative;
-  top: 120px;
-  left: 60px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
   opacity: 0;
   transition: 0.2s ease-in;
 }

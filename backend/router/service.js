@@ -38,6 +38,16 @@ router.get('/service/hospital', (req, res) => {
     })
 })
 
+// 동물병원 디테일 데이터
+router.get('/service/hospital/detail/:id', (req, res) => {
+  console.log(req.params.id)
+  const id = req.params.id
+  hospitalModel.findOne({ id: id }).then((result) => {
+    console.log(result)
+    res.send({ result })
+  })
+})
+
 // 반려동물 동반가능 문화시설 정보
 router.get('/service/culture', (req, res) => {
   const { category, page } = req.query
