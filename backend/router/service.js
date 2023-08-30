@@ -24,7 +24,6 @@ router.get('/service/hospital', (req, res) => {
         .skip((page - 1) * showItems)
         .limit(showItems)
         .then((result) => {
-          console.log(result)
           console.log('총페이지:', totalPage)
           console.log(region, page)
           res.json({ result, totalCount, page, totalPage })
@@ -36,16 +35,6 @@ router.get('/service/hospital', (req, res) => {
     .catch((error) => {
       console.log('데이터 수 조회 중 에러:', error)
     })
-})
-
-// 동물병원 디테일 데이터
-router.get('/service/hospital/detail/:id', (req, res) => {
-  console.log(req.params.id)
-  const id = req.params.id
-  hospitalModel.findOne({ id: id }).then((result) => {
-    console.log(result)
-    res.send({ result })
-  })
 })
 
 // 반려동물 동반가능 문화시설 정보
