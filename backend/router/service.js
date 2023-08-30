@@ -24,7 +24,6 @@ router.get('/service/hospital', (req, res) => {
         .skip((page - 1) * showItems)
         .limit(showItems)
         .then((result) => {
-          console.log(result)
           console.log('총페이지:', totalPage)
           console.log(region, page)
           res.json({ result, totalCount, page, totalPage })
@@ -37,6 +36,14 @@ router.get('/service/hospital', (req, res) => {
       console.log('데이터 수 조회 중 에러:', error)
     })
 })
+
+// router.get('/service/hospital/near', (req, res) => {
+//   const { address } = req.params
+//   console.log(address)
+//   hospitalModel.find({ address: new RegExp(address) }).then((result) => {
+//     res.json(result)
+//   })
+// })
 
 // 반려동물 동반가능 문화시설 정보
 router.get('/service/culture', (req, res) => {
