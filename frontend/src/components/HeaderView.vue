@@ -4,7 +4,13 @@
       <h1 class="title">
         <RouterLink to="/">Look Pet</RouterLink>
       </h1>
-      <span class="menu_icon" @click="menuOpen">三</span>
+      <span class="menu_icon" @click="menuOpen"
+        ><img
+          width="30"
+          height="30"
+          src="../assets/icon/menu_icon.svg"
+          alt="menu-bar"
+      /></span>
       <nav class="menu">
         <RouterLink to="/dog/breed" class="menu_item">강아지</RouterLink>
         <RouterLink to="/cat/breed" class="menu_item">고양이</RouterLink>
@@ -191,6 +197,7 @@ li {
   font-size: 1.25rem;
 }
 
+/* 메뉴 아이콘 */
 .menu_icon {
   display: none;
 }
@@ -278,6 +285,12 @@ li {
     opacity: 0;
     height: 100%;
     width: 0%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .util {
+    margin-right: 3.5rem;
   }
 }
 </style>

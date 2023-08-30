@@ -58,7 +58,6 @@ router.post('/mypage/register', async (req, res) => {
 // 마이페이지 해당 펫 id값을 찾아 불러오기
 router.get('/mypage/petedit/:id', (req, res) => {
   const id = req.params.id
-  const id = req.params.id
   console.log(id)
 
   mypetModel

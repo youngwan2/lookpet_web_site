@@ -98,43 +98,43 @@ export default {
     }
   },
   methods: {
-    async showDetail(x, y) {
-      console.log(x, y)
-      if (!window.kakao) {
-        // If 'kakao' is not defined, load the Kakao Maps script
-        const script = document.createElement('script')
-        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_KAKAO_API_KEY}&libraries=services,drawing&autoload=false`
-        script.async = true
+    // async showDetail(x, y) {
+    //   console.log(x, y)
+    //   if (!window.kakao) {
+    //     // If 'kakao' is not defined, load the Kakao Maps script
+    //     const script = document.createElement('script')
+    //     script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_KAKAO_API_KEY}&libraries=services,drawing&autoload=false`
+    //     script.async = true
 
-        script.onload = () => {
-          // Callback executed when Kakao Maps script is loaded
-          kakao.maps.load(() => {
-            this.initMap(x, y)
-          })
-        }
+    //     script.onload = () => {
+    //       // Callback executed when Kakao Maps script is loaded
+    //       kakao.maps.load(() => {
+    //         this.initMap(x, y)
+    //       })
+    //     }
 
-        document.head.appendChild(script)
-      } else {
-        // Kakao Maps is already loaded, directly call initMap
-        this.initMap(x, y)
-      }
-    },
-    async initMap(x, y) {
-      const mapContainer = document.querySelector('.map') // Use the correct selector
-      const mapOptions = {
-        center: new kakao.maps.LatLng(y, x),
-        level: 3
-      }
+    //     document.head.appendChild(script)
+    //   } else {
+    //     // Kakao Maps is already loaded, directly call initMap
+    //     this.initMap(x, y)
+    //   }
+    // },
+    // async initMap(x, y) {
+    //   const mapContainer = document.querySelector('.map') // Use the correct selector
+    //   const mapOptions = {
+    //     center: new kakao.maps.LatLng(y, x),
+    //     level: 3
+    //   }
 
-      const map = new kakao.maps.Map(mapContainer, mapOptions)
+    //   const map = new kakao.maps.Map(mapContainer, mapOptions)
 
-      // Add a marker
-      const markerPosition = new kakao.maps.LatLng(y, x)
-      const marker = new kakao.maps.Marker({
-        position: markerPosition
-      })
-      marker.setMap(map)
-    },
+    //   // Add a marker
+    //   const markerPosition = new kakao.maps.LatLng(y, x)
+    //   const marker = new kakao.maps.Marker({
+    //     position: markerPosition
+    //   })
+    //   marker.setMap(map)
+    // },
     getArea(e) {
       this.area = e.target.innerText
       this.currentPage = 1
