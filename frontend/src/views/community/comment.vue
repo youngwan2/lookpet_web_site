@@ -7,30 +7,37 @@
       <ul>
         <li v-for="(comment, i) in commentReceivedFromDB" :key="i">
           <div class="author">
+            <!-- 작성자 이름 -->
             <p>{{ comment.author }}</p>
+            <!-- 작성 날짜 -->
             <span class="date">{{ comment.date }}</span>
           </div>
+          <!-- 작성 내용 -->
           <p class="comment">{{ comment.comment }}</p>
-          <p class="sub_comment">
+          <!-- 대댓글(서브 코멘트) 입력 폼 -->
+<!--           <p class="sub_comment">
             <span role="button" @click="openInput(i)">{{
               subCommentBtnName[i]
             }}</span
             ><br />
-            <textarea
-              maxlength="500"
-              v-show="isOpen[i]"
-              name=""
-              id=""
-              rows="5"
-            ></textarea>
-            <button
-              class="sub_comment_add_btn"
-              v-show="isOpen[i]"
-              @click="subCommentAdd"
-            >
-              등록
-            </button>
-          </p>
+          </p> -->
+
+          <!-- 댓글 작성 폼(메인 코멘트 작성폼) -->
+          <textarea
+            maxlength="500"
+            v-show="isOpen[i]"
+            name=""
+            id=""
+            rows="5"
+          ></textarea>
+          <!-- 댓글 등록 버튼 -->
+          <button
+            class="sub_comment_add_btn"
+            v-show="isOpen[i]"
+            @click="subCommentAdd"
+          >
+            등록
+          </button>
         </li>
       </ul>
       <article class="main_comment_form" @submit.prevent="commentAdd">

@@ -17,10 +17,10 @@
       />
       <!-- 좋아요/싫어요 -->
       <article class="like_box">
-        <p>
+        <p @click="likeCounter">
           좋아요<span>{{ liked }}</span>
         </p>
-        <p>
+        <p @click="unlikeCounter">
           싫어요<span>{{ unliked }}</span>
         </p>
       </article>
@@ -37,7 +37,7 @@
           <p class="date">{{ post.date }}</p>
         </div>
         <!-- 수정/삭제 버튼 -->
-        <article class="control_box">
+        <article class="control_box" v-show="isAuthorization">
           <button @click="moveToUpdatePage(post.id)">수정</button>
           <button @click="postDel">삭제</button>
         </article>
@@ -60,7 +60,8 @@ export default {
     return {
       post: [],
       liked: 0,
-      unliked: 0
+      unliked: 0,
+      isAuthorization: false
     }
   },
   mounted() {
@@ -73,6 +74,7 @@ export default {
         this.post = response.data[0]
         this.setHTML(this.post)
         console.log(response.data)
+        return this.authorization()
       })
       .catch((error) => {
         console.log(error)
@@ -102,6 +104,22 @@ export default {
       // 업데이트 가능한 게시글 수정 화면으로 넘어가야 함
       this.$router.push({ path: `/community/modify/${id}` })
       console.log(id)
+    },
+    /* 좋아요 싫어요 함수 */
+    likeCounter() {
+      this.liked = ++this.liked
+    },
+    unlikeCounter() {
+      this.unliked = ++this.unliked
+    },
+
+    /* 유저 인증 함수 */
+    authorization() {
+      if (document.cookie.split('=')[1] === this.post.author) {
+        this.isAuthorization = true
+      } else {
+        this.isAuthorization = false
+      }
     }
   }
 }
