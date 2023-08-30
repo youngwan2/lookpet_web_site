@@ -16,12 +16,22 @@
         {{ p }}
       </button>
     </div>
-    <div class="hospital_list">
-      <table class="hospital_table">
-        <tr v-for="data in hospitalInfo" :key="data.id">
-          <td class="hospital_name">{{ data.name }}</td>
-        </tr>
-      </table>
+    <div class="hospital_content">
+      <div class="hospital_list">
+        <ul>
+          <li
+            class="hospital_name"
+            v-for="data in hospitalInfo"
+            :key="data.id"
+            @click="showDetail(data.x, data.y)"
+          >
+            {{ data.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="map_box">
+        <div class="map" style="width: 500px; height: 400px"></div>
+      </div>
     </div>
     <nav class="pagination_nav">
       <ul class="pagination_box">
@@ -47,7 +57,6 @@
     </nav>
   </div>
 </template>
-
 <script>
 import axios from 'axios'
 export default {
@@ -89,9 +98,47 @@ export default {
     }
   },
   methods: {
+    async showDetail(x, y) {
+      console.log(x, y)
+      if (!window.kakao) {
+        // If 'kakao' is not defined, load the Kakao Maps script
+        const script = document.createElement('script')
+        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_KAKAO_API_KEY}&libraries=services,drawing&autoload=false`
+        script.async = true
+
+        script.onload = () => {
+          // Callback executed when Kakao Maps script is loaded
+          kakao.maps.load(() => {
+            this.initMap(x, y)
+          })
+        }
+
+        document.head.appendChild(script)
+      } else {
+        // Kakao Maps is already loaded, directly call initMap
+        this.initMap(x, y)
+      }
+    },
+    async initMap(x, y) {
+      const mapContainer = document.querySelector('.map') // Use the correct selector
+      const mapOptions = {
+        center: new kakao.maps.LatLng(y, x),
+        level: 3
+      }
+
+      const map = new kakao.maps.Map(mapContainer, mapOptions)
+
+      // Add a marker
+      const markerPosition = new kakao.maps.LatLng(y, x)
+      const marker = new kakao.maps.Marker({
+        position: markerPosition
+      })
+      marker.setMap(map)
+    },
     getArea(e) {
       this.area = e.target.innerText
       this.currentPage = 1
+      console.log(process.env.VUE_APP_KAKAO_API_KEY)
     },
     // 각 번호 클릭 시 페이지 이동 함수
     getNextPage(e) {
@@ -190,10 +237,9 @@ export default {
 </script>
 
 <style scoped>
-
 .page_container {
   min-height: 100vh;
-  animation: appear 1s 1 ease-in-out
+  animation: appear 1s 1 ease-in-out;
 }
 
 @keyframes appear {
@@ -260,15 +306,32 @@ export default {
   padding: 11px 10px 5px 10px;
 }
 .page_shifter:hover {
-  background: rgb(255, 211, 154);
+  background: rgb(245, 142, 8);
   cursor: pointer;
 }
 .hospital_list {
   margin: 20px;
-  width: 100%;
+  width: 50%;
+  background: #f0f0d4;
+  color: rgb(175, 120, 17);
+  padding: 10px 0;
 }
 .hospital_name {
+  font-weight: 800;
+  font-size: 1.2em;
   width: 100%;
+  list-style: none;
+  transition: 0.1s;
+  margin-bottom: 5px;
   border-bottom: 1px solid gray;
+}
+.hospital_name:hover {
+  transform: translateX(10px);
+  color: rgb(175, 172, 17);
+  background: #ececde;
+  box-shadow: 1px 1px 5px gray;
+}
+.hospital_name:active {
+  box-shadow: -1px -1px 5px gray;
 }
 </style>

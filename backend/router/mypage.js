@@ -57,12 +57,11 @@ router.post('/mypage/register', async (req, res) => {
 
 // 마이페이지 해당 펫 id값을 찾아 불러오기
 router.get('/mypage/petedit/:id', (req, res) => {
-  console.log(req.params.id)
-  const { id } = req.params.id
+  const id = req.params.id
   console.log(id)
 
   mypetModel
-    .findOne({ id: id })
+    .findOne({ petId: id })
     .then((result) => {
       if (!result) {
         return res
@@ -86,14 +85,28 @@ router.post('/mypage/petedit/:id', (req, res) => {
   console.log('id:', id)
   console.log('body내용:', body)
   mypetModel
-    .updateOne({ id: id * 1 }, body)
+    .updateOne({ petId: id * 1 }, body)
     .then((result) => {
       console.log(result)
       res.json({ message: '데이터 업데이트가 완료되었습니다.' })
     })
     .catch((e) => {
       console.log('데이터 수정 중에 오류가 발생했습니다.', e)
+      res.status(500).json({ error: e.message })
     })
+})
+
+// 펫 데이터 삭제하기
+router.delete('/mypage/:id', (req, res) => {
+  const id = req.params.id
+  console.log(id)
+  mypetModel.deleteOne({ petId: id * 1 }).then((result) => {
+    console.log(result)
+    res.json({
+      message: '데이터를 성공적으로 삭제했습니다.',
+      success: true
+    })
+  })
 })
 
 module.exports = router
