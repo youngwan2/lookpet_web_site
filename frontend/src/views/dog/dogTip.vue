@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section class="dog_tip_section">
     <h2 class="title">멍 팁</h2>
     <span class="page_message"
       >현재 페이지: {{ currentPage }}/{{ totalPage }}</span
@@ -34,7 +34,7 @@
         </li>
       </ul>
     </nav>
-  </div>
+  </section>
 </template>
 <script>
 import axios from 'axios'
@@ -123,6 +123,11 @@ export default {
 }
 </script>
 <style scoped>
+.dog_tip_section {
+  min-height: 100vh;
+  max-width: 1500px;
+  margin: 0 auto;
+}
 /* 페이지 메시지 */
 .page_message {
   position: fixed;
@@ -137,7 +142,8 @@ export default {
 /* 페이지 타이틀 */
 .title {
   text-align: center;
-  margin: 10px;
+  margin: 3rem;
+
 }
 .container {
   border: 1px solid gray;
@@ -208,7 +214,7 @@ export default {
 /* 페이지 네이션 */
 .pagination_nav {
   width: 70%;
-  margin: 10px auto;
+  margin: 2rem auto;
 }
 .pagination_box {
   display: flex;

@@ -1,8 +1,9 @@
 <template>
-  <div class="page_container">
+  <section class="dog_breed_section">
     <span v-show="isLoading" class="loading_spinner">로딩중...</span>
     <section>
       <h1 class="dog_title">멍이사전</h1>
+      <span class="info_text">강아지/품종정보</span>
       <form action="#" class="dog_seacrh_form" @submit.prevent="submit">
         <label for="dog_search"
           ><svg
@@ -16,8 +17,8 @@
             /></svg        ></label>
         <input type="text" id="dog_search" />
       </form>
-      <ul class="dog_ul">
-        <li class="dog_items" v-for="(dog, i) in dogBreedInfo" :key="dog.id">
+      <ul class="dog_ul" ref="cards">
+        <li class="dog_items" v-for="(dog, i) in dogBreedInfo" :key="dog.id" ref="card" @dragstart="cardPickup($event,i)">
           <router-link :to="'/dog/breed/detail/' + (i + 1)">
             <img
               class="dog_image"
@@ -31,7 +32,7 @@
         </li>
       </ul>
     </section>
-  </div>
+  </section>
 </template>
 <script>
 import axios from 'axios'
@@ -52,6 +53,12 @@ export default {
       }
     } catch (error) {
       console.error('dog 정보를 받아오는 중 에러가 발생하였습니다:', error)
+    }
+  },
+  methods: {
+    cardPickup(e, i) {
+      console.log(this.$refs.card[i])
+      console.log(this.$refs.cards)
     }
   }
 }
@@ -75,9 +82,20 @@ a {
   text-decoration: none;
 }
 
+/* 상단의 안내 메시지 */
+.info_text {
+  position: absolute;
+  right: 5px;
+  font-size: 11px;
+  top: 2rem;
+}
+
 /*컨테이너*/
-.page_container {
+.dog_breed_section {
+  position: relative;
   animation: appear 1s 1 ease-in-out;
+  max-width: 1500px;
+  margin: 0 auto;
 }
 
 @keyframes appear {
@@ -89,7 +107,7 @@ a {
 
 /* 검색창 폼 */
 .dog_seacrh_form {
-  max-width: 400px;
+  max-width: 500px;
   background-color: white;
   box-shadow: 0 0 5px 2px rgb(220, 220, 220);
   border-radius: 50px;
