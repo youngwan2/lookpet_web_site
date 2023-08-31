@@ -4,7 +4,7 @@ const postModel = require('../DB/schema/community/postModel');
 const postCounterModel = require('../DB/schema/community/postCounter');
 const commentModel = require('../DB/schema/community/commentModel');
 const likedModel = require('../DB/schema/community/likedCounter');
-
+const likeUserModel = require('../DB/schema/community/likeUserModel');
 // 커뮤니티 관련 api 라우터
 
 /** 게시글 등록 */
@@ -54,7 +54,6 @@ router.get('/board', (req, res) => {
         .skip((page * 1 - 1) * 10)
         .limit(10)
         .then((result) => {
-          console.log('전체 게시글을 조회합니다:', result);
           const totalCount = Math.ceil(count / 10);
           res.json({ result, totalCount });
         })
@@ -69,13 +68,10 @@ router.get('/board', (req, res) => {
 
 /* 게시글 디테일 조회 */
 router.get('/board/:id', (req, res) => {
-  console.log(req.params);
   const { id } = req.params;
   postModel
     .find({ id: id * 1 }, { _id: 0, __v: 0 })
     .then((result) => {
-      console.log(result);
-
       res.json(result);
     })
     .catch((error) => {
@@ -87,14 +83,10 @@ router.get('/board/:id', (req, res) => {
 router.post('/board/:id', (req, res) => {
   const body = req.body.updatePost;
   const { id } = req.params;
-  console.log('id:', id);
-  console.log('내용:', body);
 
   postModel
     .updateOne({ id: id * 1 }, body)
     .then((result) => {
-      console.log(result);
-
       res.json({ message: '게시글을 수정하였습니다.' });
     })
     .catch((error) => {
@@ -117,8 +109,6 @@ router.delete('/board/:id', (req, res) => {
 
 router.post('/board/:id/comment', (req, res) => {
   const { postId, comment, author } = req.body.commentInfo;
-  console.log(comment);
-
   commentModel
     .insertMany({
       postId: postId,
@@ -126,7 +116,6 @@ router.post('/board/:id/comment', (req, res) => {
       author: author,
     })
     .then((result) => {
-      console.log('정상적으로 저장되었습니다.:', result);
       res.json({ msg: '잘받음' });
     })
     .catch((error) => {
@@ -136,8 +125,6 @@ router.post('/board/:id/comment', (req, res) => {
 
 router.get('/board/:id/comment', (req, res) => {
   const postId = req.params.id;
-  console.log(postId);
-
   commentModel
     .find({ postId: postId * 1 }, { __v: 0 })
     .then((result) => {
@@ -159,10 +146,26 @@ router.get('/board/:id/like-counter', (req, res) => {
       console.log(
         `${postId}번 게시글의 좋아요 정보를 가져오던 중 에러발생: ${error}`
       );
+      console.log(error);
     });
 });
 
 // 해당 게시글에 좋아요/싫어요를 클릭한 유저의 정보를 저장
+router.post('/board/:id/like-user', (req, res) => {
+  const { id } = req.params.id;
+  const userInfo = req.body;
 
+  console.log(userInfo);
+
+  likeUserModel
+    .insertMany(userInfo)
+    .then((result) => {
+      console.log('성공적으로 올렸음:', result);
+      res.json({ meg: '잘받음' });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 module.exports = router;
