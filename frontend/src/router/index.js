@@ -119,11 +119,11 @@ const router = createRouter({
         )
     },
     {
-      path: '/tools/foodtest',
-      name: 'tools-foodtest',
+      path: '/tools/test',
+      name: 'tools-test',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/tools/foodTest.vue'
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/tools/test.vue'
         )
     },
     // 고객센터

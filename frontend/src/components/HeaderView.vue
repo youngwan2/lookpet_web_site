@@ -44,7 +44,7 @@
             ><br />
             <RouterLink to="/tools/culture">반려동물동반가능시설조회</RouterLink
             ><br />
-            <RouterLink to="/tools/foodtest">멍냥이 푸드지식 테스트</RouterLink
+            <RouterLink to="/tools/test">멍냥이 지식 테스트</RouterLink
             ><br />
             <RouterLink to="/tools">반려동물 우울증 테스트</RouterLink
             ><br />

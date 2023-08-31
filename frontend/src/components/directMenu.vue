@@ -94,9 +94,7 @@
         <div class="inner">
           <div class="con">
             <img src="../assets/icon/hospital.svg" />
-            <h2 @click="gotoPage('/tools/hospital')">
-              06.동물병원 정보 조회
-            </h2>
+            <h2 @click="gotoPage('/tools/hospital')">06.동물병원 정보 조회</h2>
             <p>현재 위치에서 가까운 동물병원을 확인할 수 있습니다.</p>
           </div>
         </div>
@@ -116,9 +114,7 @@
         <div class="inner">
           <div class="con">
             <img src="../assets/icon/quiz.png" />
-            <h2 @click="gotoPage('/tools/foodtest')">
-              08.멍냥이 푸드 지식 테스트
-            </h2>
+            <h2 @click="gotoPage('/tools/test')">08.멍냥이 지식 테스트</h2>
             <p>멍냥이에 대한 퀴즈를 풀어 보세요.</p>
           </div>
         </div>
