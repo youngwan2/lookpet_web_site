@@ -16,14 +16,7 @@
         style="min-height: 70vh; border-radius: 5px"
       />
       <!-- 좋아요/싫어요 -->
-      <article class="like_box">
-        <p @click="likeCounter">
-          좋아요<span>{{ liked }}</span>
-        </p>
-        <p @click="unlikeCounter">
-          싫어요<span>{{ unliked }}</span>
-        </p>
-      </article>
+      <LikeBox />
       <!-- 작성자/작성일자 -->
       <div
         style="
@@ -51,10 +44,12 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import comment from '../community/comment.vue'
 import axios from 'axios'
+import LikeBox from './likeBox.vue'
 export default {
   components: {
     QuillEditor,
-    comment
+    comment,
+    LikeBox
   },
   data() {
     return {
@@ -73,7 +68,6 @@ export default {
       .then((response) => {
         this.post = response.data[0]
         this.setHTML(this.post)
-        console.log(response.data)
         return this.authorization()
       })
       .catch((error) => {
@@ -104,13 +98,6 @@ export default {
       // 업데이트 가능한 게시글 수정 화면으로 넘어가야 함
       this.$router.push({ path: `/community/modify/${id}` })
       console.log(id)
-    },
-    /* 좋아요 싫어요 함수 */
-    likeCounter() {
-      this.liked = ++this.liked
-    },
-    unlikeCounter() {
-      this.unliked = ++this.unliked
     },
 
     /* 유저 인증 함수 */
@@ -202,19 +189,5 @@ export default {
   color: white;
   background-color: rgb(208, 170, 119);
   box-shadow: 0 0 0 0, inset 2px 4px 1px 1px rgba(0, 0, 0, 0.469);
-}
-
-/* 좋아요/싫어요 */
-.like_box {
-  display: flex;
-  padding: 15px;
-  justify-content: center;
-}
-
-.like_box p {
-  margin: 0 5px;
-  box-shadow: 1px 1px 3px rgb(176, 131, 17);
-  padding: 6px 10px;
-  border-radius: 10px;
 }
 </style>
