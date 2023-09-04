@@ -20,10 +20,12 @@
     <div class="hospital_content">
       <div class="hospital_list">
         <ul>
+          <li class="near" @click="locMarker">내 주변 병원 찾기</li>
           <li
             class="hospital_name"
             v-for="data in hospitalInfo"
             :key="data.id"
+            @click="loadScript(data.address, data.name)"
             @click="loadScript(data.address, data.name)"
           >
             {{ data.name }}
@@ -95,7 +97,9 @@ export default {
       maxPage: 0,
       totalPage: 0,
       focusPage: 1,
-      focus: ''
+      focus: '',
+      latlng: [],
+      positions: []
     }
   },
   methods: {
@@ -238,6 +242,7 @@ export default {
       this.paginationControlFunc(this.currentPage)
     },
     // 페이지네이션 기본 셋팅 함수
+    // 페이지네이션 기본 셋팅 함수
     paginationControlFunc(currentPage) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
       this.currentPageGroup = Math.ceil(currentPage / this.displayPage)
@@ -328,6 +333,13 @@ export default {
       // 없다면 카카오 스크립트 추가 후 맵 실행
       this.loadScript()
     }
+    if (window.kakao && window.kakao.maps) {
+      // 카카오 객체가 있고, 카카오 맵그릴 준비가 되어 있다면 맵 실행
+      this.loadMap()
+    } else {
+      // 없다면 카카오 스크립트 추가 후 맵 실행
+      this.loadScript()
+    }
   }
 }
 </script>
@@ -405,6 +417,9 @@ export default {
 .page_shifter:hover {
   background: rgb(245, 142, 8);
   cursor: pointer;
+}
+.hospital_content {
+  display: flex;
 }
 .hospital_content {
   display: flex;

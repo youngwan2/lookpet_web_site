@@ -50,13 +50,11 @@
           {{ prediction.predict }}
         </p>
       </div>
-      <!-- 추가 메시지 -->
-      <div class="add_message" :class="state.resultDisplay">
-        <span style="text-align: center; font-size: 14px"
-          ><br />해당 품종에 대한 <br />추가적 정보를 <br />
-          원한다면?</span
-        >
-        <button class="slide_btn">>></button>
+      <span @click="add" class="breed_add_btn" v-show="!state.addition"
+        >임시 호출 버튼</span
+      >
+      <div v-show="state.addition">
+        <AddBreedInfo :addBreedInfo="addBreedInfo" />
       </div>
     </article>
   </section>
@@ -64,22 +62,33 @@
 
 <script>
 import { reactive, ref } from 'vue'
+import store from '../store/store'
+import AddBreedInfo from './addBreedInfo.vue'
 // import * as tf from '@tensorflow/tfjs'
 import * as tmImage from '@teachablemachine/image'
 
 export default {
+  components: {
+    AddBreedInfo
+  },
   setup() {
+    /* 예측 값 상태관리 */
     const prediction = reactive({
       class: '',
       predict: null
     })
+
+    /* 상태 관리 */
     const state = reactive({
       isDisplay: false,
       display: 'off', // 모달창 온 오프 속성( :class= off or on)
       input: true,
       resultDisplay: 'off', // 품종 판결 결과창 온 오프 속성
-      resultLoading: 'on' // 품종 판별 전 로딩 메시지 온 오프 속성
+      resultLoading: 'on', // 품종 판별 전 로딩 메시지 온 오프 속성
+      addition: false
     })
+    /* 선택한 품종 상태 관리 */
+    const choiceBreed = ref('')
 
     // 모달창을 온오프하는 함수
     const modalSwitch = () => {
@@ -87,6 +96,7 @@ export default {
       state.display = state.isDisplay ? 'on' : 'off'
     }
 
+    // 빈 이미지 파일 대체 이미지
     const replaceImage = '/img/cats_3d/cats_3d_03.jpg'
     const blob = ref('')
     // public 폴더는 루트 경로에서 바로 접근이 가능함.
@@ -95,6 +105,15 @@ export default {
       metadataPath: ''
     })
 
+    const addBreedInfo = ref('')
+    /* 품종에 대한 추가 정보를 얻어오는 함수 */
+    const add = () => {
+      console.log(1111)
+      state.addition = true
+      addBreedInfo.value = store.state.addInfo[0]
+    }
+
+    /* 모델 출력 함수 */
     function input(e) {
       state.resultDisplay = 'off'
       state.resultLoading = 'on'
@@ -111,6 +130,7 @@ export default {
         // 이미지를 선택한 후에 모델 로드와 예측을 수행합니다.
         tmImage.load(PATH.modelPath, PATH.metadataPath).then((model) => {
           model.predict(img).then((predictions) => {
+            console.log(predictions)
             predictions.forEach((data) => {
               if (data.probability >= 0.5 && data.probability <= 1) {
                 prediction.class = ' 가족님의 품종은' + data.className + '이며'
@@ -120,6 +140,15 @@ export default {
                   '입니다.'
                 state.resultDisplay = 'on'
                 state.resultLoading = 'off'
+
+                /* store 로 예측된 동물 이름을 전달한다. */
+
+                store.dispatch('getBreedInfoFromDB', {
+                  name: data.className,
+                  breed: choiceBreed.value
+                })
+
+                state.isDisplay = true
               }
             })
           })
@@ -128,9 +157,11 @@ export default {
         console.log(error)
       }
     }
+
     // 선택한 동물에 따른 모델 불러오기를 분기처리하는 함수
     function choiceAnimal(e) {
       state.input = false
+      choiceBreed.value = e.target.value
       const animal = e.target.value
       switch (animal) {
         case 'cat': {
@@ -155,7 +186,9 @@ export default {
       modalSwitch,
       state,
       prediction,
-      replaceImage
+      replaceImage,
+      AddBreedInfo,
+      add
     }
   }
 }
@@ -198,15 +231,13 @@ export default {
 }
 
 .modal_inner_con {
-  position: absolute;
-  width: 50%;
-  left: 50%;
-  top: 30%;
-  transform: translate(-50%, -30%);
+  margin: 0 auto;
+  max-width: 600px;
 }
 
 /* 모달창 */
 .modal {
+  z-index: 1000000;
   transition: 1s;
   overflow: hidden auto;
   display: flex;
@@ -353,5 +384,11 @@ img {
     transform: translate(5px);
     opacity: 0.8;
   }
+}
+
+.addBreedInfo {
+  width: 100%;
+  height: 100vh;
+  background-color: tan;
 }
 </style>
