@@ -3,14 +3,6 @@ import HeaderView from './components/HeaderView.vue'
 import FooterView from './components/FooterView.vue'
 import modelView from './components/modelView.vue'
 
-// window.addEventListener('resize', () => {
-//   console.log(window.innerWidth)
-// })
-
-if (process.env.NODE_ENV === 'development') {
-  console.log(process.env.VUE_APP_KAKAO)
-}
-
 const loginUsername = document.cookie.split('=')[1] ?? ''
 </script>
 <template>

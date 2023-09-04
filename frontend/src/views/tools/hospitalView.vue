@@ -20,12 +20,10 @@
     <div class="hospital_content">
       <div class="hospital_list">
         <ul>
-          <li class="near" @click="locMarker">내 주변 병원 찾기</li>
           <li
             class="hospital_name"
             v-for="data in hospitalInfo"
             :key="data.id"
-            @click="loadScript(data.address, data.name)"
             @click="loadScript(data.address, data.name)"
           >
             {{ data.name }}
