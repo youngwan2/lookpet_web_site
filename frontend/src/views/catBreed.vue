@@ -15,7 +15,9 @@
             <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
               d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
-            /></svg        ></label>
+            />
+          </svg>
+        </label>
         <input type="text" id="cat_search" @keyup="search" />
       </form>
 
@@ -48,6 +50,7 @@ export default {
   data() {
     return {
       catBreedInfo: [],
+      needs: '',
       isLoading: true
     }
   },
@@ -72,8 +75,17 @@ export default {
     getDetail(i) {
       console.log(`${i}번 고양이`)
     },
-    search(e) {
-      this.value = e.target.value
+    async search(e) {
+      this.needs = e.target.value
+      await axios
+        .get(`http://localhost:3000/cat/breed/?needs=${this.needs}`)
+        .then((res) => {
+          console.log(res)
+          this.catBreedInfo = res.data
+        })
+        .catch((e) => {
+          console.log('데이터를 가져오는중 에러가 발생했습니다.', e)
+        })
     }
   }
 }
@@ -102,7 +114,7 @@ a {
   position: relative;
   margin: 0 auto;
   max-width: 1500px;
-  animation: appear 1s 1 ease-in-out
+  animation: appear 1s 1 ease-in-out;
 }
 
 @keyframes appear {

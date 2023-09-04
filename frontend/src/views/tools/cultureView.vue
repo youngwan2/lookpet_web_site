@@ -17,14 +17,25 @@
       >
         {{ p }}
       </button>
+      <button class="near_btn" @click="locMarker">우리 동네 시설 찾기</button>
     </div>
     <!-- 시설 목록 -->
-    <div class="culture_list">
-      <table class="culture_table">
-        <tr v-for="data in cultureInfo" :key="data.id">
-          <td class="culture_name">{{ data.name }}</td>
-        </tr>
-      </table>
+    <div class="culture_content">
+      <div class="culture_list">
+        <ul>
+          <li
+            v-for="data in cultureInfo"
+            :key="data.id"
+            class="culture_name"
+            @click="loadScript(data.address, data.name)"
+          >
+            {{ data.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="map_box">
+        <div class="map"></div>
+      </div>
     </div>
     <!-- 페이지네이션 -->
     <nav class="pagination_nav">
@@ -87,6 +98,133 @@ export default {
     }
   },
   methods: {
+    async loadScript(a, n) {
+      if (!window.kakao) {
+        // If 'kakao' is not defined, load the Kakao Maps script
+        const script = document.createElement('script')
+        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_KAKAO_API_KEY}&libraries=services,drawing&autoload=false`
+        script.async = true
+        console.log(a, n)
+        script.onload = () => {
+          // Callback executed when Kakao Maps script is loaded
+          window.kakao.maps.load(() => {
+            this.loadMap(a, n)
+            // this.markNearHospital(a, n)
+          })
+        }
+
+        document.head.appendChild(script)
+      } else {
+        // Kakao Maps is already loaded, directly call loadMap
+        this.loadMap(a, n)
+        // this.markNearHospital(a, n)
+      }
+    },
+    async loadMap(a, n) {
+      const mapContainer = document.querySelector('.map') // Use the correct selector
+      const mapOptions = {
+        center: new window.kakao.maps.LatLng(35.152381, 129.059767),
+        level: 3
+      }
+      const map = new window.kakao.maps.Map(mapContainer, mapOptions)
+
+      const geocoder = new window.kakao.maps.services.Geocoder()
+
+      // 주소로 좌표를 검색합니다
+      geocoder.addressSearch(a, function (result, status) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === window.kakao.maps.services.Status.OK) {
+          const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x)
+
+          // 결과값으로 받은 위치를 마커로 표시합니다
+          const marker = new window.kakao.maps.Marker({
+            map: map,
+            position: coords
+          })
+
+          // 인포윈도우로 장소에 대한 설명을 표시합니다
+          const infowindow = new window.kakao.maps.InfoWindow({
+            content: `<div style="width:150px;text-align:center;padding:6px 0;">${n}</div>`
+          })
+          infowindow.open(map, marker)
+
+          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+          map.setCenter(coords)
+        }
+      })
+    },
+    async locMarker() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const latitude = position.coords.latitude
+            const longitude = position.coords.longitude
+
+            const mapContainer = document.querySelector('.map')
+            const mapOptions = {
+              center: new window.kakao.maps.LatLng(latitude, longitude),
+              level: 3
+            }
+            const map = new window.kakao.maps.Map(mapContainer, mapOptions)
+
+            // 중심 마커 위치 지정
+            const markerPosition = new window.kakao.maps.LatLng(
+              latitude,
+              longitude
+            )
+
+            const marker = new window.kakao.maps.Marker({
+              map: map,
+              position: markerPosition
+            })
+
+            const infowindow = new window.kakao.maps.InfoWindow({
+              content: `<div style="width:150px;text-align:center;padding:3px 0;">현재 위치</div>`
+            })
+            infowindow.open(map, marker)
+            console.log('중심좌표:', map.getCenter())
+            this.getNearbyCulture(map.getCenter(), latitude, longitude)
+            map.setCenter(markerPosition)
+          },
+          (error) => {
+            console.error('현재 위치를 가져오는데 실패했습니다.:', error)
+          }
+        )
+      } else {
+        console.error('이 브라우저에서는 지원하지 않습니다.')
+      }
+    },
+    async getNearbyCulture(center) {
+      const geocoder = new window.kakao.maps.services.Geocoder()
+      await geocoder.coord2RegionCode(
+        center.getLng(),
+        center.getLat(),
+        async (result, status) => {
+          if (status === window.kakao.maps.services.Status.OK) {
+            const getAddress = result[0].address_name.split(' ')
+            const index = getAddress.length - 1
+            const address = getAddress[index]
+            this.area = address
+            console.log(this.area)
+            await axios
+              .get(
+                `http://localhost:3000/tools/culture/?category=${
+                  this.category
+                }&page=${this.currentPage || 1}`
+              )
+              .then((res) => {
+                this.cultureInfo = res.data.result
+                console.log(this.cultureInfo)
+              })
+              .catch((e) => {
+                console.log('데이터를 가져오는 중 에러가 발생했습니다.:', e)
+              })
+          } else {
+            console.error('Failed to convert coordinates to address.')
+          }
+        }
+      )
+    },
     getCategory(e) {
       this.category = e.target.innerText
       this.currentPage = 1
@@ -140,11 +278,11 @@ export default {
       }
       console.log('현재페이지:', this.currentPage)
     },
-    // 서버로부터 병원 정보를 받아오는 함수
+    // 서버로부터 문화시설 정보를 받아오는 함수
     getCategoryInfo() {
       axios
         .get(
-          `http://localhost:3000/service/culture/?category=${
+          `http://localhost:3000/tools/culture/?category=${
             this.category
           }&page=${this.currentPage || 1}`
         )
@@ -169,12 +307,11 @@ export default {
   // 페이지 첫 화면 세팅
   async mounted() {
     await axios
-      .get('http://localhost:3000/service/culture')
+      .get('http://localhost:3000/tools/culture')
       .then((response) => {
         if (response.status === 200) {
           this.cultureInfo = response.data.result
           this.totalPage = response.data.totalPage
-          console.log(this.cultureInfo)
         }
       })
       .catch((error) => {
@@ -183,6 +320,13 @@ export default {
           error
         )
       })
+    if (window.kakao && window.kakao.maps) {
+      // 카카오 객체가 있고, 카카오 맵그릴 준비가 되어 있다면 맵 실행
+      this.loadMap()
+    } else {
+      // 없다면 카카오 스크립트 추가 후 맵 실행
+      this.loadScript()
+    }
   }
 }
 </script>
@@ -220,6 +364,7 @@ export default {
   transform: scale(1.01);
   background: rgb(228, 185, 169);
   box-shadow: 3px 3px 5px gray;
+  cursor: pointer;
 }
 .category_menu:active {
   transform: scale(1);
@@ -260,12 +405,58 @@ export default {
   background: rgb(255, 211, 154);
   cursor: pointer;
 }
+.culture_content {
+  display: flex;
+}
 .culture_list {
   margin: 20px;
-  width: 100%;
+  width: 50%;
+  background: #f0f0d4;
+  color: rgb(175, 120, 17);
+  padding: 10px 0;
 }
 .culture_name {
+  font-weight: 800;
+  font-size: 1.2em;
   width: 100%;
+  list-style: none;
+  transition: 0.1s;
+  margin-bottom: 5px;
   border-bottom: 1px solid gray;
+}
+.culture_name:hover {
+  transform: translateX(10px);
+  color: rgb(175, 172, 17);
+  background: #ececde;
+  box-shadow: 1px 1px 5px gray;
+  cursor: pointer;
+}
+.culture_name:active {
+  box-shadow: -1px -1px 5px gray;
+}
+.near_btn {
+  border: none;
+  font-weight: 800;
+  font-size: 1.3em;
+  margin-bottom: 5px;
+  color: rgb(233, 124, 142);
+  list-style: none;
+  transition: 0.1s;
+  margin: 0 10px;
+}
+.near_btn:hover {
+  transform: translateX(10px);
+  color: rgb(247, 43, 77);
+  background: #ececde;
+  box-shadow: 1px 1px 5px gray;
+}
+.near_btn:active {
+  box-shadow: -1px -1px 5px gray;
+}
+.map_box {
+  margin: 20px;
+}
+.map {
+  margin: auto;
 }
 </style>

@@ -7,7 +7,7 @@ const connection = require('../DB/dbConnection/connection')
 connection()
 
 // 동물병원정보
-router.get('/service/hospital', (req, res) => {
+router.get('/tools/hospital', (req, res) => {
   const { region, page } = req.query
 
   const showItems = 20 // 페이지당 보여줄 항목 수
@@ -38,7 +38,7 @@ router.get('/service/hospital', (req, res) => {
 })
 
 // 반려동물 동반가능 문화시설 정보
-router.get('/service/culture', (req, res) => {
+router.get('/tools/culture', (req, res) => {
   const { category, page } = req.query
 
   const showItems = 20 // 페이지당 보여줄 항목 수
@@ -55,7 +55,6 @@ router.get('/service/culture', (req, res) => {
         .skip((page - 1) * showItems)
         .limit(showItems)
         .then((result) => {
-          console.log(result)
           console.log('총페이지:', totalPage)
           console.log(category, page)
           res.json({ result, totalCount, page, totalPage })
