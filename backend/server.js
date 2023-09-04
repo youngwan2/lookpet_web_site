@@ -22,6 +22,7 @@ const userRouter = require('./router/user');
 const dogRouter = require('./router/dog');
 const serviceRouter = require('./router/service');
 const mypageRouter = require('./router/mypage');
+const addBreedRouter = require('./router/addBreedInfo');
 const catRouter = require('./router/cat');
 const communityRouter = require('./router/community');
 
@@ -40,10 +41,8 @@ app.use('/', mypageRouter);
 // '/' + '/mypage
 // '/' + '/mypage/register
 
-/* 펫 등록(마이페이지) */
-app.use('/', mypageRouter);
-// '/' + '/mypage
-// '/' + '/mypage/register
+/* 모델 예측 후 품종 정보 반환 */
+app.use('/', addBreedRouter);
 
 /* 커뮤니티 게시판*/
 app.use('/', communityRouter);

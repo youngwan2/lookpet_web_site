@@ -59,4 +59,24 @@ router.get('/dog/dogtip', (req, res) => {
     });
 });
 
+/* 사용자가 검색한 내용과 일치하는 데이터를 디비에서 가져온다 */
+router.get('/breed/search', (req, res) => {
+  console.log(req.query);
+  const dogName = req.query.dogname;
+
+  const regex = new RegExp(`${dogName}`, 'gi');
+  dogModel
+    .find({
+      $or: [{ name: { $regex: regex } }, { ko_name: { $regex: regex } }],
+    })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      console.log('문제발생', error);
+    });
+});
+
+
+
 module.exports = router;
