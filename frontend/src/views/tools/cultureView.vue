@@ -6,18 +6,36 @@
         >현재 페이지: {{ currentPage }}/{{ totalPage }}</span
       >
     </div>
-
-    <!--  카테고리 -->
+    <!-- 지역별 -->
+    <div class="region_box">
+      <button
+        class="region_menu"
+        v-for="p in region"
+        :key="p"
+        @click="getArea($event)"
+        :class="{ selected: p === area }"
+      >
+        {{ p }}
+      </button>
+      <button
+        class="near_btn"
+        @click="locMarker"
+        :class="{ selected: locArea === '우리 동네' }"
+      >
+        우리 동네 시설 찾기
+      </button>
+    </div>
+    <!-- 카테고리 -->
     <div class="category_box">
       <button
         class="category_menu"
         v-for="p in categoryInfo"
         :key="p"
-        @click="getCategoryInfo(), getCategory($event)"
+        @click="getCategory($event)"
+        :class="{ selected: p === category }"
       >
         {{ p }}
       </button>
-      <button class="near_btn" @click="locMarker">우리 동네 시설 찾기</button>
     </div>
     <!-- 시설 목록 -->
     <div class="culture_content">
@@ -29,7 +47,7 @@
             class="culture_name"
             @click="loadScript(data.address, data.name)"
           >
-            {{ data.name }}
+            <span>{{ data.name }}</span>
           </li>
         </ul>
       </div>
@@ -69,7 +87,27 @@ export default {
   name: 'culture',
   data() {
     return {
-      cultureInfo: {},
+      cultureInfo: [],
+      region: [
+        '서울특별시',
+        '부산광역시',
+        '대구광역시',
+        '인천광역시',
+        '광주광역시',
+        '대전광역시',
+        '울산광역시',
+        '세종특별자치시',
+        '경기도',
+        '강원특별자치도',
+        '충청북도',
+        '충청남도',
+        '전라북도',
+        '전라남도',
+        '경상북도',
+        '경상남도',
+        '제주특별자치도'
+      ],
+      area: '',
       categoryInfo: [
         '문예회관',
         '미술관',
@@ -84,6 +122,7 @@ export default {
         '펜션'
       ],
       category: '',
+      locArea: '',
       currentPage: 1,
       firstPage: 1,
       displayPage: 5,
@@ -104,7 +143,7 @@ export default {
         const script = document.createElement('script')
         script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_KAKAO_API_KEY}&libraries=services,drawing&autoload=false`
         script.async = true
-        console.log(a, n)
+
         script.onload = () => {
           // Callback executed when Kakao Maps script is loaded
           window.kakao.maps.load(() => {
@@ -154,6 +193,8 @@ export default {
       })
     },
     async locMarker() {
+      this.locArea = '우리 동네'
+      this.area = ''
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -182,8 +223,7 @@ export default {
               content: `<div style="width:150px;text-align:center;padding:3px 0;">현재 위치</div>`
             })
             infowindow.open(map, marker)
-            console.log('중심좌표:', map.getCenter())
-            this.getNearbyCulture(map.getCenter(), latitude, longitude)
+            this.getNearbyHospital(map.getCenter())
             map.setCenter(markerPosition)
           },
           (error) => {
@@ -194,7 +234,7 @@ export default {
         console.error('이 브라우저에서는 지원하지 않습니다.')
       }
     },
-    async getNearbyCulture(center) {
+    async getNearbyHospital(center) {
       const geocoder = new window.kakao.maps.services.Geocoder()
       await geocoder.coord2RegionCode(
         center.getLng(),
@@ -206,34 +246,70 @@ export default {
             const address = getAddress[index]
             this.area = address
             console.log(this.area)
-            await axios
-              .get(
-                `http://localhost:3000/tools/culture/?category=${
-                  this.category
-                }&page=${this.currentPage || 1}`
+            try {
+              const response = await axios.get(
+                `http://localhost:3000/tools/culture/?region=${
+                  this.area
+                }&category=${this.category}&page=${this.currentPage || 1}`
               )
-              .then((res) => {
-                this.cultureInfo = res.data.result
+              if (response.status === 200) {
+                this.cultureInfo = response.data.result
+                this.totalInfoCnt = response.data.totalCount * 1
+                this.maxPage = this.totalInfoCnt / this.displayPage
+                this.totalPage = response.data.totalPage
+                this.focusPage = response.data.page
                 console.log(this.cultureInfo)
-              })
-              .catch((e) => {
-                console.log('데이터를 가져오는 중 에러가 발생했습니다.:', e)
-              })
+              }
+            } catch (error) {
+              console.log(
+                '동물병원정보 데이터를 가져오는 중에 에러가 발생했습니다.:',
+                error
+              )
+            }
           } else {
             console.error('Failed to convert coordinates to address.')
           }
         }
       )
     },
-    getCategory(e) {
+    async getArea(e) {
+      this.area = e.target.innerText
+      this.currentPage = 1
+      this.locArea = ''
+      await this.getAreaCategory()
+    },
+    async getAreaCategory() {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/tools/culture/?region=${this.area}&category=${
+            this.category
+          }&page=${this.currentPage || 1}`
+        )
+        if (response.status === 200) {
+          this.cultureInfo = response.data.result
+          this.totalInfoCnt = response.data.totalCount * 1
+          this.maxPage = this.totalInfoCnt / this.displayPage
+          this.totalPage = response.data.totalPage
+          this.focusPage = response.data.page
+          console.log(this.cultureInfo)
+        }
+      } catch (error) {
+        console.log(
+          '동물병원정보 데이터를 가져오는 중에 에러가 발생했습니다.:',
+          error
+        )
+      }
+    },
+    async getCategory(e) {
       this.category = e.target.innerText
       this.currentPage = 1
+      await this.getAreaCategory()
     },
     // 각 번호 클릭 시 페이지 이동 함수
     getNextPage(e) {
       console.log(e.target.innerText)
       this.currentPage = e.target.innerText * 1
-      this.getCategoryInfo()
+      this.getAreaCategory()
       this.paginationControlFunc(this.currentPage)
     },
     // // 페이지네이션 기본 셋팅 함수
@@ -263,7 +339,7 @@ export default {
       console.log(this.maxPage)
       if (this.currentPage <= this.maxPage) {
         this.currentPage++
-        this.getCategoryInfo()
+        this.getAreaCategory()
         this.paginationControlFunc(this.currentPage)
         console.log('현재페이지:', this.currentPage)
       }
@@ -273,36 +349,12 @@ export default {
       console.log('이전 페이지 이동중')
       if (this.currentPage > 1) {
         this.currentPage = this.currentPage - 1
-        this.getCategoryInfo()
+        this.getAreaCategory()
         this.paginationControlFunc(this.currentPage)
       }
       console.log('현재페이지:', this.currentPage)
-    },
-    // 서버로부터 문화시설 정보를 받아오는 함수
-    getCategoryInfo() {
-      axios
-        .get(
-          `http://localhost:3000/tools/culture/?category=${
-            this.category
-          }&page=${this.currentPage || 1}`
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            this.cultureInfo = response.data.result
-            this.totalInfoCnt = response.data.totalCount * 1
-            this.maxPage = this.totalInfoCnt / this.displayPage
-            this.totalPage = response.data.totalPage
-            this.focusPage = response.data.page
-            console.log(this.cultureInfo)
-          }
-        })
-        .catch((error) => {
-          console.log(
-            '동물병원정보 데이터를 가져오는중에 에러가 발생했습니다.:',
-            error
-          )
-        })
     }
+    // 서버로부터 문화시설 정보를 받아오는 함수
   },
   // 페이지 첫 화면 세팅
   async mounted() {
@@ -315,10 +367,7 @@ export default {
         }
       })
       .catch((error) => {
-        console.log(
-          '동물병원정보 데이터를 가져오는중에 에러가 발생했습니다.:',
-          error
-        )
+        console.log('문화시설 데이터를 가져오는 중 에러가 발생했습니다:', error)
       })
     if (window.kakao && window.kakao.maps) {
       // 카카오 객체가 있고, 카카오 맵그릴 준비가 되어 있다면 맵 실행
@@ -334,7 +383,7 @@ export default {
 <style scoped>
 .culture_container {
   min-height: 100vh;
-  animation: appear 1s 1 ease-in-out
+  animation: appear 1s 1 ease-in-out;
 }
 
 @keyframes appear {
@@ -434,6 +483,37 @@ export default {
 .culture_name:active {
   box-shadow: -1px -1px 5px gray;
 }
+.region_box {
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  text-align: center;
+}
+.region_menu {
+  border: none;
+  margin: 0 0 10px 10px;
+  padding: 5px;
+  background: beige;
+  transition: 0.1s ease-in;
+}
+.region_menu:hover {
+  transform: scale(1.01);
+  background: rgb(228, 185, 169);
+  box-shadow: 3px 3px 5px gray;
+  cursor: pointer;
+}
+.region_menu:active {
+  transform: scale(1);
+  background: rgb(219, 141, 113);
+  box-shadow: -1px -1px 3px gray;
+}
+.region_menu.selected {
+  background: rgb(228, 185, 169);
+  box-shadow: -2px -2px 5px gray;
+}
+.category_menu.selected {
+  background: rgb(228, 185, 169);
+  box-shadow: -2px -2px 5px gray;
+}
 .near_btn {
   border: none;
   font-weight: 800;
@@ -452,6 +532,10 @@ export default {
 }
 .near_btn:active {
   box-shadow: -1px -1px 5px gray;
+}
+.near_btn.selected {
+  background: rgb(231, 230, 195);
+  box-shadow: -2px -2px 5px gray;
 }
 .map_box {
   margin: 20px;

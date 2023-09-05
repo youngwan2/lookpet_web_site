@@ -11,11 +11,18 @@
         class="region_menu"
         v-for="p in region"
         :key="p"
-        @click="getAreaInfo(), getArea($event)"
+        @click="getArea($event)"
+        :class="{ selected: p === area }"
       >
         {{ p }}
       </button>
-      <button class="near_btn" @click="locMarker">우리 동네 병원 찾기</button>
+      <button
+        class="near_btn"
+        @click="locMarker"
+        :class="{ selected: locArea === '우리 동네' }"
+      >
+        우리 동네 병원 찾기
+      </button>
     </div>
     <div class="hospital_content">
       <div class="hospital_list">
@@ -85,6 +92,7 @@ export default {
         '제주특별자치도'
       ],
       area: '',
+      locArea: '',
       currentPage: 1,
       firstPage: 1,
       displayPage: 5,
@@ -157,6 +165,8 @@ export default {
       })
     },
     async locMarker() {
+      this.locArea = '우리 동네'
+      this.area = ''
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -185,8 +195,7 @@ export default {
               content: `<div style="width:150px;text-align:center;padding:3px 0;">현재 위치</div>`
             })
             infowindow.open(map, marker)
-            console.log('중심좌표:', map.getCenter())
-            this.getNearbyHospital(map.getCenter(), latitude, longitude)
+            this.getNearbyHospital(map.getCenter())
             map.setCenter(markerPosition)
           },
           (error) => {
@@ -209,28 +218,37 @@ export default {
             const address = getAddress[index]
             this.area = address
             console.log(this.area)
-            await axios
-              .get(
+            try {
+              const response = await axios.get(
                 `http://localhost:3000/tools/hospital/?region=${
                   this.area
                 }&page=${this.currentPage || 1}`
               )
-              .then((res) => {
-                this.hospitalInfo = res.data.result
+              if (response.status === 200) {
+                this.hospitalInfo = response.data.result
+                this.totalInfoCnt = response.data.totalCount * 1
+                this.maxPage = this.totalInfoCnt / this.displayPage
+                this.totalPage = response.data.totalPage
+                this.focusPage = response.data.page
                 console.log(this.hospitalInfo)
-              })
-              .catch((e) => {
-                console.log('데이터를 가져오는 중 에러가 발생했습니다.:', e)
-              })
+              }
+            } catch (error) {
+              console.log(
+                '동물병원정보 데이터를 가져오는 중에 에러가 발생했습니다.:',
+                error
+              )
+            }
           } else {
             console.error('Failed to convert coordinates to address.')
           }
         }
       )
     },
-    getArea(e) {
+    async getArea(e) {
       this.area = e.target.innerText
       this.currentPage = 1
+      this.locArea = ''
+      await this.getAreaInfo()
     },
     // 각 번호 클릭 시 페이지 이동 함수
     getNextPage(e) {
@@ -239,7 +257,6 @@ export default {
       this.getAreaInfo()
       this.paginationControlFunc(this.currentPage)
     },
-    // 페이지네이션 기본 셋팅 함수
     // 페이지네이션 기본 셋팅 함수
     paginationControlFunc(currentPage) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -382,6 +399,10 @@ export default {
   background: rgb(219, 141, 113);
   box-shadow: -1px -1px 3px gray;
 }
+.region_menu.selected {
+  background: rgb(228, 185, 169);
+  box-shadow: -2px -2px 5px gray;
+}
 .page_message {
   position: fixed;
   font-size: 14px;
@@ -466,6 +487,10 @@ export default {
 }
 .near_btn:active {
   box-shadow: -1px -1px 5px gray;
+}
+.near_btn.selected {
+  background: rgb(231, 230, 195);
+  box-shadow: -2px -2px 5px gray;
 }
 .map_box {
   margin: 20px;
