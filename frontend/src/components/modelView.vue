@@ -1,9 +1,8 @@
 <template>
   <section>
-    <button class="modal_icon" @click="modalSwitch">
-      임시:: 모델아이콘임 <br />(on/off)
-    </button>
+    <button class="modal_icon" @click="modalSwitch">모델 <br />(on/off)</button>
     <article class="modal" :class="state.display">
+      <button class="modal_close" @click="modalSwitch">돌아가기</button>
       <div class="modal_inner_con">
         <h2 class="title">우리집 멍냥이는 어떤 종일까?</h2>
         <p
@@ -51,11 +50,12 @@
         </p>
       </div>
       <span @click="add" class="breed_add_btn" v-show="!state.addition"
-        >임시 호출 버튼</span
-      >
-      <div v-show="state.addition">
-        <AddBreedInfo :addBreedInfo="addBreedInfo" />
-      </div>
+        >마우스를 올려보세요!
+        <span class="add_info_message"
+          >추가정보를 원하신다면 클릭해주세요!</span
+        >
+      </span>
+      <AddBreedInfo :addBreedInfo="AddBreedInfo" v-show="state.addition" />
     </article>
   </section>
 </template>
@@ -105,12 +105,10 @@ export default {
       metadataPath: ''
     })
 
-    const addBreedInfo = ref('')
+    // const addBreedInfo = ref(null)
     /* 품종에 대한 추가 정보를 얻어오는 함수 */
     const add = () => {
-      console.log(1111)
       state.addition = true
-      addBreedInfo.value = store.state.addInfo[0]
     }
 
     /* 모델 출력 함수 */
@@ -194,6 +192,21 @@ export default {
 }
 </script>
 <style scoped>
+.modal_close {
+  position: fixed;
+  top: 0;
+  width: 60px;
+  background-color: gold;
+  color: black;
+  padding: 10px 0;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.modal_close:hover {
+  cursor: pointer;
+  background-color: rgb(255, 205, 78);
+}
 .title {
   text-align: center;
   margin: 25px 0;
@@ -384,6 +397,65 @@ img {
     transform: translate(5px);
     opacity: 0.8;
   }
+}
+
+/* 품종 정보 추가 버튼 */
+.breed_add_btn {
+  box-shadow: 2px 2px 2px rgb(75, 74, 74), 5px 5px 2px gray;
+  width: 200px;
+  height: 100px;
+  color: white;
+  background-color: #d9441f;
+  animation: updown 1s infinite alternate;
+  position: relative;
+  bottom: 1rem;
+  text-align: center;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 20px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.breed_add_btn:hover {
+  cursor: pointer;
+  background-color: rgb(218, 122, 32);
+}
+
+@keyframes updown {
+  from {
+    transform: translateY(-10px) translate(-50%);
+  }
+}
+
+.breed_add_btn:hover > .add_info_message {
+  visibility: visible;
+  opacity: 1;
+}
+
+.add_info_message {
+  visibility: hidden;
+  font-weight: 400;
+  text-shadow: 1px 1px 2px black;
+  transition: 0.5s;
+  border-radius: 20px;
+  background-color: goldenrod;
+  opacity: 0;
+  bottom: 60px;
+  left: 150px;
+  position: absolute;
+  width: 200px;
+  padding: 10px;
+}
+.add_info_message::before {
+  content: '';
+  position: absolute;
+  transform: rotate(6deg);
+  border-top: 20px solid goldenrod;
+  border-left: 10px solid transparent;
+  left: 20px;
+  border-right: 10px solid transparent;
+  bottom: -1.06rem;
 }
 
 .addBreedInfo {

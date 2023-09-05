@@ -2,7 +2,9 @@
   <div ref="board">
     <section class="board_container">
       <h1 class="title">자유 게시판</h1>
-      <p style="text-align: center; padding: 10px; font-size: 14px;">참고) 현재는 테스트를 위해 로그인된 유저가 모든 게시글 수정 삭제 가능</p>
+      <p style="text-align: center; padding: 10px; font-size: 14px">
+        참고) 현재는 테스트를 위해 로그인된 유저가 모든 게시글 수정 삭제 가능
+      </p>
       <span
         style="position: fixed; right: 40px; background: rgba(1, 1, 1, 0.088)"
         >현재 페이지: {{ currentPage }}/{{ totalPageCount }}</span
@@ -62,7 +64,7 @@ export default {
       lastPage: 10,
       firstPage: 1,
       pageList: [],
-      totalPageCount: 0
+      totalPageCount: 0 // 전체페이지 수가 저장된다.
     }
   },
   mounted() {
@@ -115,6 +117,7 @@ export default {
 
       // 마지막 페이지가 전체 페이지 수 보다 크거나 같으면
       // 전체 페이지 수를 마지막 페이지 수로 할당한다.
+
       if (this.lastPage >= this.totalPageCount) {
         this.lastPage = this.totalPageCount
       }
