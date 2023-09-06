@@ -131,8 +131,8 @@ export default {
   position: fixed;
   font-size: 14px;
   right: 5px;
-  background: rgb(253, 241, 172);
-  box-shadow: inset 1px 1px 5px 2px rgb(245, 219, 69);
+  background: rgb(253, 241, 172) !important;
+  box-shadow: inset 1px 1px 5px 2px rgb(245, 219, 69) !important;
   padding: 10px;
   border-radius: 10px;
 }
@@ -165,7 +165,7 @@ export default {
   transition: 0.3s;
   transform: perspective(600px);
   transform-style: preserve-3d;
-  box-shadow: inset 4px 4px rgb(251, 160, 41), inset -4px -4px rgb(251, 160, 41);
+  box-shadow: inset 4px 4px rgb(251, 160, 41), inset -4px -4px rgb(251, 160, 41) !important;
 }
 @keyframes appear {
   from {
@@ -231,12 +231,12 @@ export default {
 
 .page_shifter:hover {
   background: rgb(255, 242, 146);
-  color:black;
+  color: black;
   cursor: pointer;
 }
 
 li.focus {
   background: rgb(255, 174, 0);
-  color:white;
+  color: white;
 }
 </style>
