@@ -21,7 +21,7 @@
         @click="locMarker"
         :class="{ selected: locArea === '우리 동네' }"
       >
-        우리 동네 병원 찾기
+        우리 동네
       </button>
     </div>
     <div class="hospital_content">
@@ -38,7 +38,7 @@
         </ul>
       </div>
       <div class="map_box">
-        <div class="map" style="width: 500px; height: 400px"></div>
+        <div class="map" ref="map" style="width: 500px; height: 400px"></div>
       </div>
     </div>
     <nav class="pagination_nav">
@@ -111,31 +111,25 @@ export default {
   methods: {
     async loadScript(a, n) {
       if (!window.kakao) {
-        // If 'kakao' is not defined, load the Kakao Maps script
         const script = document.createElement('script')
         script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_KAKAO_API_KEY}&libraries=services,drawing&autoload=false`
         script.async = true
 
         script.onload = () => {
-          // Callback executed when Kakao Maps script is loaded
           window.kakao.maps.load(() => {
             this.loadMap(a, n)
-            // this.markNearHospital(a, n)
           })
         }
-
         document.head.appendChild(script)
       } else {
-        // Kakao Maps is already loaded, directly call loadMap
         this.loadMap(a, n)
-        // this.markNearHospital(a, n)
       }
     },
-    async loadMap(a, n) {
-      const mapContainer = document.querySelector('.map') // Use the correct selector
+    loadMap(a, n) {
+      const mapContainer = this.$refs.map
       const mapOptions = {
         center: new window.kakao.maps.LatLng(35.152381, 129.059767),
-        level: 3
+        level: 4
       }
       const map = new window.kakao.maps.Map(mapContainer, mapOptions)
 
@@ -164,7 +158,7 @@ export default {
         }
       })
     },
-    async locMarker() {
+    locMarker() {
       this.locArea = '우리 동네'
       this.area = ''
       if (navigator.geolocation) {
@@ -176,7 +170,7 @@ export default {
             const mapContainer = document.querySelector('.map')
             const mapOptions = {
               center: new window.kakao.maps.LatLng(latitude, longitude),
-              level: 3
+              level: 5
             }
             const map = new window.kakao.maps.Map(mapContainer, mapOptions)
 
@@ -214,32 +208,12 @@ export default {
         async (result, status) => {
           if (status === window.kakao.maps.services.Status.OK) {
             const getAddress = result[0].address_name.split(' ')
-            const index = getAddress.length - 1
+            const index = getAddress.length - 2
             const address = getAddress[index]
             this.area = address
             console.log(this.area)
-            try {
-              const response = await axios.get(
-                `http://localhost:3000/tools/hospital/?region=${
-                  this.area
-                }&page=${this.currentPage || 1}`
-              )
-              if (response.status === 200) {
-                this.hospitalInfo = response.data.result
-                this.totalInfoCnt = response.data.totalCount * 1
-                this.maxPage = this.totalInfoCnt / this.displayPage
-                this.totalPage = response.data.totalPage
-                this.focusPage = response.data.page
-                console.log(this.hospitalInfo)
-              }
-            } catch (error) {
-              console.log(
-                '동물병원정보 데이터를 가져오는 중에 에러가 발생했습니다.:',
-                error
-              )
-            }
-          } else {
-            console.error('Failed to convert coordinates to address.')
+
+            this.getAreaInfo()
           }
         }
       )
@@ -343,14 +317,7 @@ export default {
       })
     if (window.kakao && window.kakao.maps) {
       // 카카오 객체가 있고, 카카오 맵그릴 준비가 되어 있다면 맵 실행
-      this.loadMap()
-    } else {
-      // 없다면 카카오 스크립트 추가 후 맵 실행
-      this.loadScript()
-    }
-    if (window.kakao && window.kakao.maps) {
-      // 카카오 객체가 있고, 카카오 맵그릴 준비가 되어 있다면 맵 실행
-      this.loadMap()
+      this.locMarker()
     } else {
       // 없다면 카카오 스크립트 추가 후 맵 실행
       this.loadScript()
@@ -383,6 +350,7 @@ export default {
 }
 .region_menu {
   border: none;
+  border-radius: 10px;
   margin: 0 0 10px 10px;
   padding: 5px;
   background: beige;

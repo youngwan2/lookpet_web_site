@@ -56,7 +56,7 @@ router.get('/tools/culture', (req, res) => {
           .limit(showItems)
           .then((result) => {
             console.log('총페이지:', totalPage)
-            console.log(category, page)
+            console.log(region,category, page)
             res.json({ result, totalCount, page, totalPage })
           })
           .catch((error) => {
