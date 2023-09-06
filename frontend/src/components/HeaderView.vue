@@ -109,7 +109,7 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-  color: tomato;
+  color: #F9EBDE;
 }
 
 li {
@@ -117,13 +117,14 @@ li {
 }
 
 .title > a {
-  color: rgb(175, 120, 17);
+  color:#F9EBDE;
 }
 .header {
   width: 100%;
   padding: 20px 0;
   box-shadow: 2px 5px 5px 0 rgba(61, 60, 60, 0.101);
   z-index: 100000;
+  background:#815854 ;
 }
 .header .header_inner {
   max-width: 1500px;
@@ -137,7 +138,7 @@ li {
 }
 .menu a {
   margin: 10px;
-  color: rgb(195, 134, 23);
+  color: #F9EBDE;
   font-weight: 600;
   height: 100%;
 }
