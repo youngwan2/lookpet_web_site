@@ -1,11 +1,10 @@
 <template>
   <div class="login_container">
-    <h2>로그인 화면 작업중</h2>
-
+    <h2 class="title">로그인</h2>
     <form @submit.prevent="loginRequest" class="login_form">
       <div class="login_form_inner_con">
         <div class="username_con">
-          <label for="uesrname">아이콘1</label>
+          <label for="uesrname">ID</label>
           <input
             type="text"
             placeholder="아이디"
@@ -15,7 +14,7 @@
         </div>
         <br />
         <div class="password_con">
-          <label for="password">아이콘2</label>
+          <label for="password">PW</label>
           <input
             type="password"
             placeholder="비밀번호"
@@ -23,10 +22,23 @@
             v-model="password"
           />
         </div>
-        <span><router-link to="/auth/signup">회원가입</router-link></span>
+        <span class="signup_btn_area"
+          ><router-link to="/auth/signup" class="signup_btn"
+            >회원가입</router-link
+          ></span
+        >
         <br />
-        <button type="submit" class="login_btn">로그인</button> <br>
-        <span style="left:15px;font-size: 13px; margin-top: 10px; position: absolute;" v-show="!success">{{ error }}</span>
+        <button type="submit" class="login_btn">로그인</button> <br />
+        <span
+          style="
+            left: 15px;
+            font-size: 13px;
+            margin-top: 10px;
+            position: absolute;
+          "
+          v-show="!success"
+          >{{ error }}</span
+        >
       </div>
     </form>
   </div>
@@ -75,6 +87,15 @@ export default {
 }
 </script>
 <style scoped>
+.title {
+  position: absolute;
+  text-shadow: 30px 30px 3px rgb(113, 111, 111);
+  left: 50%;
+  font-size: 1.6rem;
+  color: #815854;
+  transform: translate(-50%);
+  margin-top: 8rem;
+}
 .login_container {
   max-width: 1200px;
   height: 100vh;
@@ -84,16 +105,27 @@ export default {
 
 /* 로그인 폼 */
 .login_form {
-  max-width: 350px;
-  border-radius: 20px;
+  max-width: 500px;
+  border-radius: 5px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 25px;
   width: 100%;
   height: 100%;
-  background-color: burlywood;
-  max-height: 300px;
+  background: linear-gradient(80deg, #684946, #765654);
+  max-height: 400px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: inset 10px 10px 2px #c78d87, 40px 70px 5px rgba(0, 0, 0, 0.464);
+  animation: updown 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes updown {
+  from {
+    transform: translate(-50%, -49%);
+  }
 }
 
 /* 로그인 폼 내부 컨테이너(input 태그 위치 중앙정렬) */
@@ -108,6 +140,9 @@ export default {
 /* 유저 아이디 컨테이너 */
 .username_con {
   display: flex;
+  width: 300px;
+  align-items: center;
+  border-radius: 5px;
   background-color: white;
 }
 .username_con label {
@@ -115,7 +150,10 @@ export default {
 }
 
 input {
-  padding: 10px;
+  border-radius: 5px;
+  padding: 15px;
+
+  width: 100%;
   border: none;
 }
 
@@ -124,7 +162,9 @@ input:focus {
 }
 
 .password_con {
+  border-radius: 5px;
   display: flex;
+  align-items: center;
   background-color: white;
 }
 
@@ -138,12 +178,26 @@ input:focus {
   width: 200px;
   border: none;
   border-radius: 20px;
-  background-color: brown;
+  background-color: #f9ebde;
+  margin: 1rem 0 0 0;
+  font-size: 15px;
+  box-shadow: inset 1px 1px 5px black;
   padding: 10px;
 }
 
 .login_btn:hover {
   cursor: pointer;
-  background-color: bisque;
+  background-color: #fedcda;
+}
+
+/* 회원가입 이동 버튼 */
+
+.signup_btn_area {
+  display: inline-block;
+  margin-top: 1.5rem;
+}
+.signup_btn {
+  color: white;
+  text-decoration: none;
 }
 </style>
