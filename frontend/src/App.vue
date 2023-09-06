@@ -19,6 +19,10 @@ const loginUsername = document.cookie.split('=')[1] ?? ''
   margin: 0;
 }
 
+body{
+  background: #F9EBDE;
+}
+
 body::-webkit-scrollbar {
   width: 5px;
   background: rgb(255, 255, 255);

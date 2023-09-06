@@ -168,6 +168,7 @@ section {
 
 .dog_ul {
   display: flex;
+
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -176,12 +177,15 @@ section {
 .dog_image {
   width: 230px;
   height: 230px;
-  border-bottom: 4px solid rgb(198, 111, 17);
+  border-bottom: 4px solid #c5908c;
 }
 
 .dog_items {
-  box-shadow: 0 0 5px 2px rgb(223, 222, 222);
+  background-color:#815854;
+  box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.266);
+  border-radius: 10px;
   margin: 10px;
+
   text-align: center;
   padding: 1px 0;
 }
@@ -189,8 +193,8 @@ section {
 .dog_items .dog_name {
   font-size: 15px;
   height: 35px;
+  color:#F9EBDE;
   padding: 0px 10px 10px 0;
-  color: rgb(0, 0, 0);
 }
 .loading_spinner {
   font-size: 3rem;

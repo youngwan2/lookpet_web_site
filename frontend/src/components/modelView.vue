@@ -2,7 +2,9 @@
   <section>
     <button class="modal_icon" @click="modalSwitch">모델 <br />(on/off)</button>
     <article class="modal" :class="state.display">
-      <button class="modal_close" @click="modalSwitch">돌아가기</button>
+      <button class="modal_close" @click="modalSwitch">
+        <img src="../assets/icon/return.svg" />
+      </button>
       <div class="modal_inner_con">
         <h2 class="title">우리집 멍냥이는 어떤 종일까?</h2>
         <p
@@ -34,6 +36,7 @@
         />
         <br />
         <img
+          class="preview_img"
           :src="blob || replaceImage"
           alt=""
           width="300"
@@ -49,7 +52,8 @@
           {{ prediction.predict }}
         </p>
       </div>
-      <span @click="add" class="breed_add_btn" v-show="!state.addition"
+      <br>
+      <span @click="add" class="breed_add_btn" v-show="state.addBtn"
         >마우스를 올려보세요!
         <span class="add_info_message"
           >추가정보를 원하신다면 클릭해주세요!</span
@@ -81,6 +85,7 @@ export default {
     /* 상태 관리 */
     const state = reactive({
       isDisplay: false,
+      addBtn: false,
       display: 'off', // 모달창 온 오프 속성( :class= off or on)
       input: true,
       resultDisplay: 'off', // 품종 판결 결과창 온 오프 속성
@@ -109,6 +114,7 @@ export default {
     /* 품종에 대한 추가 정보를 얻어오는 함수 */
     const add = () => {
       state.addition = true
+      state.addBtn = false
     }
 
     /* 모델 출력 함수 */
@@ -138,6 +144,7 @@ export default {
                   '입니다.'
                 state.resultDisplay = 'on'
                 state.resultLoading = 'off'
+                state.addBtn = true
 
                 /* store 로 예측된 동물 이름을 전달한다. */
 
@@ -145,8 +152,6 @@ export default {
                   name: data.className,
                   breed: choiceBreed.value
                 })
-
-                state.isDisplay = true
               }
             })
           })
@@ -196,7 +201,7 @@ export default {
   position: fixed;
   top: 0;
   width: 60px;
-  background-color: gold;
+  background-color: rgb(255, 145, 0);
   color: black;
   padding: 10px 0;
   margin: 5px;
@@ -303,7 +308,7 @@ export default {
   border-radius: 10px;
   text-align: center;
 }
-img {
+.preview_img {
   margin: 10px 0;
   text-align: center;
   width: 100%;
