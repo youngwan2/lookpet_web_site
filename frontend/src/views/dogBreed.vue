@@ -185,7 +185,6 @@ section {
   box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.266);
   border-radius: 10px;
   margin: 10px;
-
   text-align: center;
   padding: 1px 0;
 }
