@@ -158,7 +158,6 @@ export default {
 .tip_box {
   animation: appear 1s 1 cubic-bezier(1, -0.07, 0.43, 1.95);
   max-width: 450px;
-  mix-blend-mode: difference;
   border-radius: 10px;
   padding: 5px;
   margin: 10px auto;

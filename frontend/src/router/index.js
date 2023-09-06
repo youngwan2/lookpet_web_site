@@ -33,7 +33,7 @@ const router = createRouter({
       name: 'dog-tip',
       component: () =>
         import(
-          /* webpackChunkName: "dog",webpackPrefetch:true */ '../views/dog/dogTip.vue'
+          /* webpackChunkName: "dog",webpackPrefetch:true */ '../views/tip/dogTipView.vue'
         )
     },
     {
@@ -57,7 +57,7 @@ const router = createRouter({
       name: 'cat-tip',
       component: () =>
         import(
-          /* webpackChunkName: "cat",webpackPrefetch:true */ '../views/cat/catTip.vue'
+          /* webpackChunkName: "cat",webpackPrefetch:true */ '../views/tip/catTipView.vue'
         )
     },
     // 커뮤니티
