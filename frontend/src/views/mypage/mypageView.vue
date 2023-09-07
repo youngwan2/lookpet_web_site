@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <h1 class="mypage_title">마이페이지</h1>
-    <h1 class="mypage_info_exist" v-if="!petInfo">{{ exist }}</h1>
     <hr />
     <div class="content">
       <div class="side_menu">
@@ -17,16 +16,10 @@
             <ol @click="registerPet" class="pet_register">
               펫 등록하기
             </ol>
-            <ol>
-              수정하기
-            </ol>
-            <ol>
-              삭제하기
-            </ol>
           </div>
         </ul>
       </div>
-      <div class="pet_list" v-if="petInfo">
+      <div class="pet_list" v-if="petInfo" ref="petList">
         <div class="pet_card" v-for="pet in petInfo" :key="pet">
           <div class="pet_image_box">
             <img class="pet_image" :src="pet.petimage" alt="pet_image" />
@@ -66,6 +59,9 @@
             </button>
           </div>
         </div>
+      </div>
+      <div class="pet_info_not" v-if="petInfo == ''">
+        <h1>펫 등록을 해주세요.</h1>
       </div>
     </div>
   </div>
@@ -119,6 +115,13 @@ export default {
       .catch((e) => {
         console.log('mypage 데이터를 불러오는 중 에러가 발생했습니다.:', e)
       })
+    const petList = this.$refs.petList
+    petList.addEventListener('wheel', (event) => {
+      if (event.deltaY !== 0) {
+        event.preventDefault()
+        petList.scrollLeft += event.deltaY
+      }
+    })
   }
 }
 </script>
@@ -138,7 +141,8 @@ export default {
   width: 100%;
 }
 .side_menu {
-  width: 30%;
+  max-width: 300px;
+  min-width: 250px;
   padding: 10px 0;
   margin-right: 10px;
   background: #815854;
@@ -161,14 +165,18 @@ export default {
   font-weight: 800;
   font-size: 1.2em;
   display: inline-block;
+  margin-bottom: 10px;
 }
 .pet_list {
   display: flex;
   width: 70%;
   height: 600px;
+  overflow-x: hidden;
+  white-space: nowrap;
 }
 ol {
   transition: 0.3s;
+  margin-left: -20px;
 }
 ol:hover {
   border-bottom: 1px solid #f9ebde;
@@ -189,6 +197,11 @@ ol:active {
   border-radius: 10px;
   background: rgb(255, 255, 255);
   position: relative;
+  box-shadow: 5px 5px 10px gray;
+  transition: 0.15s;
+}
+.pet_card:hover {
+  transform: translateY(-10px);
 }
 .pet_image_box {
   margin: 10px;
