@@ -296,7 +296,7 @@ input[type='number']::-webkit-outer-spin-button {
 }
 .pet_info_box {
   margin: 10px;
-  min-width: 500px;
+  min-width: 200px;
   position: relative;
   height: 700px;
 }

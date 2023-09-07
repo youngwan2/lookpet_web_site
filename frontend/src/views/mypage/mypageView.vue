@@ -151,7 +151,8 @@ export default {
   margin-bottom: 30px;
 }
 .side_list {
-  width: 400px;
+  max-width:400px;
+  width: 100%;
   min-width: 200px;
   /* background: #815854; */
   color: #f9ebde;
