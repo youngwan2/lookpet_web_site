@@ -14,7 +14,8 @@
             <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
               d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
-            /></svg></label>
+            /></svg
+        ></label>
         <input
           type="text"
           id="dog_search"
@@ -94,6 +95,8 @@ export default {
 .dog_title {
   margin-top: 20px;
   text-align: center;
+  color: #815854;
+  text-shadow: 1px 1px 1px rgb(220, 175, 175), 2px 2px 1px rgb(236, 204, 204);
 }
 ul,
 ol,
@@ -131,8 +134,8 @@ a {
 /* 검색창 폼 */
 .dog_seacrh_form {
   max-width: 500px;
-  background-color: #966b67;
-  box-shadow: inset 2px 5px #d2a39f;
+  background-color: #a87f7c;
+  box-shadow: inset 2px 5px #d2a39f, inset -2px -5px rgb(108, 66, 66);
   border-radius: 50px;
   margin: 2rem auto;
   padding: 12px;
@@ -148,7 +151,7 @@ a {
   font-weight: 600;
   font-size: 1rem;
   border: none;
-  background-color: #966b67;
+  background-color: #a87f7c;
 }
 
 .dog_seacrh_form input:focus {
@@ -174,33 +177,48 @@ section {
 
 .dog_ul {
   display: flex;
-
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  transform: perspective(2000px);
+  transform-style: preserve-3d;
 }
 
 .dog_image {
   width: 230px;
   height: 230px;
   border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   border-bottom: 4px solid #c49e9b;
 }
 
 .dog_items {
-  background-color:#815854;
-  box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.266);
-  border-radius: 5px;
   margin: 10px;
+  border: 1px solid #815854;
+  border-top: 10px solid rgb(235, 198, 198);
+  border-left: 10px solid rgb(171, 144, 144);
+  border-top-right-radius: 11px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 5px;
+  background-color: #815854;
+  max-width: 230px;
+  max-height: 300px;
   text-align: center;
+  transform: translateZ(0) translateY(0px);
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: 1s ease-in-out;
   padding: 1px 0;
+}
+
+.dog_items:hover {
+  background-color: #936663;
+  transform: translateZ(30px) translateY(-30px) rotateX(-5deg);
 }
 
 .dog_items .dog_name {
   font-size: 15px;
   height: 35px;
-  color:#F9EBDE;
+  color: #f9ebde;
   padding: 0px 10px 10px 0;
 }
 .loading_spinner {
