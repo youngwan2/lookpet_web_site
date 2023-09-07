@@ -135,6 +135,21 @@ router.get('/board/:id/comment', (req, res) => {
     .catch(console.error);
 });
 
+/** 댓글 수정  */
+router.put('/board/:id/comment', (req, res) => {
+  const postId = req.params.id;
+  const { updateComment, updateCommentId } = req.body;
+
+  commentModel
+    .updateOne({ _id: updateCommentId }, { comment: updateComment })
+    .then(() => {
+      res.json({ msg: '성공입니다.' });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 /** 댓글 삭제 */
 router.delete('/board/:id/comment', (req, res) => {
   const postId = req.params.id;

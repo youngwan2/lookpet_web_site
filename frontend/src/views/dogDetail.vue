@@ -89,10 +89,7 @@ export default {
 
 /* 페이지 전체 감싼 컨테이너 */
 .detail_view {
-  margin: 15px;
-  padding: 10px;
   min-height: 100vh;
-  height: 100%;
   animation: appear 1s 1 ease-in-out;
 }
 
@@ -104,14 +101,11 @@ export default {
 }
 /* 서브 카테고리 공통 */
 
-.text_con {
-  margin: 1rem;
-}
 .detail_text_h {
-  border-left: 4px solid rgb(220, 87, 87);
-  padding: 5px 5px;
+  border-left: 4px solid rgb(178, 116, 116);
   font-size: 1.2rem;
   font-weight: 700;
+  padding: 0 5px;
 }
 
 .detail_text {
@@ -122,36 +116,45 @@ export default {
   margin: 0 auto;
   max-width: 1000px;
 }
-
+/* 디테일 이미지 컨테이너 */
+.detail_image_con {
+  text-align: center;
+}
 /* 세부 페이지 제목(동물이름 들어감) */
 .detail_title {
   font-size: 1.6rem;
-  padding: 5px 0 10px 30px;
+  text-align: center;
+  border-top: 7px solid rgb(189, 155, 155);
+  border-bottom-left-radius: 8px;
+  border-left: 7px solid black;
+  border-top-right-radius: 8px;
+  margin:1.5rem auto ;
   max-width: 1000px;
-  margin: 1rem auto;
-  background: rgba(245, 245, 245, 0.123);
-  color: rgb(173, 84, 20);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 5px;
+  padding: 10px;
+  background: rgb(135, 102, 102);
+  text-shadow: 1px 1px 2px black;
+  color: rgb(246, 219, 219);
+  filter: drop-shadow(10px 20px 3px rgba(98, 79, 79, 0.253));
+
 }
 
 /* 상단 설명 */
 .detail_top {
+  display: flex;
   width: 100%;
   min-height: 440px;
-  display: flex;
-  padding: 5px;
+  padding: 30px 0 0 0;
 }
 .dog_image {
   box-shadow: 1px 1px 4px 3px rgba(24, 24, 24, 0.2);
   border-radius: 15px;
   max-width: 350px;
+  margin: 0 20px 0 0px;
   height: 100%;
   min-width: 350px;
 }
 .detail_info {
   width: 70%;
-  padding: 10px;
 }
 .detail_info > p:nth-child(odd) {
   background: rgb(231, 200, 159);
@@ -164,7 +167,6 @@ export default {
   margin-top: 1.5rem;
   width: 100%;
   height: 300px;
-  padding: 10px;
 }
 .detail_bottom > p:nth-child(odd) {
   background: rgb(231, 200, 159);
@@ -172,12 +174,12 @@ export default {
   padding: 3px;
 }
 
-@media screen and (max-width: 768px) {
-  /* 전체 컨테이너 */
-  .detail_view {
-    text-align: center;
-  }
+/* 각 텍스트 컨테이너(타이틀/내용) */
+.text_con {
+  margin: 20px 0;
+}
 
+@media screen and (max-width: 768px) {
   /* 디테일 설명 탑 / 밑 */
   .detail_top {
     flex-direction: column;
@@ -185,21 +187,6 @@ export default {
   .detail_bottom {
     margin-top: 0;
   }
-
-  /* 디테일 설명 탑과 밑을 감싸고 있는 컨테이너 */
-  .detail_info {
-    margin: 0 auto;
-  }
-
-  /* 디테일 설명의 서브 카테고리 */
-  .detail_text_h {
-    margin: 8px auto;
-    border-radius: 10px;
-    border-left: none;
-    width: 200px;
-    box-shadow: 4px 4px 1px 0 rgb(191, 141, 13), -2px -2px 1px 0 goldenrod;
-  }
-
   .detail_title {
     margin: 2rem 0 1rem 0;
   }

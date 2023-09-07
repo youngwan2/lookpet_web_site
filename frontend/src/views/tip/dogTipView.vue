@@ -1,9 +1,6 @@
 <template>
   <section class="dog_tip_section">
     <h2 class="title">멍 팁</h2>
-    <span class="page_message"
-      >현재 페이지: {{ currentPage }}/{{ totalPage }}</span
-    >
 
     <section class="content_container">
       <div v-for="data in getTip" :key="data.id" class="tip_box">
@@ -142,8 +139,9 @@ export default {
 /* 페이지 타이틀 */
 .title {
   text-align: center;
-  margin: 3rem;
-
+  margin: 30px;
+  color: rgb(147, 104, 104);
+  text-shadow: 1px 1px 1px rgb(172, 142, 142);
 }
 .container {
   border: 1px solid gray;
@@ -167,7 +165,8 @@ export default {
   transition: 0.3s;
   transform: perspective(600px);
   transform-style: preserve-3d;
-  box-shadow: inset 4px 4px rgb(251, 160, 41), inset -4px -4px rgb(251, 160, 41);
+  box-shadow: inset 4px 4px rgb(225, 182, 182),
+    inset -4px -4px rgb(147, 104, 104) !important;
 }
 @keyframes appear {
   from {
@@ -187,9 +186,7 @@ export default {
 }
 
 .tip_box:hover {
-  transform: translateY(-10px) rotateY(15deg) scale(1.1);
-  box-shadow: inset 4px 4px rgb(251, 160, 41), inset -4px -4px rgb(251, 160, 41),
-    10px 15px 5px 2px rgba(128, 128, 128, 0.611);
+  transform: translateY(-10px) rotateY(15deg) scale(1.03);
   cursor: pointer;
 }
 
@@ -197,11 +194,12 @@ export default {
   width: 110px;
   text-align: center;
   color: white;
-  background: rgb(252, 188, 26);
+  background: rgb(181, 144, 144);
   border-radius: 10px;
   font-weight: 600;
   font-size: 1.2rem;
-  box-shadow: inset 2px 4px rgb(255, 188, 63), inset -2px -4px rgb(174, 102, 9);
+  box-shadow: inset 2px 4px rgb(229, 184, 184),
+    inset -2px -4px rgba(100, 73, 73, 0.829);
   padding: 10px;
   margin: 5px auto;
 }
@@ -232,12 +230,12 @@ export default {
 }
 
 .page_shifter:hover {
-  background: rgb(255, 242, 146);
+  background: rgb(176, 131, 131);
   color: black;
   cursor: pointer;
 }
 li.focus {
-  background: rgb(255, 174, 0);
+  background: rgb(139, 94, 94);
   color: white;
 }
 </style>

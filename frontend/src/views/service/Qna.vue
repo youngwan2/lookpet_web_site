@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">F & A</h1>
+    <h1 class="title">F n A</h1>
     <ul class="qna_container">
       <li
         class="qna_item"
@@ -102,15 +102,14 @@ li {
 }
 
 .qna_item p {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   border-radius: 5px;
   padding: 20px;
-  box-shadow: inset 0 -2px 3px rgb(190, 163, 11);
-  background-color: rgb(224, 165, 37);
+  background-color: rgb(175, 110, 110);
 }
 
 .qna_item:nth-of-type(2n) p {
-  background-color: rgb(255, 224, 123);
+  background-color: rgb(193, 145, 145);
 }
 
 .answer {
@@ -126,11 +125,11 @@ li {
 .drop_icon {
   border: none;
   background-color: transparent;
-  color: rgb(50, 49, 49);
+  color: rgb(240, 240, 240);
   position: absolute;
   transition: 0.5s;
   right: 5px;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   padding: 10px;
   top: 12px;
 }

@@ -95,20 +95,27 @@ export default {
 <style scoped>
 /* 페이지 제목(동물명) */
 .title {
-  font-size: 1.7rem;
-  padding: 0 8px;
-  margin: 30px 0;
-  color: rgb(182, 114, 36);
-  text-shadow: 5px 5px 1px rgb(255, 215, 170);
+  font-size: 1.6rem;
+  text-align: center;
+  border-top: 7px solid rgb(189, 155, 155);
+  border-bottom-left-radius: 8px;
+  border-left: 7px solid black;
+  border-top-right-radius: 8px;
+  margin: 1.5rem auto 2rem auto;
+  max-width: 1000px;
+  padding: 10px;
+  background: rgb(135, 102, 102);
+  text-shadow: 1px 1px 2px black;
+  color: rgb(246, 219, 219);
+  filter: drop-shadow(10px 20px 3px rgba(98, 79, 79, 0.253));
 }
 /* 컨텐츠 전체 컨테이너(바깥 외곽) */
 .detail_container {
   width: 100%;
-  padding: 0px 15px;
   max-width: 900px;
   margin: 1.5rem auto 0 auto;
   min-height: 100vh;
-  animation: appear 1s 1 ease-in-out
+  animation: appear 1s 1 ease-in-out;
 }
 
 @keyframes appear {
@@ -140,6 +147,9 @@ li {
   display: flex;
 }
 
+.top_detail_info figure {
+  margin-top: 1rem;
+}
 .top_detail_info img {
   box-shadow: 1px 1px 4px 3px rgba(24, 24, 24, 0.424);
   max-width: 330px;
@@ -152,8 +162,8 @@ li {
 
 li span {
   display: inline-block;
-  border-radius: 20px;
-  background-color: burlywood;
+  border-left: 3px solid rgb(205, 156, 156);
+
   padding: 5px 7.5px;
   font-size: 1.25em;
   font-weight: 600;
@@ -182,13 +192,16 @@ li span {
     flex-direction: column;
   }
 
+  .top_detail_info figure {
+    text-align: center;
+  }
+
   .top_detail_info li {
     margin: 1.5rem 0;
-
   }
 
   .detail_container {
-    text-align: center;
+    text-align: start;
   }
 }
 </style>
