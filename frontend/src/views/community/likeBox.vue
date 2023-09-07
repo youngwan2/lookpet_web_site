@@ -1,10 +1,10 @@
 <template>
   <article class="like_box">
     <p @click="likeCounter">
-      좋아요<span>{{ liked }}</span>
+      좋아요<span>( {{ liked }} )</span>
     </p>
     <p @click="unlikeCounter">
-      싫어요<span>{{ unliked }}</span>
+      싫어요<span>( {{ unliked }} )</span>
     </p>
   </article>
 </template>
@@ -106,8 +106,11 @@ getPostLikeInfoFromServer()
 
 .like_box p {
   margin: 0 5px;
-  box-shadow: 1px 1px 3px rgb(176, 131, 17);
   padding: 6px 10px;
+  box-shadow: inset 2px 2px 2px 1px rgb(181, 148, 148), 2px 2px 2px 1px rgb(128, 94, 94);
+  background-color: #ae827d;
+  text-align: center;
+  color:white;
   border-radius: 10px;
 }
 </style>

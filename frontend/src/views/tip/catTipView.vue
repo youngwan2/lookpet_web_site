@@ -161,6 +161,7 @@ export default {
   border-radius: 10px;
   padding: 5px;
   margin: 10px auto;
+  /* mix-blend-mode: difference; */
   transition: 0.3s;
   transform: perspective(600px);
   transform-style: preserve-3d;
