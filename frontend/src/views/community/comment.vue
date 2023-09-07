@@ -12,7 +12,11 @@
             <div>
               <!-- 작성 날짜 -->
               <span class="date">{{ comment.date }}</span>
-              <span class="comment_update_btn" role="button" v-show="authCheck"
+              <span
+                class="comment_update_btn"
+                role="button"
+                v-show="authCheck"
+                @click="commentUpdateFormActivation(i)"
                 >수정</span
               >
               <span
@@ -24,8 +28,23 @@
               >
             </div>
           </div>
-          <!-- 작성 내용 -->
-          <p class="comment">{{ comment.comment }}</p>
+          <!-- 등록된 댓글 -->
+          <p class="comment" v-show="!isUpdate[i]">{{ comment.comment }}</p>
+          <!-- 등록된 댓글 수정 -->
+          <textarea
+            v-model="updateComment"
+            class="comment"
+            style="width: 92%; resize: none"
+            v-show="isUpdate[i]"
+          ></textarea>
+          <!-- 등록된 댓글 수정 버튼 -->
+          <span
+            role="button"
+            class="comment_update_btn"
+            @click="commentUpdate(i)"
+            v-show="isUpdate[i]"
+            >수정하기</span
+          >
 
           <!-- 대댓글(서브 코멘트) 입력 폼 -->
           <!-- <p class="sub_comment">
@@ -35,7 +54,7 @@
             ><br />
           </p> -->
 
-          <!-- 댓글 작성 폼(메인 코멘트 작성폼) -->
+          <!-- 대댓글 작성 폼(메인 코멘트 작성폼) -->
           <textarea
             maxlength="500"
             v-show="isOpen[i]"
@@ -53,6 +72,8 @@
           </button>
         </li>
       </ul>
+
+      <!-- 메인 댓글 등록 폼 -->
       <article class="main_comment_form" @submit.prevent="commentAdd">
         <h3 class="main_comment_title">댓글 등록</h3>
         <span class="text_length">{{ textLength }}</span>
@@ -63,6 +84,7 @@
           @keyup.enter="commentAdd"
           @keyup="textLengthControl"
         ></textarea>
+        <!-- 댓글 등록 버튼 -->
         <button type="button" class="main_comment_add_btn" @click="commentAdd">
           등록
         </button>
@@ -86,7 +108,9 @@ export default {
       textLength: '0/500', // 코멘트 길이 측정
       comment: '',
       commentReceivedFromDB: [],
-      authCheck: false
+      authCheck: false,
+      isUpdate: [],
+      updateComment: ''
     }
   },
   mounted() {
@@ -113,8 +137,11 @@ export default {
         // 초기에 false 를 채워넣어 모두 off 상태로 지정
         const isOpen = Array(this.commentTotal).fill(false)
         const subComment = Array(this.commentTotal).fill('댓글')
+        const isUpdate = Array(this.commentTotal).fill(false)
         this.isOpen = isOpen
         this.subCommentBtnName = subComment
+        this.isUpdate = isUpdate
+        console.log(this.isUpdate)
       })
       .catch((error) => {
         console.log('댓글 목록을 불러오던 중 문제 발생:', error)
@@ -161,6 +188,27 @@ export default {
 
       window.location.reload()
     },
+
+    /* 지정한 코멘트를 수정하는 함수 */
+    commentUpdate(i) {
+      const updateCommentId = this.commentReceivedFromDB[i]._id
+      const updateComment = this.updateComment
+      axios
+        .put(`http://localhost:3000/board/${i}/comment`, {
+          updateComment,
+          updateCommentId
+        })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      window.location.reload()
+    },
+    commentUpdateFormActivation(i) {
+      this.isUpdate[i] = !this.isUpdate[i]
+    },
     commentDel(id) {
       const delComment = this.commentReceivedFromDB[id]._id
       console.log(delComment)
@@ -183,6 +231,9 @@ export default {
 }
 </script>
 <style scoped>
+ul {
+  padding: 15px;
+}
 li {
   list-style: none;
 }
@@ -242,6 +293,11 @@ li {
   border-radius: 10px;
   display: inline-block;
   padding: 4px;
+}
+
+:is(.comment_update_btn, .comment_del_btn):hover {
+  background-color: #b99595;
+  cursor: pointer;
 }
 
 /* 메인 코멘트(댓글) 다는 폼 */
