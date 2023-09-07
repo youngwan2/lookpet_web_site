@@ -51,7 +51,7 @@
           </li>
         </ul>
       </div>
-      <div class="map_box">
+      <div class="map_box" :v-model="cultureInfo">
         <div class="map" ref="map" style="width: 500px; height: 400px"></div>
       </div>
     </div>
@@ -369,22 +369,35 @@ export default {
 }
 .category_menu {
   border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px gray;
   margin: 0 0 10px 10px;
   padding: 5px;
-  background: beige;
+  background: #815854;
+  color: #f9ebde;
   transition: 0.1s ease-in;
 }
 .category_menu:hover {
   transform: scale(1.01);
-  background: rgb(228, 185, 169);
+  background: rgb(198, 111, 17);
   box-shadow: 3px 3px 5px gray;
   cursor: pointer;
 }
 .category_menu:active {
   transform: scale(1);
-  background: rgb(219, 141, 113);
+  background: rgb(198, 111, 17);
   box-shadow: -1px -1px 3px gray;
 }
+.category_menu.selected {
+  background: rgb(198, 111, 17);
+  color: #f9ebde;
+  box-shadow: -2px -2px 5px gray;
+}
+/* .culture_name.selected {
+  background: rgb(198, 111, 17);
+  color: #f9ebde;
+  box-shadow: -2px -2px 5px gray;
+} */
 .page_message {
   position: fixed;
   font-size: 14px;
@@ -427,25 +440,26 @@ export default {
   margin: 0;
   width: 400px;
   min-width: 200px;
-  background: #ff7c01;
-  color: rgb(90, 86, 86);
+  background: #815854;
+  color: #f9ebde;
   padding: 10px 0;
 }
 .culture_name {
   font-weight: 800;
   font-size: 1.2em;
-  background: #fa9f17;
+  color: #f9ebde;
   width: 100%;
   list-style: none;
   transition: 0.1s;
   margin-bottom: 5px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #f9ebde;
   box-shadow: 1px 1px 3px gray;
+  transition: 0.3s;
 }
 .culture_name:hover {
   transform: translateX(10px);
-  color: rgb(233, 20, 66);
-  background: #ffc983;
+  color: #f9ebde;
+  background: rgb(198, 111, 17);
   box-shadow: 1px 1px 5px gray;
   cursor: pointer;
 }
@@ -460,51 +474,55 @@ export default {
 .region_menu {
   border: none;
   border-radius: 5px;
+  box-shadow: 1px 1px 5px gray;
   margin: 0 0 10px 10px;
   padding: 5px;
-  background: beige;
+  background: #815854;
+  color: #f9ebde;
   transition: 0.1s ease-in;
 }
 .region_menu:hover {
   transform: scale(1.01);
-  background: rgb(228, 185, 169);
+  background: rgb(198, 111, 17);
   box-shadow: 3px 3px 5px gray;
   cursor: pointer;
 }
 .region_menu:active {
   transform: scale(1);
-  background: rgb(219, 141, 113);
+  background: rgb(198, 111, 17);
   box-shadow: -1px -1px 3px gray;
 }
 .region_menu.selected {
-  background: rgb(228, 185, 169);
-  box-shadow: -2px -2px 5px gray;
-}
-.category_menu.selected {
-  background: rgb(228, 185, 169);
+  background: rgb(198, 111, 17);
+  color: #f9ebde;
   box-shadow: -2px -2px 5px gray;
 }
 .near_btn {
   border: none;
+  border-radius: 10px;
   font-weight: 800;
   font-size: 1.3em;
   margin-bottom: 5px;
-  color: rgb(233, 124, 142);
+  background: rgb(198, 111, 17);
+  color: #f9ebde;
   list-style: none;
   transition: 0.1s;
   margin: 0 10px;
 }
 .near_btn:hover {
-  transform: translateX(10px);
-  color: rgb(247, 43, 77);
-  background: #ececde;
+  transform: scale(1.01);
+  color: #f9ebde;
+  background: #815854;
   box-shadow: 1px 1px 5px gray;
 }
 .near_btn:active {
+  background: rgb(198, 111, 17);
+  color: #f9ebde;
   box-shadow: -1px -1px 5px gray;
 }
 .near_btn.selected {
-  background: rgb(231, 230, 195);
+  background: rgb(198, 111, 17);
+  color: #f9ebde;
   box-shadow: -2px -2px 5px gray;
 }
 .map_box {

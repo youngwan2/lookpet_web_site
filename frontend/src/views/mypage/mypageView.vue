@@ -3,50 +3,71 @@
     <h1 class="mypage_title">마이페이지</h1>
     <h1 class="mypage_info_exist" v-if="!petInfo">{{ exist }}</h1>
     <hr />
-    <div class="pet_list" v-if="petInfo">
-      <div class="pet_card" v-for="pet in petInfo" :key="pet">
-        <div class="pet_image_box">
-          <img class="pet_image" :src="pet.petimage" alt="pet_image" />
-        </div>
-        <div class="pet_info">
-          <div class="pet_info_detail">
-            <span>이름</span><span>{{ pet.petname }}</span>
+    <div class="content">
+      <div class="side_menu">
+        <ul class="side_list">
+          <div class="user_menu">
+            <li class="side_title">회원정보</li>
+            <ol>
+              수정하기
+            </ol>
           </div>
-          <div class="pet_info_detail">
-            <span>종</span><span>{{ pet.breeds }}</span>
+          <div class="pet_menu">
+            <li class="side_title">마이펫</li>
+            <ol @click="registerPet" class="pet_register">
+              펫 등록하기
+            </ol>
+            <ol>
+              수정하기
+            </ol>
+            <ol>
+              삭제하기
+            </ol>
           </div>
-          <div class="pet_info_detail">
-            <span>성별</span><span>{{ pet.gender[0] }}</span>
+        </ul>
+      </div>
+      <div class="pet_list" v-if="petInfo">
+        <div class="pet_card" v-for="pet in petInfo" :key="pet">
+          <div class="pet_image_box">
+            <img class="pet_image" :src="pet.petimage" alt="pet_image" />
           </div>
-          <div class="pet_info_detail">
-            <span>나이</span><span>{{ pet.age }}</span>
+          <div class="pet_info">
+            <div class="pet_info_detail">
+              <span>이름</span><span>{{ pet.petname }}</span>
+            </div>
+            <div class="pet_info_detail">
+              <span>종</span><span>{{ pet.breeds }}</span>
+            </div>
+            <div class="pet_info_detail">
+              <span>성별</span><span>{{ pet.gender[0] }}</span>
+            </div>
+            <div class="pet_info_detail">
+              <span>나이</span><span>{{ pet.age }}</span>
+            </div>
+            <div class="pet_info_detail">
+              <span>아이 소개</span><br />
+              <span>{{ pet.introduce }}</span>
+            </div>
           </div>
-          <div class="pet_info_detail">
-            <span>아이 소개</span><br />
-            <span>{{ pet.introduce }}</span>
+          <div class="card_btn_box">
+            <button
+              class="card_btn"
+              id="edit_btn"
+              @click="editPetData(pet.petId)"
+            >
+              수정
+            </button>
+            <button
+              class="card_btn"
+              id="delete_btn"
+              @click="delPetData(pet.petId)"
+            >
+              삭제
+            </button>
           </div>
-        </div>
-        <div class="card_btn_box">
-          <button
-            class="card_btn"
-            id="edit_btn"
-            @click="editPetData(pet.petId)"
-          >
-            수정
-          </button>
-          <button
-            class="card_btn"
-            id="delete_btn"
-            @click="delPetData(pet.petId)"
-          >
-            삭제
-          </button>
         </div>
       </div>
     </div>
-    <router-link :to="'/mypage/register'">
-      <button class="pet_register">펫 등록하기</button>
-    </router-link>
   </div>
 </template>
 <script>
@@ -61,6 +82,9 @@ export default {
     }
   },
   methods: {
+    registerPet() {
+      this.$router.push({ path: '/mypage/register' })
+    },
     editPetData(id) {
       this.$router.push({ path: `/mypage/petedit/${id}` })
     },
@@ -103,42 +127,67 @@ export default {
   width: 100%;
   height: 100%;
 }
-.pet_list {
-  display: flex;
-  height: 600px;
-}
 .mypage_title {
   text-align: center;
 }
 .mypage_info_exist {
   text-align: center;
 }
-.pet_register {
-  margin: 10px;
-  border: none;
-  border-radius: 20px;
-  width: 100px;
-  height: 60px;
-  background: rgb(255, 145, 0);
+.content {
+  display: flex;
+  width: 100%;
+}
+.side_menu {
+  width: 30%;
+  padding: 10px 0;
+  margin-right: 10px;
+  background: #815854;
+}
+.user_menu {
+  margin-bottom: 30px;
+}
+.side_list {
+  width: 400px;
+  min-width: 200px;
+  /* background: #815854; */
+  color: #f9ebde;
+  width: 100%;
+  list-style: none;
+  transition: 0.1s;
+  margin-bottom: 5px;
+  transition: 0.3s;
+}
+.side_title {
   font-weight: 800;
-  font-size: 1em;
-  transition: 0.1s ease-in;
+  font-size: 1.2em;
+  display: inline-block;
 }
-.pet_register:hover {
-  box-shadow: 3px 3px 10px rgb(230, 81, 81);
-  background: rgb(236, 37, 104);
-  transform: scale(1.01);
+.pet_list {
+  display: flex;
+  width: 70%;
+  height: 600px;
 }
-.pet_register:active {
-  box-shadow: -3px -3px 5px rgb(122, 46, 46);
+ol {
+  transition: 0.3s;
+}
+ol:hover {
+  border-bottom: 1px solid #f9ebde;
+  transform: translateX(5px);
+  color: #f9ebde;
+  background: rgb(198, 111, 17);
+  box-shadow: 1px 1px 5px gray;
+  cursor: pointer;
+}
+ol:active {
+  box-shadow: -1px -1px 5px gray;
 }
 .pet_card {
-  border: 3px solid orange;
+  border: 3px solid #815854;
   /* padding: 10px; */
   padding-bottom: 40px;
   margin: 10px;
   border-radius: 10px;
-  background: rgb(245, 236, 220);
+  background: rgb(255, 255, 255);
   position: relative;
 }
 .pet_image_box {
@@ -151,10 +200,12 @@ export default {
   margin-bottom: 10px;
 }
 .pet_info_detail > span:first-child {
-  background: orange;
+  background: #815854;
+  color: #f9ebde;
   border-radius: 5px;
   margin-right: 10px;
-  padding: 2px;
+  margin-bottom: 5px;
+  padding: 3px;
 }
 .card_btn_box {
   position: absolute;
