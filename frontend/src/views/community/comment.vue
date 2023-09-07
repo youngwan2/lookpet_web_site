@@ -3,19 +3,32 @@
     <hr />
     <br />
     <h1 class="comment_title">댓글({{ commentTotal }})</h1>
-    <section>
+    <section class="comment_render_area">
       <ul>
         <li v-for="(comment, i) in commentReceivedFromDB" :key="i">
           <div class="author">
             <!-- 작성자 이름 -->
             <p>{{ comment.author }}</p>
-            <!-- 작성 날짜 -->
-            <span class="date">{{ comment.date }}</span>
+            <div>
+              <!-- 작성 날짜 -->
+              <span class="date">{{ comment.date }}</span>
+              <span class="comment_update_btn" role="button" v-show="authCheck"
+                >수정</span
+              >
+              <span
+                class="comment_del_btn"
+                role="button"
+                @click="commentDel(i)"
+                v-show="authCheck"
+                >삭제</span
+              >
+            </div>
           </div>
           <!-- 작성 내용 -->
           <p class="comment">{{ comment.comment }}</p>
+
           <!-- 대댓글(서브 코멘트) 입력 폼 -->
-<!--           <p class="sub_comment">
+          <!-- <p class="sub_comment">
             <span role="button" @click="openInput(i)">{{
               subCommentBtnName[i]
             }}</span
@@ -72,7 +85,8 @@ export default {
       subCommentBtnName: [],
       textLength: '0/500', // 코멘트 길이 측정
       comment: '',
-      commentReceivedFromDB: []
+      commentReceivedFromDB: [],
+      authCheck: false
     }
   },
   mounted() {
@@ -84,6 +98,16 @@ export default {
         console.log(response.data.result)
         this.commentReceivedFromDB = response.data.result
         this.commentTotal = response.data.result.length
+
+        /* 유저 체크 */
+
+        this.commentReceivedFromDB.forEach((data, i) => {
+          if (data.author === document.cookie.split('=')[1]) {
+            this.authCheck = true
+          } else {
+            this.authCheck = false
+          }
+        })
 
         // 대댓글 등록 창을 온오프 하는 데 쓰이는 불린 값으로
         // 초기에 false 를 채워넣어 모두 off 상태로 지정
@@ -124,8 +148,6 @@ export default {
         comment: this.comment,
         author: document.cookie.split('=')[1] || '익명'
       }
-
-      console.log(commentInfo)
       axios
         .post(`http://localhost:3000/board/${this.postId}/comment`, {
           commentInfo
@@ -137,6 +159,24 @@ export default {
           console.log(error)
         })
 
+      window.location.reload()
+    },
+    commentDel(id) {
+      const delComment = this.commentReceivedFromDB[id]._id
+      console.log(delComment)
+      const check = confirm('정말 삭제하시겠습니까?')
+
+      check &&
+        axios
+          .delete(
+            `http://localhost:3000/board/${this.postId}/comment?target=${delComment}`
+          )
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
       window.location.reload()
     }
   }
@@ -150,6 +190,7 @@ li {
 /* 댓글() */
 .comment_title {
   padding: 10px;
+  color: rgb(138, 93, 93);
   margin: 12px 0 15px 5px;
 }
 
@@ -157,13 +198,15 @@ li {
 .author {
   font-size: 14px;
   display: flex;
-  margin-top: 10px;
+  color: rgb(111, 67, 67);
+  margin-top: 30px;
   padding: 0 8px;
+  align-items: center;
   justify-content: space-between;
 }
 
 .author span {
-  color: gray;
+  color: rgb(173, 125, 125);
 }
 
 .author .date {
@@ -172,13 +215,36 @@ li {
 
 /* 코멘트 */
 .comment {
-  border: 1px solid rgb(234, 228, 228);
   border-radius: 15px;
   padding: 20px;
+  box-shadow: inset -2px -2px 4px rgb(134, 97, 97);
+  color: white;
   margin: 5px 0;
+  background: linear-gradient(100deg, rgb(162, 120, 120), #b99595);
 }
 
-/* 메인 코멘트(댓글) */
+/* 댓글 수정 버튼 */
+.comment_update_btn {
+  background-color: #98726f;
+  border-radius: 10px;
+  box-shadow: inset -2px -2px 3px rgb(102, 74, 74);
+  margin: 0 5px;
+  display: inline-block;
+  color: white !important;
+  padding: 4px;
+}
+
+/* 댓글 삭제 버튼 */
+.comment_del_btn {
+  background-color: #98726f;
+  color: white !important;
+  box-shadow: inset -2px -2px 3px rgb(102, 74, 74);
+  border-radius: 10px;
+  display: inline-block;
+  padding: 4px;
+}
+
+/* 메인 코멘트(댓글) 다는 폼 */
 
 .main_comment_form {
   width: 95%;
@@ -190,7 +256,7 @@ li {
 .main_comment_title {
   margin: 10px 3px;
   padding: 0 5px;
-  box-shadow: -3px 0 0 goldenrod;
+  box-shadow: -3px 0 0 rgb(188, 129, 129);
 }
 
 .main_comment_form textarea {
@@ -206,6 +272,7 @@ li {
   outline: none;
 }
 
+/* 텍스트 길이 표시하는 css */
 .text_length {
   position: absolute;
   right: 0;
@@ -222,12 +289,14 @@ li {
   padding: 5px 12px;
   border: none;
   margin: 2px 0;
-  background: gold;
+  background: #815854;
+  color: white;
   border-radius: 15px;
 }
 
 .main_comment_add_btn:hover {
-  background: rgb(240, 188, 56);
+  background: #98726f;
+  cursor: pointer;
 }
 /* 대댓글(서브 코멘트) */
 .sub_comment {
@@ -240,7 +309,7 @@ li {
   font-size: 13px;
   margin: 5px 0;
   padding: 5px 12px;
-  background-color: rgb(232, 184, 61);
+  background-color: #815854;
 }
 
 .sub_comment span:hover {

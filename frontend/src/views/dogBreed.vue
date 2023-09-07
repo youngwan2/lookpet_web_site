@@ -131,8 +131,8 @@ a {
 /* 검색창 폼 */
 .dog_seacrh_form {
   max-width: 500px;
-  background-color: white;
-  box-shadow: 0 0 5px 2px rgb(220, 220, 220);
+  background-color: #966b67;
+  box-shadow: inset 2px 5px #d2a39f;
   border-radius: 50px;
   margin: 2rem auto;
   padding: 12px;
@@ -140,10 +140,15 @@ a {
 
 /* 검색창 input*/
 .dog_seacrh_form input {
-  max-width: 300px;
+  max-width: 400px;
   width: 100%;
-  padding: 12px;
+  width: 100%;
+  padding: 18px 12px 15px 12px;
+  color: #f9ebde;
+  font-weight: 600;
+  font-size: 1rem;
   border: none;
+  background-color: #966b67;
 }
 
 .dog_seacrh_form input:focus {
@@ -157,7 +162,8 @@ a {
 }
 
 .dog_seacrh_form label svg {
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 
 section {
@@ -177,13 +183,15 @@ section {
 .dog_image {
   width: 230px;
   height: 230px;
-  border-bottom: 4px solid #c5908c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 4px solid #c49e9b;
 }
 
 .dog_items {
   background-color:#815854;
   box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.266);
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 10px;
   text-align: center;
   padding: 1px 0;

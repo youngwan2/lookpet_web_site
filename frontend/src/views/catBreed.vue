@@ -141,18 +141,20 @@ a {
 /* 검색창 폼 */
 .cat_seacrh_form {
   max-width: 500px;
-  background-color: white;
-  box-shadow: 0 0 5px 2px rgb(220, 220, 220);
+  background-color: #966b67;
   border-radius: 50px;
   margin: 2rem auto;
   padding: 10px;
+  box-shadow: inset 2px 5px #d2a39f;
 }
 
 /* 검색창 input*/
 .cat_seacrh_form input {
   max-width: 300px;
+  color: #f9ebde;
   font-weight: 600;
   font-size: 1rem;
+  background-color: #966b67;
   width: 120%;
   padding: 18px 12px 15px 12px;
   border: none;
@@ -188,12 +190,16 @@ section {
 .cat_image {
   width: 230px;
   height: 230px;
-  border-bottom: 4px solid rgb(198, 111, 17);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 4px solid #c49e9b;
 }
 
 .cat_items {
-  box-shadow: 0 0 5px 2px rgb(223, 222, 222);
+  box-shadow: 5px 5px 5px 2px rgba(51, 50, 50, 0.285);
   margin: 10px;
+  border-radius: 5px;
+  background-color: #9f736f;
   max-width: 230px;
   max-height: 300px;
   text-align: center;
@@ -204,7 +210,7 @@ section {
   font-size: 15px;
   height: 35px;
   padding: 0px 10px 10px 0;
-  color: rgb(0, 0, 0);
+  color: #f9ebde;
 }
 
 .loading_spinner {

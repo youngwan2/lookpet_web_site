@@ -107,6 +107,7 @@ router.delete('/board/:id', (req, res) => {
   });
 });
 
+/** 댓글 추가 */
 router.post('/board/:id/comment', (req, res) => {
   const { postId, comment, author } = req.body.commentInfo;
   commentModel
@@ -123,6 +124,7 @@ router.post('/board/:id/comment', (req, res) => {
     });
 });
 
+/** 댓글 조회 */
 router.get('/board/:id/comment', (req, res) => {
   const postId = req.params.id;
   commentModel
@@ -131,6 +133,21 @@ router.get('/board/:id/comment', (req, res) => {
       res.json({ result });
     })
     .catch(console.error);
+});
+
+/** 댓글 삭제 */
+router.delete('/board/:id/comment', (req, res) => {
+  const postId = req.params.id;
+  const { target } = req.query;
+
+  commentModel
+    .deleteOne({ _id: target, postId: postId })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 // 해당 게시글의 좋아요 정보를 불러와서 유저에게 전달

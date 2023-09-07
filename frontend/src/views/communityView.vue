@@ -5,10 +5,6 @@
       <p style="text-align: center; padding: 10px; font-size: 14px">
         참고) 현재는 테스트를 위해 로그인된 유저가 모든 게시글 수정 삭제 가능
       </p>
-      <span
-        style="position: fixed; right: 40px; background: rgba(1, 1, 1, 0.088)"
-        >현재 페이지: {{ currentPage }}/{{ totalPageCount }}</span
-      >
       <div
         v-for="post in posts"
         :key="post.id"
@@ -164,18 +160,18 @@ li {
   border-radius: 20px;
   margin: 0 2px;
   transition: 0.5s;
-  box-shadow: 1px 1px 0 0 goldenrod, -1px -1px 0 0 rgb(200, 172, 11);
   padding: 10px 15px;
 }
 
 li:hover {
-  box-shadow: inset 50px 50px 0 0 rgb(246, 180, 12);
-  color: white;
+  background-color: #d5abab;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 /* 각 페이지 별로 포커스된 경우에만 배경색을 적용한다. */
 li.focus {
-  box-shadow: inset 50px 50px 0 0 rgb(246, 180, 12);
+  box-shadow: inset 50px 50px 0 0 rgb(136, 87, 87);
   color: white;
 }
 
@@ -207,26 +203,34 @@ a {
 .post_id {
   box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.305);
   border-radius: 20px;
-  margin: 5px 0 10px 0;
+  color:white;
+  margin: 1px 0 15px 0;
   max-width: 60px;
   min-width: 28px;
   text-align: center;
-  background-color: rgba(218, 165, 32, 0.583);
+  background-color:#d2a2a2;
+}
+
+h3 {
+  color: #593a3a;
+  padding: 0 5px;
 }
 .post_items {
   margin: 10px auto;
-  box-shadow: 1px 2px 2px rgba(152, 141, 15, 0.344);
   padding: 10px;
+  box-shadow: inset 1px 1px 1px rgb(189, 160, 160),inset -1px -1px 1px rgb(196, 162, 162);
+  background-color: #ffffff ;
   max-width: 900px;
-  border-radius: 10px;
+  border-radius: 5px;
   transition: 0.5s;
 }
 
 /* 콘텐츠 */
 .content {
-  padding: 10px 0 18px 0;
+  padding: 10px 0 18px 15px;
   width: 200px;
-  color: rgb(101, 100, 100);
+  font-size: 13px;
+  color: #9e6969;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -243,24 +247,26 @@ a {
   font-size: 13px;
   margin: 5px 5px 0 0;
   border-radius: 20px;
-  padding: 5px;
-  background-color: rgb(249, 243, 210);
+  color:white;
+  box-shadow: inset 2px 2px 2px rgb(207, 193, 193),inset -2px -2px 2px rgb(99, 77, 77);
+  padding: 6px 12px;
+  background-color: rgb(175, 127, 127);
 }
 
 /* 글쓰기 버튼 */
 .post_add_btn {
-  box-shadow: 2px 2px 0 0 rgb(170, 146, 13);
+  box-shadow: 2px 2px 0 0 rgb(108, 80, 80);
   border-radius: 10px;
   position: absolute;
-  background: rgb(245, 207, 109);
+  background: rgb(195, 143, 143);
   top: 2rem;
   right: 5px;
-  color: black;
   margin: 17.9px 0;
   padding: 5px;
+  color:white;
 }
 
 .post_add_btn:hover {
-  background: gold;
+  background: rgb(177, 133, 133);
 }
 </style>

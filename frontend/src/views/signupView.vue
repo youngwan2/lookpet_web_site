@@ -1,6 +1,6 @@
 <template>
   <div class="signup_container">
-    <h2>회원가입 화면 작업중</h2>
+    <h2 class="title">회원가입</h2>
 
     <form @submit.prevent="signupRequest" class="signup_form">
       <div class="signup_form_inner_con">
@@ -107,6 +107,29 @@ export default {
 }
 </script>
 <style scoped>
+/* 인풋 태그 공통*/
+input {
+  padding: 18px 25px;
+  border: none;
+  font-size: 15px;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* 페이지 타이틀 */
+.title {
+  position: absolute;
+  text-shadow: 30px 30px 3px rgb(113, 111, 111);
+  left: 50%;
+  font-size: 1.6rem;
+  color: #815854;
+  transform: translate(-50%);
+  margin-top: 8rem;
+}
+
+/* 회원가입 폼 컨테이너 */
 .signup_container {
   max-width: 1200px;
   height: 100vh;
@@ -114,18 +137,29 @@ export default {
   position: relative;
 }
 
-/* 로그인 폼 */
+/* 회원가입 폼 */
 .signup_form {
-  max-width: 350px;
-  border-radius: 20px;
+  max-width: 500px;
+  border-radius: 5px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 25px;
   width: 100%;
   height: 100%;
-  background-color: burlywood;
-  max-height: 300px;
+  background: linear-gradient(100deg, #9a706c, #483332);
+  max-height: 400px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: inset 10px 10px 2px #c78d87, 40px 70px 5px rgba(0, 0, 0, 0.464);
+  animation: updown 1s infinite alternate ease-in-out;
+}
+
+@keyframes updown {
+  from {
+    transform: translate(-50%, -49.9%);
+  }
 }
 
 /* 로그인 폼 내부 컨테이너(input 태그 위치 중앙정렬) */
@@ -146,13 +180,15 @@ export default {
   min-width: 60px;
 }
 
-input {
-  padding: 10px;
+.double_check_btn {
   border: none;
+  width: 50px;
+  background-color: #d19e9a;
 }
 
-input:focus {
-  outline: none;
+.double_check_btn:hover {
+  background-color: #ddbc9e;
+  cursor: pointer;
 }
 
 .password_con {
@@ -174,10 +210,15 @@ input:focus {
 .signup_btn {
   text-align: center;
   width: 200px;
+  margin-top: 1rem;
+  font-size: 15px;
   border: none;
   border-radius: 20px;
-  background-color: brown;
+  background-color: #f9ebde;
+  color: #815854;
+  font-weight: 600;
   padding: 10px;
+  box-shadow: inset 1px 1px 5px black;
 }
 
 .signup_btn:hover {

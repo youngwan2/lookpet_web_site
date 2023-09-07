@@ -3,7 +3,7 @@
     <section class="update_page_inner_container">
       <input type="text" v-model="post.title" class="post_title" />
       <QuillEditor
-        style="min-height: 60vh"
+        style="min-height: 60vh; background-color: white;"
         toolbar="full"
         @ready="setHTML"
         @textChange="getHTML"
@@ -92,11 +92,11 @@ export default {
   max-width: 1000px;
   margin: 0 auto;
 }
-
 .post_title {
-  border: none;
+  border: 1px solid rgb(213, 210, 210);
   margin: 7px 0 0 0;
   text-align: center;
+  background-color: rgb(255, 255, 255);
   z-index: -2;
   font-size: 2rem;
   padding: 40px 0;
@@ -116,16 +116,18 @@ export default {
 .control_box button {
   border: none;
   margin: 5px 5px;
-  background-color: white;
+  background-color: rgb(155, 102, 102);
   padding: 8px 10px;
   border-radius: 5px;
-  box-shadow: inset 2px 2px 0 0 rgb(223, 223, 223),
-    inset -1px -1px 0 0 rgb(174, 174, 173);
+  color: rgb(239, 231, 216);
+  box-shadow: inset 2px 2px 0 0 rgb(214, 180, 180),
+    inset -1px -1px 0 0 rgb(93, 64, 64);
 }
 
 .control_box button:hover {
   cursor: pointer;
-  background-color: rgb(143, 141, 137);
+  border: none;
+  background-color: rgb(196, 149, 149);
   color: white;
 }
 </style>

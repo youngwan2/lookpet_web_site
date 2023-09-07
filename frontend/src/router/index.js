@@ -17,7 +17,7 @@ const router = createRouter({
       name: 'dog-breed',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/dogBreed.vue'
+          /* webpackChunkName: "dog",webpackPrefetch:true */ '../views/dogBreed.vue'
         )
     },
     {
@@ -33,7 +33,7 @@ const router = createRouter({
       name: 'dog-tip',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/dog/dogTip.vue'
+          /* webpackChunkName: "dog",webpackPrefetch:true */ '../views/tip/dogTipView.vue'
         )
     },
     {
@@ -41,7 +41,7 @@ const router = createRouter({
       name: 'cat-breed',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catBreed.vue'
+          /* webpackChunkName: "cat",webpackPrefetch:true */ '../views/catBreed.vue'
         )
     },
     {
@@ -57,7 +57,7 @@ const router = createRouter({
       name: 'cat-tip',
       component: () =>
         import(
-          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/cat/catTip.vue'
+          /* webpackChunkName: "cat",webpackPrefetch:true */ '../views/tip/catTipView.vue'
         )
     },
     // 커뮤니티

@@ -5,15 +5,19 @@
       <h2 class="post_title">
         {{ post.title || '제목이 들어가는 자리입니다.' }}
       </h2>
-      <div class="layout"></div>
       <!-- 포스트 콘텐츠  -->
       <QuillEditor
         readOnly
         ref="postContent"
         @ready="setHTML"
-        theme="snow"
+        theme="bubble"
         class="editor"
-        style="min-height: 70vh; border-radius: 5px"
+        style="
+          margin-top: 3rem;
+          min-height: 80vh;
+          border-radius: 5px;
+          background-color: white;
+        "
       />
       <!-- 좋아요/싫어요 -->
       <LikeBox />
@@ -42,6 +46,7 @@
 <script>
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
+import '@vueup/vue-quill/dist/vue-quill.bubble.css'
 import comment from '../community/comment.vue'
 import axios from 'axios'
 import LikeBox from './likeBox.vue'
@@ -122,34 +127,27 @@ export default {
 .post_title {
   padding: 10px;
   font-size: 2rem;
+  color:rgb(169, 131, 131);
   position: relative;
   text-align: center;
   top: 30px;
   z-index: 11;
 }
-
-.layout {
-  width: 100%;
-  max-width: 1200px;
-  height: 56px;
-  background-color: rgb(255, 255, 255);
-  position: absolute;
-  z-index: 10;
-  top: 3rem;
-}
-
 /* 작성자/작성일자 */
 .etc {
   margin: 1.3rem 0;
   padding: 10px;
   border: 1px solid rgb(224, 212, 212);
+
   width: 170px;
+  box-shadow: inset 3px 3px 2px rgba(225, 184, 184, 0.591),
+    inset -3px -3px 2px rgba(90, 64, 64, 0.591);
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(158, 114, 114);
 }
 
 .etc .author {
-  color: rgb(0, 0, 0);
+  color: white;
   border-radius: 20px;
   display: inline-block;
   padding: 3px 0;
@@ -158,27 +156,25 @@ export default {
 
 .etc .date {
   font-size: 14px;
-  color: rgb(89, 89, 89);
+  color: rgb(228, 226, 226);
 }
 
 /* 수정/삭제 버튼 */
 .control_box {
   height: 61px;
-  border: 1px solid rgb(190, 187, 187);
   width: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
 }
 
 .control_box button {
   border: none;
-  box-shadow: 1px 2px 1px 0 rgba(77, 76, 76, 0.585);
+  box-shadow: inset -2px -2px 1px 0 rgba(96, 68, 68, 0.585);
   border-radius: 10px;
   color: white;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(155, 110, 110);
   margin: 5px;
   transition: 0.3s;
   padding: 10px 16px;
@@ -187,7 +183,7 @@ export default {
 .control_box button:hover {
   cursor: pointer;
   color: white;
-  background-color: rgb(208, 170, 119);
+  background-color: rgb(173, 124, 124);
   box-shadow: 0 0 0 0, inset 2px 4px 1px 1px rgba(0, 0, 0, 0.469);
 }
 </style>
