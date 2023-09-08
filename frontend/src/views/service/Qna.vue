@@ -11,7 +11,7 @@
         ref="item"
       >
         <p>{{ item.question }}</p>
-        <button class="drop_icon"></button>
+        <button class="drop_icon">▼</button>
         <ul class="answer">
           <li>
             {{ item.answer }}
@@ -134,15 +134,11 @@ li {
   top: 12px;
 }
 
-.qna_item.off .drop_icon::before {
-  content: '▼';
-  transition: 0.5s;
+.qna_item.on .drop_icon {
+  transform: rotate(180deg);
+  transition: 0.2s ease-in-out;
 }
 
-.qna_item.on .drop_icon::before {
-  content: '▲';
-  transition: 0.5s;
-}
 .qna_item.on .answer {
   padding: 20px 5px;
   border: 1px solid dashed tomato;

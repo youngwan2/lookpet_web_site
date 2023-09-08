@@ -114,7 +114,7 @@ export default {
 
 .detail_con {
   margin: 0 auto;
-  max-width: 1000px;
+  max-width: 900px;
 }
 /* 디테일 이미지 컨테이너 */
 .detail_image_con {
@@ -129,7 +129,7 @@ export default {
   border-left: 7px solid black;
   border-top-right-radius: 8px;
   margin:1.5rem auto ;
-  max-width: 1000px;
+  max-width: 900px;
   padding: 10px;
   background: rgb(135, 102, 102);
   text-shadow: 1px 1px 2px black;

@@ -81,9 +81,13 @@ export default {
 .page_title {
   text-align: center;
   max-width: 920px;
-  border-radius: 5px;
-  padding: 10px 0;
-  box-shadow: inset -2px -2px 0 0 goldenrod, inset 2px 2px 0 0 goldenrod;
+  color: rgb(237, 214, 214);
+  border-radius: 30px;
+  padding: 15px 0;
+  text-shadow: 1px 1px 2px black;
+  background-color: rgb(156, 115, 115);
+  box-shadow: inset -2px -6px 1px 0 rgb(72, 52, 52),
+    inset 4px 4px 0 0 rgb(207, 160, 160);
   margin: 40px auto -35px auto;
   animation: top 1s 1 cubic-bezier(0.175, 2.52, 0.765, 0.1);
 }
@@ -114,9 +118,7 @@ export default {
   font-size: 1.5rem;
   font-weight: 600;
   padding: 5px 0;
-  box-shadow: 1px 1px 4px 1px rgba(23, 23, 23, 0.332);
-  border-radius: 10px;
-  background: rgb(248, 191, 49);
+  background: rgb(168, 124, 124);
 }
 
 .msg {
@@ -132,14 +134,14 @@ export default {
   margin: 10px 0;
   font-size: 1.25rem;
   font-weight: 600;
-  background: gold;
-  box-shadow: 2px 2px 5px goldenrod;
+  background: rgb(228, 187, 187);
+  box-shadow: 2px 2px 5px rgb(172, 129, 129);
   border-radius: 20px;
   padding: 12px 8px;
 }
 
 .test_link:hover {
-  background: goldenrod;
+  background: rgb(166, 125, 125);
   color: white;
 }
 
@@ -147,18 +149,22 @@ export default {
 .cat {
   margin: 10px 10px;
   max-width: 450px;
+  border-top: 10px solid rgb(232, 201, 201);
+  border-left: 10px solid rgb(134, 101, 101);
+  border-right: 10px solid  rgb(134, 101, 101);
+  border-bottom: 10px inset rgb(150, 115, 115);
   position: relative;
   text-align: center;
   width: 100%;
-  box-shadow: 1px 1px 2px 1px rgba(128, 128, 128, 0.516);
-  border-radius: 10px;
+  border-radius: 2px;
   min-height: 430px;
   transition: 0.5s;
 }
 
 :is(.dog, .cat):hover {
-  background: rgb(255, 247, 204);
+  background: rgb(255, 255, 255);
   transform: translate(0, -30px);
+  cursor: pointer;
   box-shadow: 10px 20px 5px 0 rgba(0, 0, 0, 0.199);
 }
 
@@ -182,9 +188,10 @@ export default {
 }
 
 .category {
-  background-color: rgb(236, 207, 40);
+  background-color: rgb(141, 93, 93);
   border-radius: 20px;
   padding: 3px 5px;
+  color: white;
   margin: 1.7rem 0 0 0;
   position: absolute;
   right: 50%;

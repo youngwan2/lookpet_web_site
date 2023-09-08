@@ -143,7 +143,7 @@ a {
 /* 검색창 폼 */
 .cat_seacrh_form {
   max-width: 500px;
-  background-color: #966b67;
+  background-color: #a57975;
   border-radius: 50px;
   margin: 2rem auto;
   box-shadow: inset 5px 3px rgb(176, 139, 139),inset -2px -5px rgb(70, 52, 52);
@@ -157,8 +157,7 @@ a {
   color: #f9ebde;
   font-weight: 600;
   font-size: 1rem;
-
-  background-color: #966b67;
+  background-color: #a57975;
   width: 120%;
   padding: 18px 12px 15px 12px;
   border: none;
@@ -196,7 +195,6 @@ section {
 .cat_image {
   width: 230px;
   height: 230px;
-  border-top-left-radius: 5px;
   border-bottom: 4px solid #c49e9b;
 }
 
