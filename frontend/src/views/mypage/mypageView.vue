@@ -7,7 +7,7 @@
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
-            <ol>
+            <ol @click="userEdit">
               수정하기
             </ol>
           </div>
@@ -20,6 +20,7 @@
         </ul>
       </div>
       <div class="pet_list" v-if="petInfo" ref="petList">
+        <h1 class="pet_info_not" v-if="petInfo == ''">펫 등록을 해주세요.</h1>
         <div class="pet_card" v-for="pet in petInfo" :key="pet">
           <div class="pet_image_box">
             <img class="pet_image" :src="pet.petimage" alt="pet_image" />
@@ -60,9 +61,6 @@
           </div>
         </div>
       </div>
-      <div class="pet_info_not" v-if="petInfo == ''">
-        <h1>펫 등록을 해주세요.</h1>
-      </div>
     </div>
   </div>
 </template>
@@ -78,6 +76,9 @@ export default {
     }
   },
   methods: {
+    userEdit() {
+      this.$router.push({ path: '/mypage/useredit' })
+    },
     registerPet() {
       this.$router.push({ path: '/mypage/register' })
     },
@@ -151,10 +152,9 @@ export default {
   margin-bottom: 30px;
 }
 .side_list {
-  max-width:400px;
+  max-width: 400px;
   width: 100%;
   min-width: 200px;
-  /* background: #815854; */
   color: #f9ebde;
   width: 100%;
   list-style: none;
@@ -212,6 +212,9 @@ ol:active {
 }
 .pet_info_detail {
   margin-bottom: 10px;
+}
+.pet_info_not {
+  margin: auto;
 }
 .pet_info_detail > span:first-child {
   background: #815854;

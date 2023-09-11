@@ -178,6 +178,14 @@ const router = createRouter({
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/petEditView.vue'
         )
+    },
+    {
+      path: '/mypage/useredit/',
+      name: 'useredit',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/userEditView.vue'
+        )
     }
   ]
 })

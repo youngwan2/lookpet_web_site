@@ -11,7 +11,7 @@
             name="username"
             v-model="username"
           />
-          <button class="double_check_btn" type="button" @click="doubleCheck">
+          <button class="double_check_btn" type="button" @click="doubleIdCheck">
             확인
           </button>
         </div>
@@ -34,6 +34,22 @@
           />
         </div>
         <br />
+        <div class="nickname_con">
+          <input
+            type="text"
+            placeholder="닉네임(한글2자이상~6자)"
+            name="nickname"
+            v-model="nickname"
+          />
+          <button
+            class="double_check_btn"
+            type="button"
+            @click="doubleNickCheck"
+          >
+            확인
+          </button>
+        </div>
+        <br />
         <button type="submit" class="signup_btn" :disabled="!isCheck">
           회원가입
         </button>
@@ -50,16 +66,32 @@ export default {
       password: '',
       email: '',
       message: '',
+      nickname: '',
       isCheck: false
     }
   },
   methods: {
-    doubleCheck() {
+    doubleIdCheck() {
       axios
-        .post('http://localhost:3000/auth/check', { username: this.username })
+        .post('http://localhost:3000/auth/idcheck', { username: this.username })
         .then((res) => {
           this.message = res.data.message
           this.isCheck = res.data.success
+          console.log(this.message)
+        })
+        .catch((error) => {
+          console.log('회원가입 시도 중 문제 발생::', error)
+        })
+    },
+    doubleNickCheck() {
+      axios
+        .post('http://localhost:3000/auth/nickcheck', {
+          nickname: this.nickname
+        })
+        .then((res) => {
+          this.message = res.data.message
+          this.isCheck = res.data.success
+          console.log(this.message)
         })
         .catch((error) => {
           console.log('회원가입 시도 중 문제 발생::', error)
@@ -69,7 +101,8 @@ export default {
       const userInfo = {
         username: this.username,
         password: this.password,
-        email: this.email
+        email: this.email,
+        nickname: this.nickname
       }
 
       // 정규식 검사
@@ -80,15 +113,17 @@ export default {
       const mailReg =
         // eslint-disable-next-line
         /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+      const nickReg = /^[가-힣]{2,6}$/g
 
-      const [result1, result2, result3] = [
+      const [result1, result2, result3, result4] = [
         nameReg.test(this.username),
         pwReg.test(this.password),
-        mailReg.test(this.email)
+        mailReg.test(this.email),
+        nickReg.test(this.nickname)
       ]
 
       // 정규표현식에 모두 통과한 경우에만 회원가입 요청을 보낸다.
-      if (result1 && result2 && result3) {
+      if (result1 && result2 && result3 && result4) {
         console.log('보냈다')
         window.location.replace('/auth/login')
         axios
@@ -202,6 +237,11 @@ input:focus {
 
 /* 이메일 */
 .email_con {
+  display: flex;
+  background-color: white;
+}
+/* 닉네임 */
+.nickname_con {
   display: flex;
   background-color: white;
 }
