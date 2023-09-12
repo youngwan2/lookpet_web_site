@@ -108,11 +108,4 @@ router.post('/auth/nickcheck', (req, res) => {
   })
 })
 
-router.get('/mypage/useredit', (req, res) => {
-  const { username } = req.query
-  userModel.findOne({ username: username }).then((result) => {
-    res.json(result)
-  })
-})
-
 module.exports = router

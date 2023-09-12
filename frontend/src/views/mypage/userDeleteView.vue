@@ -2,7 +2,7 @@
   <div class="container">
     <div class="head_line">
       <div class="move_back" @click="moveBack"><h1>←</h1></div>
-      <h1 class="user_info_title">회원정보수정</h1>
+      <h1 class="user_info_title">회원탈퇴</h1>
     </div>
     <hr />
     <div class="content">
@@ -10,10 +10,10 @@
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
-            <ol class="user_edit">
+            <ol @click="userEdit" class="active_btn">
               정보수정
             </ol>
-            <ol @click="withDrawal" class="active_btn">
+            <ol class="user_delete">
               회원탈퇴
             </ol>
           </div>
@@ -33,21 +33,15 @@
           </div>
           <div class="info-content">
             <span>비밀번호</span>
-            <input class="user-id" type="text" v-model="password" />
+            <input type="text" v-model="password" />
           </div>
-          <div class="info-content">
-            <span>이메일</span>
-            <input type="text" v-model="email" :placeholder="userInfo.email" />
-          </div>
-          <div class="info-content">
-            <span>닉네임</span>
-            <input
-              type="text"
-              v-model="nickname"
-              :placeholder="userInfo.nickname"
-            />
-          </div>
-          <button @click="editUserInfo">수정하기</button>
+          <input
+            id="agree"
+            type="text"
+            placeholder="'정말 탈퇴하겠습니다' 를 입력해주세요."
+            v-model="agree"
+          />
+          <button @click="deleteUserInfo">탈퇴하기</button>
         </div>
       </div>
     </div>
@@ -64,14 +58,13 @@ export default {
       userInfo: {},
       username: '',
       password: '',
-      email: '',
-      nickname: '',
-      message: ''
+      agree: '',
+      message: '정말 탈퇴하겠습니다'
     }
   },
   methods: {
-    withDrawal() {
-      this.$router.push({ path: '/mypage/withdrawal' })
+    userEdit() {
+      this.$router.push({ path: '/mypage/useredit' })
     },
     registerPet() {
       this.$router.push({ path: '/mypage/register' })
@@ -79,24 +72,29 @@ export default {
     moveBack() {
       this.$router.push({ path: '/mypage' })
     },
-    async editUserInfo() {
-      try {
-        const newUserInfo = {
-          username: this.username,
-          password: this.password,
-          email: this.email,
-          nickname: this.nickname
+    async deleteUserInfo() {
+      if (this.agree === this.message) {
+        console.log('문구가 일치합니다.')
+        try {
+          const userInfo = {
+            username: this.username,
+            password: this.password
+          }
+          await axios
+            .post('http://localhost:3000/mypage/withdrawal', {
+              userInfo
+            })
+            .then((res) => {
+              if (res.status === 200) {
+                alert('회원탈퇴가 완료되었습니다.')
+                this.$router.push({ path: '/' })
+              }
+            })
+        } catch {
+          console.log('유저 정보 삭제 중에 에러가 발생했습니다.')
         }
-        await axios
-          .post('http://localhost:3000/mypage/useredit', {
-            newUserInfo
-          })
-          .then((res) => {
-            this.message = res.data.message
-            alert(this.message)
-          })
-      } catch {
-        console.log('유저 정보 수정 중에 에러가 발생했습니다.')
+      } else {
+        alert('문구를 정확하게 입력해주세요.')
       }
     }
   },
@@ -108,8 +106,6 @@ export default {
       })
       .then((res) => {
         this.userInfo = res.data
-        this.email = this.userInfo.email
-        this.nickname = this.userInfo.nickname
       })
       .catch((e) => {
         console.log('mypage 데이터를 불러오는 중 에러가 발생했습니다.:', e)
@@ -169,7 +165,7 @@ export default {
 .active_btn:active {
   box-shadow: -1px -1px 5px gray;
 }
-.user_edit {
+.user_delete {
   background: rgb(198, 111, 17);
   border-bottom: 1px solid #f9ebde;
 }
@@ -197,12 +193,12 @@ export default {
 }
 .info-box {
   width: 50%;
-  height: 50%;
-  min-height: 400px;
+  height: 30%;
+  min-height: 300px;
   min-width: 300px;
   max-width: 500px;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 7%;
   background: #815854;
   border-radius: 0 10% 0 10%;
   padding: 20px;
@@ -218,7 +214,7 @@ export default {
 }
 
 .info-content {
-  margin-bottom: 5%;
+  margin-bottom: 10%;
   width: 80%;
   height: 10%;
   position: relative;
@@ -249,9 +245,17 @@ export default {
 }
 .info-box > button:hover {
   transform: scale(1.03);
-  background: #e7c9ac;
+  background: #ee7129;
+  color: #fff;
 }
 .info-box > button:active {
   box-shadow: inset 3px 3px 5px gray;
+}
+#agree {
+  width: 100%;
+  height: 10%;
+  padding: 3px;
+  border: none;
+  background: rgb(223, 220, 220);
 }
 </style>

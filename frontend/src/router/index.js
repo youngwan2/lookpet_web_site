@@ -186,6 +186,14 @@ const router = createRouter({
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/userEditView.vue'
         )
+    },
+    {
+      path: '/mypage/withdrawal/',
+      name: 'withdrawal',
+      component: () =>
+        import(
+          /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/userDeleteView.vue'
+        )
     }
   ]
 })

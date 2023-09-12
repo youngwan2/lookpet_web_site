@@ -10,7 +10,7 @@
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
-            <ol class="user_edit">
+            <ol @click="userEdit" class="user_edit">
               수정하기
             </ol>
           </div>
@@ -138,6 +138,9 @@ export default {
     }
   },
   methods: {
+    userEdit() {
+      this.$router.push({ path: '/mypage/useredit' })
+    },
     checkGender() {
       // gender 배열에 요소가 두 개 이상인 경우 두 번째 요소를 제거
       if (this.gender.length > 1) {

@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const connection = require('../DB/dbConnection/connection')
 const mypetModel = require('../DB/schema/mypetModel')
+const userModel = require('../DB/schema/userModel')
+const bcrypto = require('bcrypt')
 
 connection()
 
@@ -107,6 +109,95 @@ router.delete('/mypage/:id', (req, res) => {
       success: true
     })
   })
+})
+
+/* 유저정보 가져오기 */
+router.get('/mypage/useredit', (req, res) => {
+  const { username } = req.query
+  userModel.findOne({ username: username }).then((result) => {
+    res.json(result)
+  })
+})
+
+/* 유저정보 수정 */
+
+router.post('/mypage/useredit', (req, res) => {
+  const newUserInfo = req.body.newUserInfo
+  const username = newUserInfo.username
+  const password = newUserInfo.password
+  const updateInfo = {
+    email: newUserInfo.email,
+    nickname: newUserInfo.nickname
+  }
+  userModel
+    .findOne({ username: username })
+    .then((result) => {
+      // 서버에서 받아온 유저의 비밀번호
+      const hash = result?.password || ''
+      console.log('DB번호:', hash, '요청번호:', password)
+
+      // 암호화된 비밀번호를 비교해서 일치하면 result에 true를 반환
+      bcrypto.compare(password, hash, (err, result) => {
+        console.log('검증결과:', result)
+        if (result) {
+          userModel
+            .updateOne({ username: username }, updateInfo)
+            .then((result) => {
+              console.log(result)
+              res.json({ message: '유저정보 수정이 완료되었습니다.' })
+            })
+        } else {
+          res.json({
+            message: '비밀번호가 일치하지 않습니다.',
+            success: false
+          })
+        }
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+      res.json({
+        message: '일치하는 정보가 존재하지 않습니다.',
+        success: false
+      })
+    })
+})
+
+/* 유저정보 삭제 */
+router.post('/mypage/withdrawal', (req, res) => {
+  const { username, password } = req.body.userInfo
+  console.log(username, password)
+  res.json({ message: '전송완료' })
+  userModel
+    .findOne({ username: username })
+    .then((result) => {
+      // 서버에서 받아온 유저의 비밀번호
+      const hash = result?.password || ''
+      console.log('DB번호:', hash, '요청번호:', password)
+
+      // 암호화된 비밀번호를 비교해서 일치하면 result에 true를 반환
+      bcrypto.compare(password, hash, (err, result) => {
+        console.log('검증결과:', result)
+        if (result) {
+          userModel.deleteOne({ username: username }).then((result) => {
+            console.log(result)
+            res.json({ message: '유저정보 삭제가 완료되었습니다.' })
+          })
+        } else {
+          res.json({
+            message: '비밀번호가 일치하지 않습니다.',
+            success: false
+          })
+        }
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+      res.json({
+        message: '일치하는 정보가 존재하지 않습니다.',
+        success: false
+      })
+    })
 })
 
 module.exports = router
