@@ -33,7 +33,7 @@
           </div>
           <div class="info-content">
             <span>비밀번호</span>
-            <input type="text" v-model="password" />
+            <input type="password" v-model="password" />
           </div>
           <input
             id="agree"

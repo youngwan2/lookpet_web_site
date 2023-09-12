@@ -10,6 +10,9 @@
             <ol @click="userEdit">
               수정하기
             </ol>
+            <ol @click="withDrawal">
+              탈퇴하기
+            </ol>
           </div>
           <div class="pet_menu">
             <li class="side_title">마이펫</li>
@@ -76,6 +79,9 @@ export default {
     }
   },
   methods: {
+    withDrawal() {
+      this.$router.push({ path: '/mypage/withdrawal' })
+    },
     userEdit() {
       this.$router.push({ path: '/mypage/useredit' })
     },
@@ -147,6 +153,7 @@ export default {
   padding: 10px 0;
   margin-right: 10px;
   background: #815854;
+  overflow: hidden;
 }
 .user_menu {
   margin-bottom: 30px;

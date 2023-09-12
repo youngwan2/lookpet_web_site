@@ -63,7 +63,7 @@ router.get('/mypage/petedit/:id', (req, res) => {
   console.log(id)
 
   mypetModel
-    .findOne({ id: id })
+    .findOne({ petId: id })
     .then((result) => {
       if (!result) {
         return res

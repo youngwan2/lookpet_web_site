@@ -4,14 +4,16 @@
       <div class="move_back" @click="moveBack"><h1>←</h1></div>
       <h1 class="pet_register_title">펫 등록</h1>
     </div>
-    <hr />
     <div class="content">
       <div class="side_menu">
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
-            <ol @click="userEdit" class="user_edit">
-              수정하기
+            <ol @click="userEdit" class="active_btn">
+              정보수정
+            </ol>
+            <ol @click="withDrawal" class="active_btn">
+              회원탈퇴
             </ol>
           </div>
           <div class="pet_menu">
@@ -138,6 +140,9 @@ export default {
     }
   },
   methods: {
+    withDrawal() {
+      this.$router.push({ path: '/mypage/withdrawal' })
+    },
     userEdit() {
       this.$router.push({ path: '/mypage/useredit' })
     },
@@ -255,21 +260,18 @@ input[type='number']::-webkit-outer-spin-button {
 .user_menu {
   margin-bottom: 30px;
 }
-.user_edit {
+.active_btn {
   transition: 0.3s;
   margin-left: -20px;
   white-space: nowrap;
 }
-.user_edit:hover {
+.active_btn:hover {
   border-bottom: 1px solid #f9ebde;
   transform: translateX(5px);
   color: #f9ebde;
   background: rgb(198, 111, 17);
   box-shadow: 1px 1px 5px gray;
   cursor: pointer;
-}
-.user_edit:active {
-  box-shadow: -1px -1px 5px gray;
 }
 .pet_register {
   background: rgb(198, 111, 17);

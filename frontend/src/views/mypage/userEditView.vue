@@ -33,7 +33,7 @@
           </div>
           <div class="info-content">
             <span>비밀번호</span>
-            <input class="user-id" type="text" v-model="password" />
+            <input class="user-id" type="password" v-model="password" />
           </div>
           <div class="info-content">
             <span>이메일</span>
