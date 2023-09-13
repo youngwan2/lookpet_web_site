@@ -6,7 +6,7 @@
         <span class="span2">Pet</span><br />
         <span class="span3">Project</span>
       </h1>
-      <!-- <address>2023 DS ACADEMY<br />SENIER PROJECT.</address> -->
+      <address>2023 DS ACADEMY<br />SENIER PROJECT.</address>
     </header>
 
     <setion class="banner">
@@ -213,11 +213,27 @@ main {
 @keyframes moveIn2 {
   from {
     position: absolute;
+    opacity: 0;
     left: -10%;
   }
   to {
     position: absolute;
+    opacity: 1;
     left: 35%;
+  }
+}
+@keyframes moveIn3 {
+  from {
+    position: absolute;
+    left: -10%;
+    opacity: 0;
+    margin-top: 88%;
+  }
+  to {
+    position: absolute;
+    left: 33%;
+    opacity: 1;
+    margin-top: 88%;
   }
 }
 /* header */
@@ -262,7 +278,12 @@ main header h1::after {
 main header h1 span {
   font: normal 3.8vw/2 'arial';
 }
-
+main header address {
+  margin-top: 10%;
+  color: #d6d0d0;
+  animation: moveIn3 4s ease;
+  font: normal 1.1vw/1.5 'arial';
+}
 /* banner */
 main .banner {
   width: 65%;
