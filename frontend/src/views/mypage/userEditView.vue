@@ -6,7 +6,7 @@
     </div>
     <hr />
     <div class="content">
-      <div class="side_menu">
+      <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
@@ -24,6 +24,11 @@
             </ol>
           </div>
         </ul>
+      </div>
+      <div class="toggle-button-container">
+        <button @click="toggleSideMenu" class="toggle-button">
+          {{ isSideMenuOpen ? '<<' : '>>' }}
+        </button>
       </div>
       <div class="user-info">
         <div class="info-box">
@@ -55,8 +60,6 @@
 </template>
 <script>
 import axios from 'axios'
-
-// import axios from 'axios'
 export default {
   name: 'useredit',
   data() {
@@ -66,10 +69,39 @@ export default {
       password: '',
       email: '',
       nickname: '',
-      message: ''
+      message: '',
+      isSideMenuOpen: true,
+      sideMenuWidth: 0, // side_menu의 초기 width 값
+      screenWidth:
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth
     }
   },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize() // 페이지 로드 시 초기 상태 설정
+  },
   methods: {
+    toggleSideMenu() {
+      // 스크린 너비가 600px 이하인 경우에만 토글로 열림/닫힘 상태 변경
+      this.isSideMenuOpen = !this.isSideMenuOpen
+    },
+    handleResize() {
+      // 스크린 너비 업데이트
+      this.screenWidth =
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth
+
+      // 스크린 너비가 600px 이하인 경우, 메뉴를 닫도록 설정
+      if (this.screenWidth <= 600) {
+        this.isSideMenuOpen = false
+      } else {
+        // 스크린 너비가 600px 초과인 경우, 메뉴를 열도록 설정
+        this.isSideMenuOpen = true
+      }
+    },
     withDrawal() {
       this.$router.push({ path: '/mypage/withdrawal' })
     },
@@ -100,6 +132,9 @@ export default {
       }
     }
   },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   async mounted() {
     this.username = document.cookie.split('=')[1]
     await axios
@@ -114,6 +149,8 @@ export default {
       .catch((e) => {
         console.log('mypage 데이터를 불러오는 중 에러가 발생했습니다.:', e)
       })
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
   }
 }
 </script>
@@ -144,11 +181,20 @@ export default {
   height: 600px;
 }
 .side_menu {
+  margin: 0;
+  width: 30%;
   max-width: 300px;
   min-width: 250px;
   padding: 10px 0;
+  margin-right: 10px;
   background: #815854;
   overflow: hidden;
+  transition: 0.2s linear;
+}
+@media screen and (max-width: 600px) {
+  .side_menu {
+    display: none;
+  }
 }
 .user_menu {
   margin-bottom: 30px;
@@ -253,5 +299,26 @@ export default {
 }
 .info-box > button:active {
   box-shadow: inset 3px 3px 5px gray;
+}
+.hidden-menu {
+  display: none;
+}
+.toggle-button-container {
+  position: relative;
+}
+
+.toggle-button {
+  position: relative;
+  right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
+  top: 250px;
+  background-color: #613d3a;
+  color: #f9ebde;
+  font-size: 1.2rem;
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 35px;
+  height: 100px;
+  cursor: pointer;
 }
 </style>

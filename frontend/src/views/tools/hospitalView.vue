@@ -32,13 +32,15 @@
             v-for="data in hospitalInfo"
             :key="data.id"
             @click="loadScript(data.address, data.name)"
+            :class="{ selected: data.address === address }"
           >
             {{ data.name }}
           </li>
         </ul>
       </div>
       <div class="map_box">
-        <div class="map" ref="map" style="width: 500px; height: 400px"></div>
+        <div class="map" ref="map"></div>
+        <h3>{{ address }}</h3>
       </div>
     </div>
     <nav class="pagination_nav">
@@ -104,12 +106,13 @@ export default {
       totalPage: 0,
       focusPage: 1,
       focus: '',
-      latlng: [],
-      positions: []
+      address: ''
     }
   },
   methods: {
     async loadScript(a, n) {
+      this.address = a
+      console.log(this.address)
       if (!window.kakao) {
         const script = document.createElement('script')
         script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_KAKAO_API_KEY}&libraries=services,drawing&autoload=false`
@@ -129,7 +132,7 @@ export default {
       const mapContainer = this.$refs.map
       const mapOptions = {
         center: new window.kakao.maps.LatLng(35.152381, 129.059767),
-        level: 4
+        level: 3
       }
       const map = new window.kakao.maps.Map(mapContainer, mapOptions)
 
@@ -170,7 +173,7 @@ export default {
             const mapContainer = document.querySelector('.map')
             const mapOptions = {
               center: new window.kakao.maps.LatLng(latitude, longitude),
-              level: 5
+              level: 3
             }
             const map = new window.kakao.maps.Map(mapContainer, mapOptions)
 
@@ -351,7 +354,7 @@ export default {
 .region_menu {
   border: none;
   border-radius: 5px;
-  box-shadow: 1px 1px 5px gray;
+  box-shadow: 3px 3px 3px gray;
   margin: 0 0 10px 10px;
   padding: 5px;
   background: #815854;
@@ -416,11 +419,12 @@ export default {
 }
 .hospital_list {
   margin: 0;
-  width: 400px;
-  min-width: 200px;
+  width: 30%;
+  min-width: 250px;
   background: #815854;
   color: #f9ebde;
   padding: 10px 0;
+  overflow: hidden;
 }
 .hospital_name {
   font-weight: 800;
@@ -441,8 +445,11 @@ export default {
   box-shadow: 1px 1px 5px gray;
   cursor: pointer;
 }
-.hospital_name:active {
-  box-shadow: -1px -1px 5px gray;
+.hospital_name.selected {
+  transform: translateX(10px);
+  background: rgb(198, 111, 17);
+  color: #f9ebde;
+  box-shadow: -2px -2px 5px gray;
 }
 .near_btn {
   border: none;
@@ -455,6 +462,7 @@ export default {
   list-style: none;
   transition: 0.1s;
   margin: 0 10px;
+  box-shadow: 3px 3px 3px gray;
 }
 .near_btn:hover {
   transform: scale(1.01);
@@ -474,8 +482,12 @@ export default {
 }
 .map_box {
   margin: 20px;
+  width: 100%;
+  height: 100%;
 }
 .map {
   margin: auto;
+  height: 500px;
+  margin-bottom: 10px;
 }
 </style>

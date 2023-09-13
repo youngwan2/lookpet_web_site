@@ -99,10 +99,21 @@ export default {
 
       this.menuOpenClassName = this.on ? 'on' : 'off'
       console.log(this.menuOpenClassName)
+    },
+    handleDocumentClick(event) {
+      // 메뉴가 열려 있고, 클릭 이벤트가 메뉴 영역 밖에서 발생한 경우 메뉴를 닫음
+      if (this.on && !this.$refs.header.contains(event.target)) {
+        this.menuOpen()
+      }
     }
   },
   mounted() {
     console.log(this.loginUsername)
+    document.addEventListener('click', this.handleDocumentClick)
+  },
+  beforeUnmount() {
+    // 컴포넌트가 파괴되기 전에 이벤트 리스너를 제거
+    document.removeEventListener('click', this.handleDocumentClick)
   }
 }
 </script>
@@ -277,7 +288,7 @@ li {
   .drop_box.on {
     transform: translate(0);
     height: 100%;
-    width: 60%;
+    width: 40%;
     visibility: visible;
     opacity: 1;
   }

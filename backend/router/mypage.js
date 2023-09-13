@@ -171,6 +171,12 @@ router.post('/mypage/withdrawal', (req, res) => {
   userModel
     .findOne({ username: username })
     .then((result) => {
+      if (!result) {
+        return res.json({
+          message: '유저 정보를 찾을 수 없습니다.',
+          success: false
+        })
+      }
       // 서버에서 받아온 유저의 비밀번호
       const hash = result?.password || ''
       console.log('DB번호:', hash, '요청번호:', password)
@@ -181,10 +187,13 @@ router.post('/mypage/withdrawal', (req, res) => {
         if (result) {
           userModel.deleteOne({ username: username }).then((result) => {
             console.log(result)
-            res.json({ message: '유저정보 삭제가 완료되었습니다.' })
+            mypetModel.deleteMany({ username: username }).then((result) => {
+              console.log(result)
+              res.json({ message: '유저정보 삭제가 완료되었습니다.' })
+            })
           })
         } else {
-          res.json({
+          return res.json({
             message: '비밀번호가 일치하지 않습니다.',
             success: false
           })
@@ -193,7 +202,7 @@ router.post('/mypage/withdrawal', (req, res) => {
     })
     .catch((error) => {
       console.log(error)
-      res.json({
+      return res.json({
         message: '일치하는 정보가 존재하지 않습니다.',
         success: false
       })

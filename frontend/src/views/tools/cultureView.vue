@@ -45,14 +45,16 @@
             v-for="data in cultureInfo"
             :key="data.id"
             class="culture_name"
-            @click="loadScript(data.x, data.y, data.name)"
+            @click="loadScript(data.x, data.y, data.name, data.address)"
+            :class="{ selected: data.address === address }"
           >
             <span>{{ data.name }}</span>
           </li>
         </ul>
       </div>
-      <div class="map_box" :v-model="cultureInfo">
-        <div class="map" ref="map" style="width: 500px; height: 400px"></div>
+      <div class="map_box">
+        <div class="map" ref="map"></div>
+        <h3>{{ address }}</h3>
       </div>
     </div>
     <!-- 페이지네이션 -->
@@ -133,11 +135,13 @@ export default {
       maxPage: 0,
       totalPage: 0,
       focusPage: 1,
-      focus: ''
+      focus: '',
+      address: ''
     }
   },
   methods: {
-    async loadScript(x, y, n) {
+    async loadScript(x, y, n, a) {
+      this.address = a
       if (!window.kakao) {
         const script = document.createElement('script')
         script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_KAKAO_API_KEY}&libraries=services,drawing&autoload=false`
@@ -360,7 +364,6 @@ export default {
 .culture_title {
   margin: 30px;
   text-align: center;
-  border-bottom: 1px solid gray;
 }
 .category_box {
   padding: 10px;
@@ -370,7 +373,7 @@ export default {
 .category_menu {
   border: none;
   border-radius: 5px;
-  box-shadow: 1px 1px 5px gray;
+  box-shadow: 3px 3px 3px gray;
   margin: 0 0 10px 10px;
   padding: 5px;
   background: #815854;
@@ -393,11 +396,6 @@ export default {
   color: #f9ebde;
   box-shadow: -2px -2px 5px gray;
 }
-/* .culture_name.selected {
-  background: rgb(198, 111, 17);
-  color: #f9ebde;
-  box-shadow: -2px -2px 5px gray;
-} */
 .page_message {
   position: fixed;
   font-size: 14px;
@@ -438,11 +436,12 @@ export default {
 }
 .culture_list {
   margin: 0;
-  width: 400px;
-  min-width: 200px;
+  width: 30%;
+  min-width: 250px;
   background: #815854;
   color: #f9ebde;
   padding: 10px 0;
+  overflow: hidden;
 }
 .culture_name {
   font-weight: 800;
@@ -463,18 +462,21 @@ export default {
   box-shadow: 1px 1px 5px gray;
   cursor: pointer;
 }
-.culture_name:active {
-  box-shadow: -1px -1px 5px gray;
+.culture_name.selected {
+  transform: translateX(10px);
+  background: rgb(198, 111, 17);
+  color: #f9ebde;
 }
 .region_box {
   padding: 10px;
+  border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   text-align: center;
 }
 .region_menu {
   border: none;
   border-radius: 5px;
-  box-shadow: 1px 1px 5px gray;
+  box-shadow: 3px 3px 3px gray;
   margin: 0 0 10px 10px;
   padding: 5px;
   background: #815854;
@@ -508,6 +510,7 @@ export default {
   list-style: none;
   transition: 0.1s;
   margin: 0 10px;
+  box-shadow: 3px 3px 3px gray;
 }
 .near_btn:hover {
   transform: scale(1.01);
@@ -527,8 +530,12 @@ export default {
 }
 .map_box {
   margin: 20px;
+  width: 100%;
+  height: 100%;
 }
 .map {
   margin: auto;
+  height: 500px;
+  margin-bottom: 10px;
 }
 </style>
