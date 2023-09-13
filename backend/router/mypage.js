@@ -25,6 +25,7 @@ router.get('/mypage', (req, res) => {
 router.post('/mypage/register', async (req, res) => {
   const { username, petimage, petname, breeds, gender, age, introduce } =
     req.body
+    console.log(req.body)
   try {
     // Find the highest pet ID currently in the database
     const highestPet = await mypetModel.findOne().sort({ petId: -1 }).limit(1)

@@ -12,10 +12,11 @@
             <div>
               <!-- 작성 날짜 -->
               <span class="date">{{ comment.date }}</span>
+              <!-- 댓글 수정 및 삭제 -->
               <span
                 class="comment_update_btn"
                 role="button"
-                v-show="authCheck"
+                v-show="authCheck[i]"
                 @click="commentUpdateFormActivation(i)"
                 >수정</span
               >
@@ -23,7 +24,7 @@
                 class="comment_del_btn"
                 role="button"
                 @click="commentDel(i)"
-                v-show="authCheck"
+                v-show="authCheck[i]"
                 >삭제</span
               >
             </div>
@@ -123,25 +124,27 @@ export default {
         this.commentReceivedFromDB = response.data.result
         this.commentTotal = response.data.result.length
 
-        /* 유저 체크 */
-
-        this.commentReceivedFromDB.forEach((data, i) => {
-          if (data.author === document.cookie.split('=')[1]) {
-            this.authCheck = true
-          } else {
-            this.authCheck = false
-          }
-        })
-
         // 대댓글 등록 창을 온오프 하는 데 쓰이는 불린 값으로
         // 초기에 false 를 채워넣어 모두 off 상태로 지정
         const isOpen = Array(this.commentTotal).fill(false)
         const subComment = Array(this.commentTotal).fill('댓글')
         const isUpdate = Array(this.commentTotal).fill(false)
+        this.authCheck = Array(this.commentTotal).fill(false)
         this.isOpen = isOpen
         this.subCommentBtnName = subComment
         this.isUpdate = isUpdate
-        console.log(this.isUpdate)
+
+        /* 유저 체크 */
+
+        this.commentReceivedFromDB.forEach((data, i) => {
+          if (data.author === document.cookie.split('=')[1]) {
+            this.authCheck[i] = !this.authCheck[i]
+          } else {
+            this.authCheck[i] = false
+          }
+        })
+
+        console.log(this.authCheck)
       })
       .catch((error) => {
         console.log('댓글 목록을 불러오던 중 문제 발생:', error)
