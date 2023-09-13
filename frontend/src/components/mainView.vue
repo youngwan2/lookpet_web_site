@@ -2,10 +2,9 @@
   <main>
     <header>
       <h1>
-        <span>Look</span><br />
-        <span>Pet</span><br />
-        <span>Project</span>
-        <hr />
+        <span class="span1">Look</span><br />
+        <span class="span2">Pet</span><br />
+        <span class="span3">Project</span>
       </h1>
       <!-- <address>2023 DS ACADEMY<br />SENIER PROJECT.</address> -->
     </header>
@@ -192,10 +191,35 @@ a {
 main {
   width: 100%;
   height: 100%;
-
-  background: #d2d1d1;
+  background: #6b5d50;
 }
-
+/* 애니메이션 */
+@keyframes moveIn {
+  from {
+    position: absolute;
+    right: -100%;
+    width: 65%;
+    margin-top: 6%;
+    opacity: 0;
+  }
+  to {
+    position: absolute;
+    right: 5%;
+    width: 65%;
+    margin-top: 6%;
+    opacity: 1;
+  }
+}
+@keyframes moveIn2 {
+  from {
+    position: absolute;
+    left: -10%;
+  }
+  to {
+    position: absolute;
+    left: 35%;
+  }
+}
 /* header */
 main header {
   width: 20%;
@@ -215,22 +239,28 @@ main header h1 {
   /*안쪽의 자간 줄높이 초기화*/
   font-size: 0px;
   color: orange;
-  cursor: pointer;
 }
-main header h1:hover main header h1::after {
-  width: 120px;
-  background: orange;
+main header h1 .span1 {
+  animation: moveIn2 3s ease;
+}
+main header h1 .span2 {
+  animation: moveIn2 2s ease;
+}
+main header h1 .span3 {
+  animation: moveIn2 1s ease;
+}
+main header h1::after {
+  content: '';
+  display: block;
+  width: 12vw;
+  height: 2px;
+  background: #777;
+  margin-top: 20px;
+  transition: 1.5s;
 }
 
-main header h1 i {
-  font-size: 5vw;
-  margin-bottom: 15px;
-}
 main header h1 span {
-  font: normal 3.8vw/1.5 'arial';
-}
-main header p {
-  color: white;
+  font: normal 3.8vw/2 'arial';
 }
 
 /* banner */
@@ -243,6 +273,7 @@ main .banner .banner_video {
   object-fit: cover;
   filter: saturate(50%);
   margin-top: 10%;
+  animation: moveIn 3s ease;
 }
 /* nav */
 main nav {

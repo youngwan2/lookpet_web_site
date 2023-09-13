@@ -170,6 +170,7 @@ export default {
   visibility: visible;
   opacity: 1;
   translate: 0 0;
+  transition: 2s ease-in-out;
 }
 
 .off {
@@ -188,13 +189,14 @@ export default {
   border-radius: 10px;
   right: 40px;
   bottom: 30px;
-  z-index: 10000;
+  /* z-index: 10000; */
   transform: translate(0, -50%);
 }
 
 .modal_icon:hover {
   cursor: pointer;
   background: bisque;
+  transition: 1.2s;
 }
 
 .modal_inner_con {
@@ -219,6 +221,7 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 10000;
 }
 
 .modal::-webkit-scrollbar {

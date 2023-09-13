@@ -180,7 +180,7 @@ export default {
   position: relative;
   box-sizing: border-box;
   /* background: linear-gradient(45deg, #ac8bef, #2ddbdc); */
-  background: #d2d1d1;
+  background: #6b5d50;
 }
 .wrap h1 {
   font-weight: normal;
@@ -239,7 +239,7 @@ export default {
 .wrap .swiper-wrapper .swiper-slide-next .inner {
   opacity: 0.7;
 }
-@keyframe ani {
+@keyframes ani {
   0% {
     opacity: 0;
     transform: scale(1);
@@ -281,7 +281,7 @@ export default {
 }
 .wrap .swiper-wrapper .swiper-slide .inner .con h2:hover {
   color: orange;
-  transition: 0.7s;
+  transition: 1.2s;
   cursor: pointer;
 }
 
