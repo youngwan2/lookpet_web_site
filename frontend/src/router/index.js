@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'mainView',
+      name: 'MainView',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../components/mainView.vue'
@@ -14,7 +14,7 @@ const router = createRouter({
     // 강아지/고양이 카테고리
     {
       path: '/dog/breed',
-      name: 'dog-breed',
+      name: 'DogBreed',
       component: () =>
         import(
           /* webpackChunkName: "dog",webpackPrefetch:true */ '../views/dogBreed.vue'
@@ -22,7 +22,7 @@ const router = createRouter({
     },
     {
       path: '/dog/breed/detail/:id',
-      name: 'dog-breed/detail',
+      name: 'DogBreedDetail',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/dogDetail.vue'
@@ -30,7 +30,7 @@ const router = createRouter({
     },
     {
       path: '/dog/tip',
-      name: 'dog-tip',
+      name: 'DogTip',
       component: () =>
         import(
           /* webpackChunkName: "dog",webpackPrefetch:true */ '../views/tip/dogTipView.vue'
@@ -38,7 +38,7 @@ const router = createRouter({
     },
     {
       path: '/cat/breed',
-      name: 'cat-breed',
+      name: 'CatBreed',
       component: () =>
         import(
           /* webpackChunkName: "cat",webpackPrefetch:true */ '../views/catBreed.vue'
@@ -46,7 +46,7 @@ const router = createRouter({
     },
     {
       path: '/cat/breed/detail/:id',
-      name: 'cat-breed-detail',
+      name: 'CatBreedDetail',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/catDetail.vue'
@@ -54,7 +54,7 @@ const router = createRouter({
     },
     {
       path: '/cat/tip',
-      name: 'cat-tip',
+      name: 'CatTip',
       component: () =>
         import(
           /* webpackChunkName: "cat",webpackPrefetch:true */ '../views/tip/catTipView.vue'
@@ -63,7 +63,7 @@ const router = createRouter({
     // 커뮤니티
     {
       path: '/community',
-      name: 'community',
+      name: 'Community',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/communityView.vue'
@@ -71,7 +71,7 @@ const router = createRouter({
     },
     {
       path: '/community/newpost',
-      name: 'community-newpost',
+      name: 'CommunityNewPost',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/add.vue'
@@ -79,7 +79,7 @@ const router = createRouter({
     },
     {
       path: '/community/updatepost',
-      name: 'community-updatepost',
+      name: 'CommunityUpdatePost',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/update.vue'
@@ -87,7 +87,7 @@ const router = createRouter({
     },
     {
       path: '/community/detail/:id',
-      name: 'community-detailpost',
+      name: 'CommunityDetailPost',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/postDetail.vue'
@@ -95,7 +95,7 @@ const router = createRouter({
     },
     {
       path: '/community/modify/:id',
-      name: 'community-modifypost',
+      name: 'CommunityModifyPost',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/community/update.vue'
@@ -104,7 +104,7 @@ const router = createRouter({
     // 각종 부가서비스
     {
       path: '/tools/hospital',
-      name: 'tools-hospital',
+      name: 'ToolsHospital',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/tools/hospitalView.vue'
@@ -112,7 +112,7 @@ const router = createRouter({
     },
     {
       path: '/tools/culture',
-      name: 'tools-culture',
+      name: 'ToolsCulture',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/tools/cultureView.vue'
@@ -120,7 +120,7 @@ const router = createRouter({
     },
     {
       path: '/tools/test',
-      name: 'tools-test',
+      name: 'ToolsTest',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/tools/test.vue'
@@ -129,7 +129,7 @@ const router = createRouter({
     // 고객센터
     {
       path: '/service/qna',
-      name: 'service-qna',
+      name: 'ServiceFnA',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/service/Qna.vue'
@@ -139,7 +139,7 @@ const router = createRouter({
     // 로그인/회원가입
     {
       path: '/auth/login',
-      name: 'login',
+      name: 'Login',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/loginView.vue'
@@ -147,7 +147,7 @@ const router = createRouter({
     },
     {
       path: '/auth/signup',
-      name: 'signup',
+      name: 'Signup',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/signupView.vue'
@@ -157,7 +157,7 @@ const router = createRouter({
     // 마이 페이지
     {
       path: '/mypage',
-      name: 'mypage',
+      name: 'Mypage',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/mypageView.vue'
@@ -165,7 +165,7 @@ const router = createRouter({
     },
     {
       path: '/mypage/register',
-      name: 'register',
+      name: 'Register',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/petRegisterView.vue'
@@ -173,7 +173,7 @@ const router = createRouter({
     },
     {
       path: '/mypage/petedit/:id',
-      name: 'petedit',
+      name: 'Petedit',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/petEditView.vue'
@@ -181,7 +181,7 @@ const router = createRouter({
     },
     {
       path: '/mypage/useredit/',
-      name: 'useredit',
+      name: 'Useredit',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/userEditView.vue'
@@ -189,7 +189,7 @@ const router = createRouter({
     },
     {
       path: '/mypage/withdrawal/',
-      name: 'withdrawal',
+      name: 'Withdrawal',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../views/mypage/userDeleteView.vue'

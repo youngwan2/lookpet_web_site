@@ -46,6 +46,7 @@
 <script>
 import axios from 'axios'
 export default {
+  name: 'Login',
   data() {
     return {
       username: '',
@@ -53,6 +54,9 @@ export default {
       error: '', // 비밀번호 틀리면 담기는 에러 메시지
       success: true
     }
+  },
+  created() {
+    document.title = this.$route.name
   },
   methods: {
     async loginRequest() {

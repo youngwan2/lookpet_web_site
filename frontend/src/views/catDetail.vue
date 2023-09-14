@@ -63,13 +63,16 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'catDetail',
+  name: 'CatDetail',
   data() {
     return {
       catDetailInfo: '',
       imagePath: '',
       loading: true
     }
+  },
+  created() {
+    document.title = this.$route.name
   },
   mounted() {
     this.$refs.detail.scrollIntoView({ behavior: 'smooth' })

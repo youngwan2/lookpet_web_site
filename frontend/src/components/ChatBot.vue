@@ -42,6 +42,7 @@
 <script>
 import chatGPT from '../../public/chat-gpt'
 export default {
+  name: 'ChatBot',
   data() {
     return {
       message: '',

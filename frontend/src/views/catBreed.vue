@@ -47,12 +47,16 @@
 <script>
 import axios from 'axios'
 export default {
+  name: 'CatBreed',
   data() {
     return {
       catBreedInfo: [],
       needs: '',
       isLoading: true
     }
+  },
+  created() {
+    document.title = this.$route.name
   },
   async mounted() {
     this.isLoading = true
@@ -127,8 +131,8 @@ a {
 /** 페이지 제목 */
 .title {
   text-align: center;
-  color:#815854;
-  text-shadow: 1px 1px 1px rgb(107, 79, 79),2px 2px 1px rgb(236, 204, 204);
+  color: #815854;
+  text-shadow: 1px 1px 1px rgb(107, 79, 79), 2px 2px 1px rgb(236, 204, 204);
   margin-top: 2.3rem;
 }
 
@@ -146,9 +150,8 @@ a {
   background-color: #a57975;
   border-radius: 50px;
   margin: 2rem auto;
-  box-shadow: inset 5px 3px rgb(176, 139, 139),inset -2px -5px rgb(70, 52, 52);
+  box-shadow: inset 5px 3px rgb(176, 139, 139), inset -2px -5px rgb(70, 52, 52);
   padding: 10px;
-
 }
 
 /* 검색창 input*/

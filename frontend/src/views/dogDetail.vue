@@ -60,11 +60,14 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'detail',
+  name: 'DogBreedDetail',
   data() {
     return {
       dogDetail: {}
     }
+  },
+  created() {
+    document.title = this.$route.name
   },
   async mounted() {
     this.$refs.detail.scrollIntoView({ behavior: 'smooth' })
@@ -128,14 +131,13 @@ export default {
   border-bottom-left-radius: 8px;
   border-left: 7px solid black;
   border-top-right-radius: 8px;
-  margin:1.5rem auto ;
+  margin: 1.5rem auto;
   max-width: 900px;
   padding: 10px;
   background: rgb(135, 102, 102);
   text-shadow: 1px 1px 2px black;
   color: rgb(246, 219, 219);
   filter: drop-shadow(10px 20px 3px rgba(98, 79, 79, 0.253));
-
 }
 
 /* 상단 설명 */
