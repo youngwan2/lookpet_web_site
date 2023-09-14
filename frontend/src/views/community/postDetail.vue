@@ -73,7 +73,7 @@ export default {
     const { id } = this.$route.params
     console.log(id)
     axios
-      .get(`http://localhost:3000/board/${id}`)
+      .get(`/board/${id}`)
       .then((response) => {
         this.post = response.data[0]
         this.setHTML(this.post)
@@ -92,7 +92,7 @@ export default {
 
       if (isAgree) {
         axios
-          .delete(`http://localhost:3000/board/${this.post.id}`)
+          .delete(`/board/${this.post.id}`)
           .then((response) => {
             if (response.status === 200) {
               this.$router.push({ path: '/community' })

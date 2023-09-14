@@ -237,7 +237,7 @@ export default {
       //     ageReg.test(this.email)
       //   ]
       await axios
-        .post('http://localhost:3000/mypage/register', petInfo)
+        .post('/mypage/register', petInfo)
         .then((res) => {
           console.log(res)
           this.$router.push('/mypage')

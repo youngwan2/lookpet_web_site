@@ -232,7 +232,7 @@ export default {
       }
       console.log(newPetInfo)
       axios
-        .post(`http://localhost:3000/mypage/petedit/${this.id}`, {
+        .post(`/mypage/petedit/${this.id}`, {
           newPetInfo
         })
         .then((res) => {
@@ -253,7 +253,7 @@ export default {
   async mounted() {
     const petId = this.$route.params.id
     await axios
-      .get(`http://localhost:3000/mypage/petedit/${petId}`)
+      .get(`/mypage/petedit/${petId}`)
       .then((res) => {
         this.petInfo = res.data
         this.petimage = this.petInfo.petimage

@@ -120,7 +120,7 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-  color:white;
+  color: white;
 }
 
 li {
@@ -128,7 +128,7 @@ li {
 }
 
 .title > a {
-  color:white;
+  color: white;
 }
 .header {
   width: 100%;
@@ -136,7 +136,7 @@ li {
   padding: 20px 0;
   box-shadow: inset 0px -5px 3px 0 rgba(161, 43, 43, 0.554);
   z-index: 100000;
-  background: #fc6355;
+  background: #f0594be1;
 }
 .header .header_inner {
   max-width: 1500px;
@@ -150,7 +150,7 @@ li {
 }
 .menu a {
   margin: 10px;
-  color:white;
+  color: white;
   font-weight: 600;
   height: 100%;
 }

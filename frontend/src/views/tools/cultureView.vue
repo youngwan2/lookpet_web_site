@@ -255,7 +255,7 @@ export default {
       try {
         console.log(this.area)
         const response = await axios.get(
-          `http://localhost:3000/tools/culture/?region=${this.area}&category=${
+          `/tools/culture/?region=${this.area}&category=${
             this.category
           }&page=${this.currentPage || 1}`
         )
@@ -328,7 +328,7 @@ export default {
   // 페이지 첫 화면 세팅
   async mounted() {
     await axios
-      .get('http://localhost:3000/tools/culture')
+      .get('/tools/culture')
       .then((response) => {
         if (response.status === 200) {
           this.cultureInfo = response.data.result

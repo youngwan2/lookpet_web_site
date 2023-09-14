@@ -77,7 +77,7 @@ export default {
   methods: {
     doubleIdCheck() {
       axios
-        .post('http://localhost:3000/auth/idcheck', { username: this.username })
+        .post('/auth/idcheck', { username: this.username })
         .then((res) => {
           this.message = res.data.message
           this.isCheck = res.data.success
@@ -89,7 +89,7 @@ export default {
     },
     doubleNickCheck() {
       axios
-        .post('http://localhost:3000/auth/nickcheck', {
+        .post('/auth/nickcheck', {
           nickname: this.nickname
         })
         .then((res) => {
@@ -131,7 +131,7 @@ export default {
         console.log('보냈다')
         window.location.replace('/auth/login')
         axios
-          .post('http://localhost:3000/auth/signup', userInfo)
+          .post('/auth/signup', userInfo)
           .then((res) => {
             console.log(res)
           })

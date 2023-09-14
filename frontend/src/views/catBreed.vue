@@ -61,7 +61,7 @@ export default {
   async mounted() {
     this.isLoading = true
     await axios
-      .get('http://localhost:3000/cat/breed')
+      .get('/cat/breed')
       .then((response) => {
         if (response.status === 200) {
           this.catBreedInfo = response.data
@@ -82,7 +82,7 @@ export default {
     async search(e) {
       this.needs = e.target.value
       await axios
-        .get(`http://localhost:3000/cat/breed/?needs=${this.needs}`)
+        .get(`/cat/breed/?needs=${this.needs}`)
         .then((res) => {
           console.log(res)
           this.catBreedInfo = res.data

@@ -58,7 +58,7 @@ export default {
   async mounted() {
     this.isLoading = true
     try {
-      const response = await axios.get('http://localhost:3000/dog/breed')
+      const response = await axios.get('/dog/breed')
       if (response.status === 200) {
         this.dogBreedInfo = response.data
         this.isLoading = false
@@ -75,7 +75,7 @@ export default {
     dogInfoPickFromDB() {
       console.log(this.dogName)
       axios
-        .get(`http://localhost:3000/breed/search?dogname=${this.dogName}`)
+        .get(`/breed/search?dogname=${this.dogName}`)
         .then((result) => {
           this.dogBreedInfo = result.data
         })

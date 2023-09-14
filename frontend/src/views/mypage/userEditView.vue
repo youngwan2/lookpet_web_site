@@ -121,7 +121,7 @@ export default {
           nickname: this.nickname
         }
         await axios
-          .post('http://localhost:3000/mypage/useredit', {
+          .post('/mypage/useredit', {
             newUserInfo
           })
           .then((res) => {
@@ -139,7 +139,7 @@ export default {
   async mounted() {
     this.username = document.cookie.split('=')[1]
     await axios
-      .get('http://localhost:3000/mypage/useredit', {
+      .get('/mypage/useredit', {
         params: { username: this.username }
       })
       .then((res) => {

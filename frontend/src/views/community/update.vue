@@ -42,7 +42,7 @@ export default {
   mounted() {
     this.postId = this.$route.params.id
     console.log(this.postId)
-    axios.get(`http://localhost:3000/board/${this.postId}`).then((response) => {
+    axios.get(`/board/${this.postId}`).then((response) => {
       this.post = response.data[0]
       console.log(this.post)
       this.setHTML(this.post)
@@ -61,7 +61,7 @@ export default {
       }
 
       axios
-        .post(`http://localhost:3000/board/${id}`, { updatePost })
+        .post(`/board/${id}`, { updatePost })
         .then((response) => {
           console.log(response)
           window.location.replace('/community')

@@ -102,7 +102,7 @@ export default {
     /* 서버로 부터 고양이 팁 정보를 가져오는 비동기 함수 */
     getAxios() {
       axios
-        .get(`http://localhost:3000/dog/dogtip?page=${this.currentPage || 1}`)
+        .get(`/dog/dogtip?page=${this.currentPage || 1}`)
         .then((response) => {
           this.getTip = response.data.result
           this.totalPage = response.data.totalPage

@@ -131,7 +131,7 @@ export default {
 
       if (isAgree) {
         axios
-          .delete(`http://localhost:3000/mypage/${id}`)
+          .delete(`/mypage/${id}`)
           .then((response) => {
             if (response.status === 200) {
               window.location.reload()
@@ -149,7 +149,7 @@ export default {
   async mounted() {
     this.username = document.cookie.split('=')[1]
     await axios
-      .get('http://localhost:3000/mypage', {
+      .get('/mypage', {
         params: { username: this.username }
       })
       .then((res) => {

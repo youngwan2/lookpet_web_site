@@ -118,7 +118,7 @@ export default {
     /* 서버로 부터 유저가 등록한 댓글 목록을 가져온다. */
     const postId = this.$route.params.id
     axios
-      .get(`http://localhost:3000/board/${postId}/comment`)
+      .get(`/board/${postId}/comment`)
       .then((response) => {
         console.log(response.data.result)
         this.commentReceivedFromDB = response.data.result
@@ -179,7 +179,7 @@ export default {
         author: document.cookie.split('=')[1] || '익명'
       }
       axios
-        .post(`http://localhost:3000/board/${this.postId}/comment`, {
+        .post(`/board/${this.postId}/comment`, {
           commentInfo
         })
         .then((response) => {
@@ -197,7 +197,7 @@ export default {
       const updateCommentId = this.commentReceivedFromDB[i]._id
       const updateComment = this.updateComment
       axios
-        .put(`http://localhost:3000/board/${i}/comment`, {
+        .put(`/board/${i}/comment`, {
           updateComment,
           updateCommentId
         })
@@ -220,7 +220,7 @@ export default {
       check &&
         axios
           .delete(
-            `http://localhost:3000/board/${this.postId}/comment?target=${delComment}`
+            `/board/${this.postId}/comment?target=${delComment}`
           )
           .then((response) => {
             console.log(response)

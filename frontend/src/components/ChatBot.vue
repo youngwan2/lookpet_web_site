@@ -118,6 +118,7 @@ export default {
   background: linear-gradient(180deg, rgb(248, 205, 119), rgb(230, 216, 183));
   border-radius: 20px;
   right: 3rem;
+
   bottom: 12rem;
   box-shadow: 0 0 50px 25px rgba(0, 0, 0, 0.129),
     0 0 50px 25px rgba(0, 0, 0, 0.082);

@@ -71,7 +71,7 @@ function unlikeCounter() {
 const sendUserInfoToServer = async (updateUserInfo) => {
   await axios
     .post(
-      `http://localhost:3000/board/${route.value}/like-user`,
+      `/board/${route.value}/like-user`,
       updateUserInfo
     )
     .then((response) => {

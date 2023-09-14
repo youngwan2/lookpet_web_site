@@ -65,12 +65,12 @@ export default {
         password: this.password
       }
       await axios
-        .post('http://localhost:3000/auth/login', userInfo)
+        .post('/auth/login', userInfo)
         .then(async (res) => {
           console.log(res)
 
           await axios
-            .get(`http://localhost:3000/auth/login?name=${this.username}`, {
+            .get(`/auth/login?name=${this.username}`, {
               withCredentials: true
             })
             .then((result) => {

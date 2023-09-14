@@ -117,7 +117,7 @@ export default {
             password: this.password
           }
           await axios
-            .post('http://localhost:3000/mypage/withdrawal', {
+            .post('/mypage/withdrawal', {
               userInfo
             })
             .then((res) => {
@@ -140,7 +140,7 @@ export default {
   async mounted() {
     this.username = document.cookie.split('=')[1]
     await axios
-      .get('http://localhost:3000/mypage/useredit', {
+      .get('/mypage/useredit', {
         params: { username: this.username }
       })
       .then((res) => {
