@@ -225,15 +225,23 @@ main {
 @keyframes moveIn3 {
   from {
     position: absolute;
-    left: -10%;
+    /* left: -10%; */
     opacity: 0;
-    margin-top: 88%;
+    margin-top: 110%;
   }
   to {
     position: absolute;
-    left: 33%;
+    /* left: 33%; */
     opacity: 1;
-    margin-top: 88%;
+    margin-top: 87%;
+  }
+}
+@keyframes noneShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
   }
 }
 /* header */
@@ -281,6 +289,7 @@ main header h1 span {
 main header address {
   margin-top: 10%;
   color: #d6d0d0;
+  animation: noneShow 3s;
   animation: moveIn3 4s ease;
   font: normal 1.1vw/1.5 'arial';
 }
