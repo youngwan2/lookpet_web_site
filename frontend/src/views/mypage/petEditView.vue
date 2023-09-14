@@ -2,7 +2,6 @@
   <div class="container">
     <div class="head_line">
       <div class="move_back" @click="moveBack"><h1>←</h1></div>
-
     </div>
     <div class="content">
       <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
@@ -316,6 +315,7 @@ export default {
   padding: 10px 0;
   margin-right: 10px;
   background: #ff5f5f;
+  min-height: 71.3vh;
   overflow: hidden;
   transition: 0.2s linear;
 }

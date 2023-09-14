@@ -95,7 +95,7 @@ export default {
   position: absolute;
   text-shadow: 30px 30px 3px rgb(113, 111, 111);
   left: 50%;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: #815854;
   transform: translate(-50%);
   margin-top: 8rem;

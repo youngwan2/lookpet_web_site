@@ -205,6 +205,7 @@ export default {
   padding: 10px 0;
   margin-right: 10px;
   background: #ff5f5f;
+  min-height: 71.3vh;
   overflow: hidden;
   transition: 0.2s linear;
 }

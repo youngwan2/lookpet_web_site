@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     chatDisplaySwitch() {
-      console.log(this.$refs.chat.classList.toggle('off'))
+      console.log(this.$refs.chat.classList.toggle('on'))
     },
 
     async sendMeg() {
@@ -109,7 +109,27 @@ export default {
 }
 
 /** 채팅창 컨테이너 */
+.chatbot_container.on {
+  z-index: 1000000;
+  position: fixed;
+  width: 100%;
+  min-width: 290px;
+  max-width: 350px;
+  background: linear-gradient(180deg, rgb(248, 205, 119), rgb(230, 216, 183));
+  border-radius: 20px;
+  right: 3rem;
+  transform: scale(1);
+  bottom: 12rem;
+  box-shadow: 0 0 50px 25px rgba(0, 0, 0, 0.129),
+    0 0 50px 25px rgba(0, 0, 0, 0.082);
+  height: 60vh;
+  opacity: 1;
+}
+
 .chatbot_container {
+  opacity: 0;
+  transform: scale(0.1) translateY(15px);
+  transform-origin: bottom right;
   z-index: 1000000;
   position: fixed;
   width: 100%;
@@ -124,12 +144,6 @@ export default {
     0 0 50px 25px rgba(0, 0, 0, 0.082);
   height: 60vh;
   transition: 0.5s ease-in-out;
-  transform-origin: bottom right;
-}
-
-.chatbot_container.off {
-  opacity: 0;
-  transform: scale(0.1) translateY(15px);
   transform-origin: bottom right;
 }
 
