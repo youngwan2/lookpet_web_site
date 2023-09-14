@@ -143,8 +143,6 @@ export default {
             this.authCheck[i] = false
           }
         })
-
-        console.log(this.authCheck)
       })
       .catch((error) => {
         console.log('댓글 목록을 불러오던 중 문제 발생:', error)
@@ -214,7 +212,6 @@ export default {
     },
     commentDel(id) {
       const delComment = this.commentReceivedFromDB[id]._id
-      console.log(delComment)
       const check = confirm('정말 삭제하시겠습니까?')
 
       check &&

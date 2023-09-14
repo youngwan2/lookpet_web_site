@@ -20,7 +20,7 @@ const unliked = ref(0)
 // 파라미스 정보가 담겨 있다.
 const route = ref(useRoute().params.id)
 
-// 유저의 정보가 저장된다
+// 좋아요/싫어요를 클릭한 유저의 정보가 저장된다
 const userInfo = reactive({
   postId: route,
   username: document.cookie.split('=')[1],
@@ -28,8 +28,12 @@ const userInfo = reactive({
   unlike: false
 })
 
-/* 좋아요 싫어요 함수 */
+/* 좋아요 측정 함수 */
 function likeCounter() {
+  if (userInfo.username === undefined) {
+    return alert('로그인 유저만 허용 됩니다.')
+  }
+
   // 좋아요를 클릭 시 마다 활성화/비활성화 번갈아 변경
   userInfo.like = !userInfo.like
   // 좋아요가 true 라면 좋아요를 1 증가 시킨다.
@@ -40,35 +44,41 @@ function likeCounter() {
       unliked.value--
       userInfo.unlike = false
     }
-    sendUserInfoToServer(userInfo)
   } else {
     liked.value--
   }
-
-  console.log(userInfo)
+  sendUserInfoToServer(userInfo)
 }
+
+/* 싫어요 측정 함수 */
 function unlikeCounter() {
+  if (userInfo.username === undefined) {
+    return alert('로그인 유저만 허용 됩니다.')
+  }
   userInfo.unlike = !userInfo.unlike
 
   // 싫어요가 활성화되어 있으면 싫어요를 1 증가 시킨다.
   if (userInfo.unlike) {
     unliked.value++
-    // 좋아요가 활성화 되어 있고, 좋아요가 1 이상이라면
+    // 좋아요가 활성화(true) 되어 있고, 좋아요가 1 이상이라면
     // 좋아요를 1 감소 시키고, 좋아요 상태를 비활성화시킨다.
     if (userInfo.like && liked.value > 0) {
       liked.value--
       userInfo.like = false
     }
-    sendUserInfoToServer(userInfo)
+
     // 싫어요가 비활성화된다면 싫어요를 1 감소 시킨다.
   } else {
     unliked.value--
   }
-  console.log(userInfo)
+  sendUserInfoToServer(userInfo)
 }
 
 /* 서버로 유저가 좋아요한 결과를 보낸다. */
 const sendUserInfoToServer = async (updateUserInfo) => {
+  if (updateUserInfo.username === undefined) {
+    return alert('로그인 유저만 허용 됩니다.')
+  }
   await axios
     .post(
       `http://localhost:3000/board/${route.value}/like-user`,
@@ -107,10 +117,11 @@ getPostLikeInfoFromServer()
 .like_box p {
   margin: 0 5px;
   padding: 6px 10px;
-  box-shadow: inset 2px 2px 2px 1px rgb(227, 159, 159), 2px 2px 2px 1px rgb(203, 83, 83);
+  box-shadow: inset 2px 2px 2px 1px rgb(227, 159, 159),
+    2px 2px 2px 1px rgb(203, 83, 83);
   background-color: #e57265;
   text-align: center;
-  color:white;
+  color: white;
   border-radius: 10px;
 }
 </style>
