@@ -3,7 +3,7 @@
     <section class="update_page_inner_container">
       <input type="text" v-model="post.title" class="post_title" />
       <QuillEditor
-        style="min-height: 60vh; background-color: white;"
+        style="min-height: 60vh; background-color: white"
         toolbar="full"
         @ready="setHTML"
         @textChange="getHTML"
@@ -25,6 +25,7 @@ export default {
   components: {
     QuillEditor
   },
+  name: 'CommunityUpdatePost',
   data() {
     return {
       postId: 1,
@@ -34,6 +35,9 @@ export default {
       title: '',
       author: ''
     }
+  },
+  created() {
+    document.title = this.$route.name
   },
   mounted() {
     this.postId = this.$route.params.id
@@ -116,7 +120,7 @@ export default {
 .control_box button {
   border: none;
   margin: 5px 5px;
-  background-color: rgb(155, 102, 102);
+  background-color: rgb(244, 100, 100);
   padding: 8px 10px;
   border-radius: 5px;
   color: rgb(239, 231, 216);
@@ -127,7 +131,7 @@ export default {
 .control_box button:hover {
   cursor: pointer;
   border: none;
-  background-color: rgb(196, 149, 149);
+  background-color: rgb(224, 119, 119);
   color: white;
 }
 </style>

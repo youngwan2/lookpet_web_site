@@ -60,6 +60,7 @@
 <script>
 import axios from 'axios'
 export default {
+  name: 'Singup',
   data() {
     return {
       username: '',
@@ -69,6 +70,9 @@ export default {
       nickname: '',
       isCheck: false
     }
+  },
+  created() {
+    document.title = this.$route.name
   },
   methods: {
     doubleIdCheck() {

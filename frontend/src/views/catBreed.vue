@@ -131,8 +131,9 @@ a {
 /** 페이지 제목 */
 .title {
   text-align: center;
-  color: #815854;
-  text-shadow: 1px 1px 1px rgb(107, 79, 79), 2px 2px 1px rgb(236, 204, 204);
+  color: #d95145;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 1px rgb(205, 129, 129), 2px 2px 1px rgb(255, 254, 254);
   margin-top: 2.3rem;
 }
 
@@ -147,20 +148,20 @@ a {
 /* 검색창 폼 */
 .cat_seacrh_form {
   max-width: 500px;
-  background-color: #a57975;
+  background-color: white;
   border-radius: 50px;
   margin: 2rem auto;
-  box-shadow: inset 5px 3px rgb(176, 139, 139), inset -2px -5px rgb(70, 52, 52);
+  box-shadow: inset 5px 3px rgb(239, 150, 150), inset -2px -5px rgb(200, 60, 60);
   padding: 10px;
 }
 
 /* 검색창 input*/
 .cat_seacrh_form input {
   max-width: 300px;
-  color: #f9ebde;
+  color: #e85353;
   font-weight: 600;
   font-size: 1rem;
-  background-color: #a57975;
+  background-color: white;
   width: 120%;
   padding: 18px 12px 15px 12px;
   border: none;
@@ -203,17 +204,17 @@ section {
 
 .cat_items {
   margin: 10px;
-  border: 1px solid #815854;
-  border-top: 10px solid rgb(235, 198, 198);
-  border-left: 10px solid rgb(171, 144, 144);
+  border: 1px solid #e18c85;
+  border-top: 10px solid rgb(255, 190, 190);
+  border-left: 10px solid rgb(250, 137, 137);
   border-top-right-radius: 11px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 5px;
-  background-color: #815854;
+  background-color: #e2756b;
   max-width: 230px;
   max-height: 300px;
   text-align: center;
-  transform: translateZ(0) translateY(0px);
+  transform: translateZ(0) translateY(0px) perspective(600px);
   transform-origin: center center;
   transform-style: preserve-3d;
   transition: 1s ease-in-out;
@@ -221,8 +222,8 @@ section {
 }
 
 .cat_items:hover {
-  background-color: #936663;
-  transform: translateZ(30px) translateY(-30px) rotateX(-5deg);
+  box-shadow: 20px 50px 5px rgba(0, 0, 0, 0.145);
+  transform: translateZ(10px) translateY(-80px) rotateX(0);
 }
 
 .cat_items .cat_name {

@@ -14,23 +14,23 @@
         <div>
           <ul>
             <li>
-              <span>식별</span>
+              <p class="detail_text_h">식별</p>
               <p>{{ catDetailInfo.id }}</p>
             </li>
             <li>
-              <span>이름(영문)</span>
+              <p class="detail_text_h">이름(영문)</p>
               <p>{{ catDetailInfo.ko_name }}({{ catDetailInfo.name }})</p>
             </li>
             <li>
-              <span>수명</span>
+              <p class="detail_text_h">수명</p>
               <p>{{ catDetailInfo.life }}</p>
             </li>
             <li>
-              <span>체중</span>
+              <p class="detail_text_h">체중</p>
               <p>{{ catDetailInfo.weight }}</p>
             </li>
             <li>
-              <span>색깔</span>
+              <p class="detail_text_h">색깔</p>
               <p>{{ catDetailInfo.colors }}</p>
             </li>
           </ul>
@@ -39,19 +39,19 @@
       <div class="bot_detail_info">
         <ul>
           <li>
-            <span>기원 및 역사</span>
+            <p class="detail_text_h">기원 및 역사</p>
             <p>{{ catDetailInfo.origin }}</p>
           </li>
           <li>
-            <span>성격</span>
+            <p class="detail_text_h">성격</p>
             <p>{{ catDetailInfo.personality }}</p>
           </li>
           <li>
-            <span>돌봄</span>
+            <p class="detail_text_h">돌봄</p>
             <p>{{ catDetailInfo.care }}</p>
           </li>
           <li>
-            <span>건강</span>
+            <p class="detail_text_h">건강</p>
             <p>{{ catDetailInfo.health }}</p>
           </li>
         </ul>
@@ -100,14 +100,14 @@ export default {
 .title {
   font-size: 1.6rem;
   text-align: center;
-  border-top: 7px solid rgb(189, 155, 155);
+  border-top: 7px solid rgb(255, 182, 182);
   border-bottom-left-radius: 8px;
-  border-left: 7px solid black;
+  border-left: 7px solid rgb(173, 60, 60);
   border-top-right-radius: 8px;
   margin: 1.5rem auto 2rem auto;
   max-width: 1000px;
   padding: 10px;
-  background: rgb(135, 102, 102);
+  background: rgba(221, 81, 81, 0.741);
   text-shadow: 1px 1px 2px black;
   color: rgb(246, 219, 219);
   filter: drop-shadow(10px 20px 3px rgba(98, 79, 79, 0.253));
@@ -154,18 +154,23 @@ li {
   margin-top: 1rem;
 }
 .top_detail_info img {
-  box-shadow: 1px 1px 4px 3px rgba(24, 24, 24, 0.424);
-  max-width: 330px;
-  border-radius: 10px;
-  min-width: 330px;
-  max-height: 440px;
-  width: 100%;
+  border-radius: 1px;
+  max-width: 350px;
+  margin: 0 20px 0 0px;
+  max-height: 400px;
   height: 100%;
+  min-width: 350px;
+  -webkit-box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
+    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
+    0px 0px 0px 10px #ee4242d1, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
+    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
+    0px 0px 0px 10px #ee4242d1, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 
-li span {
+li .detail_text_h {
   display: inline-block;
-  border-left: 3px solid rgb(205, 156, 156);
+  border-left: 4px solid rgb(236, 121, 121);
 
   padding: 5px 7.5px;
   font-size: 1.25em;
@@ -188,6 +193,12 @@ li span {
   top: 50%;
   font-size: 2.5rem;
   transform: translate(-50%, -50%);
+}
+
+@media screen and (min-width: 769px) {
+  .bot_detail_info {
+    margin-top: 1.8rem;
+  }
 }
 
 @media screen and (max-width: 768px) {

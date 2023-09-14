@@ -4,6 +4,8 @@ import FooterView from './components/FooterView.vue'
 import modelView from './components/modelView.vue'
 import ChatBot from './components/ChatBot.vue'
 
+document.title = 'Home'
+
 const loginUsername = document.cookie.split('=')[1] ?? ''
 </script>
 <template>
@@ -11,7 +13,6 @@ const loginUsername = document.cookie.split('=')[1] ?? ''
     <ChatBot />
     <HeaderView :loginUsername="loginUsername" />
     <router-view></router-view>
-
     <model-view />
     <footer-view />
   </div>
@@ -22,7 +23,7 @@ const loginUsername = document.cookie.split('=')[1] ?? ''
 }
 
 body {
-  background: #f9ebde;
+  background: #ffffff;
 }
 
 body::-webkit-scrollbar {

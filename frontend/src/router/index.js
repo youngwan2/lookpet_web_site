@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'MainView',
+      name: 'Home',
       component: () =>
         import(
           /* webpackChunkName: "about",webpackPrefetch:true */ '../components/mainView.vue'

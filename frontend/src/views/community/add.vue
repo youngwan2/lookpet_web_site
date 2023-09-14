@@ -46,6 +46,7 @@ export default {
   components: {
     QuillEditor
   },
+  name: 'CommunityNewPost',
   data() {
     return {
       editorContent: '<p>fsdfsdfds</p>',
@@ -60,6 +61,9 @@ export default {
         preview: ''
       }
     }
+  },
+  created() {
+    document.title = this.$route.name
   },
   mounted() {
     const username = document.cookie.split('=')[1]

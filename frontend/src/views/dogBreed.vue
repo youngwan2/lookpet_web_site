@@ -94,8 +94,9 @@ export default {
 .dog_title {
   text-align: center;
   font-size: 1.5rem;
-  color:#815854;
-  text-shadow: 1px 1px 1px rgb(107, 79, 79),2px 2px 1px rgb(236, 204, 204);
+  font-size: 1.8rem;
+  color: #d95145;
+  text-shadow: 1px 1px 1px rgb(205, 129, 129), 2px 2px 1px rgb(255, 254, 254);
   margin-top: 2.3rem;
 }
 ul,
@@ -134,8 +135,8 @@ a {
 /* 검색창 폼 */
 .dog_seacrh_form {
   max-width: 500px;
-  background-color: #a87f7c;
-  box-shadow: inset 2px 5px #d2a39f, inset -2px -5px rgb(108, 66, 66);
+  background-color: white;
+  box-shadow: inset 5px 3px rgb(239, 150, 150), inset -2px -5px rgb(200, 60, 60);
   border-radius: 50px;
   margin: 2rem auto;
   padding: 10px;
@@ -147,11 +148,11 @@ a {
   width: 100%;
   width: 100%;
   padding: 18px 12px 15px 12px;
-  color: #f9ebde;
+  color: #e85353;
   font-weight: 600;
   font-size: 1rem;
   border: none;
-  background-color: #a87f7c;
+  background-color: white;
 }
 
 .dog_seacrh_form input:focus {
@@ -193,13 +194,13 @@ section {
 
 .dog_items {
   margin: 10px;
-  border: 1px solid #815854;
-  border-top: 10px solid rgb(235, 198, 198);
-  border-left: 10px solid rgb(171, 144, 144);
+  border: 1px solid #e18c85;
+  border-top: 10px solid rgb(255, 190, 190);
+  border-left: 10px solid rgb(250, 137, 137);
   border-top-right-radius: 11px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 5px;
-  background-color: #815854;
+  background-color: #e2756b;
   max-width: 230px;
   max-height: 300px;
   text-align: center;
@@ -211,8 +212,8 @@ section {
 }
 
 .dog_items:hover {
-  background-color: #936663;
-  transform: translateZ(30px) translateY(-30px) rotateX(-5deg);
+  box-shadow: 20px 50px 5px rgba(0, 0, 0, 0.145);
+  transform: translateZ(10px) translateY(-80px) rotateX(0);
 }
 
 .dog_items .dog_name {

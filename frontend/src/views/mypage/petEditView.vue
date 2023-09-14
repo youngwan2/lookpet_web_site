@@ -2,10 +2,11 @@
   <div class="container">
     <div class="head_line">
       <div class="move_back" @click="moveBack"><h1>←</h1></div>
-      <h1 class="pet_edit_title">펫 정보 수정</h1>
+
     </div>
     <div class="content">
       <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
+        <h2 class="pet_edit_title">펫 정보 수정</h2>
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
@@ -127,7 +128,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'petedit',
+  name: 'Petedit',
   data() {
     return {
       petInfo: {},
@@ -147,6 +148,7 @@ export default {
     }
   },
   created() {
+    document.title = this.$route.name
     window.addEventListener('resize', this.handleResize)
     this.handleResize() // 페이지 로드 시 초기 상태 설정
   },
@@ -279,7 +281,10 @@ export default {
   display: flex;
 }
 .pet_edit_title {
-  margin: auto;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 2px rgb(181, 60, 60);
+  margin: 1rem 0 2rem 0;
 }
 .move_back {
   background: #815854;
@@ -299,16 +304,18 @@ export default {
   display: flex;
   width: 100%;
   height: 100%;
-  margin: 0;
+  margin: 1rem 0;
 }
+
 .side_menu {
   margin: 0;
   width: 30%;
+  border-radius: 10px;
   max-width: 300px;
   min-width: 250px;
   padding: 10px 0;
   margin-right: 10px;
-  background: #815854;
+  background: #ff5f5f;
   overflow: hidden;
   transition: 0.2s linear;
 }
@@ -321,13 +328,9 @@ export default {
   margin-bottom: 30px;
 }
 .side_list {
-  max-width: 400px;
   width: 100%;
-  min-width: 200px;
   color: #f9ebde;
-  width: 100%;
   list-style: none;
-  transition: 0.1s;
   margin-bottom: 5px;
   transition: 0.3s;
 }
@@ -336,6 +339,30 @@ export default {
   font-size: 1.2em;
   display: inline-block;
   margin-bottom: 10px;
+}
+.pet_list {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+}
+
+/** 사이드 메뉴 세부 리스트(회원정보/마이펫 영역) */
+ol {
+  transition: 0.3s;
+  margin-left: -20px;
+  max-width: 120px;
+}
+ol:hover {
+  border-bottom: 1px solid #f9ebde;
+  transform: translateX(5px);
+  color: #f9ebde;
+  border-radius: 10px;
+  background: rgb(219, 58, 58);
+  box-shadow: 0 0 1px rgb(247, 247, 247);
+  cursor: pointer;
+}
+ol:active {
+  box-shadow: -1px -1px 5px gray;
 }
 .user_menu {
   margin-bottom: 30px;
@@ -369,10 +396,13 @@ export default {
   display: inline-block;
   margin-bottom: 10px;
 }
+
+/** 펫 정보 (우측 수정할 정보)*/
 .pet_info {
   width: 100%;
   height: 100%;
-  border: 3px solid #815854;
+  border: 3px solid #d55044;
+  border-radius: 5px;
 }
 .pet_top {
   display: flex;
@@ -391,27 +421,33 @@ export default {
   width: 70%;
   height: 30px;
   padding: 10px;
-  border-radius: 30px;
-  background: #815854;
+  border-radius: 20px;
+  border: 1px solid rgb(248, 95, 95);
+  background: #ffffff;
   font-size: 1.5rem;
   opacity: 0.6;
-  color: #f9ebde;
+  color: #7f0404;
   box-shadow: 5px 5px 3px gray;
 }
 .info_text:focus {
   opacity: 1;
   box-shadow: 3px 3px 5px gray;
 }
+
+/** 펫 이미지 */
 .pet_image_box {
   width: 300px;
   height: 300px;
-  border: 5px solid #815854;
+  border: 5px solid #e35b4f;
+  border-radius: 5px;
   margin: 10px;
   box-shadow: 5px 5px 10px gray;
   display: inline-block;
 }
+
+/** 수정/취소 버튼 */
 .pet_edit_btn {
-  background: #815854;
+  background: #f55b4d;
   color: #f9ebde;
   border: none;
   border-radius: 10px;
@@ -433,6 +469,8 @@ export default {
   background: rgb(198, 111, 17);
   box-shadow: -3px -3px 5px gray;
 }
+
+/** 펫 성별 */
 #gender_box {
   margin-right: 60px;
 }
@@ -440,7 +478,7 @@ export default {
   position: absolute;
   left: 0;
   top: 5px;
-  background: #815854;
+  background: #e34f41;
   color: #f9ebde;
   box-shadow: 3px 3px 8px gray;
   border-radius: 5px;
@@ -475,11 +513,11 @@ input[type='checkbox'] {
   width: 40%;
   height: 15%;
   text-align: center;
-  background: #815854;
+  background: #f75243;
   border-radius: 15px;
   color: #f9ebde;
   position: relative;
-  margin: 5px auto;
+  margin: 10px auto;
   transition: 0.15s;
   display: flex;
   justify-content: center;
@@ -488,7 +526,7 @@ input[type='checkbox'] {
 .change_image:hover {
   transform: scale(1.05);
   color: #f9ebde;
-  background: rgb(198, 111, 17);
+  background: rgb(255, 46, 46);
   box-shadow: 5px 5px 10px gray;
   cursor: pointer;
 }
@@ -531,7 +569,7 @@ input[type='checkbox'] {
   margin: 30px 10px 0 10px;
 }
 .pet_info_introduce > span {
-  background: #815854;
+  background: #e88177;
   color: #f9ebde;
   box-shadow: 3px 3px 8px gray;
   border-radius: 5px;
@@ -549,7 +587,7 @@ input[type='checkbox'] {
   position: absolute;
   left: 0;
   top: 5px;
-  background: #815854;
+  background: #e34f41;
   color: #f9ebde;
   box-shadow: 3px 3px 8px gray;
   border-radius: 5px;
@@ -569,11 +607,14 @@ input[type='number']::-webkit-outer-spin-button {
 .toggle-button-container {
   position: relative;
 }
+
+/* 사이드 바 토글 버튼 */
 .toggle-button {
   position: relative;
   right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
   top: 250px;
-  background-color: #613d3a;
+  background-color: #da4234;
+  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;

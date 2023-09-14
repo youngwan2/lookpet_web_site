@@ -56,6 +56,7 @@ export default {
     comment,
     LikeBox
   },
+  name: 'CommunityDetailPost',
   data() {
     return {
       post: [],
@@ -63,6 +64,9 @@ export default {
       unliked: 0,
       isAuthorization: false
     }
+  },
+  created() {
+    document.title = this.$route.name
   },
   mounted() {
     this.$refs.detail.scrollIntoView({ behavior: 'smooth' })
@@ -127,7 +131,7 @@ export default {
 .post_title {
   padding: 10px;
   font-size: 2rem;
-  color:rgb(169, 131, 131);
+  color: rgb(57, 56, 56);
   position: relative;
   text-align: center;
   top: 30px;
@@ -138,12 +142,11 @@ export default {
   margin: 1.3rem 0;
   padding: 10px;
   border: 1px solid rgb(224, 212, 212);
-
   width: 170px;
-  box-shadow: inset 3px 3px 2px rgba(225, 184, 184, 0.591),
-    inset -3px -3px 2px rgba(90, 64, 64, 0.591);
+  box-shadow: inset 3px 3px 2px rgba(255, 170, 170, 0.591),
+    inset -3px -3px 2px rgba(209, 87, 87, 0.591);
   border-radius: 10px;
-  background-color: rgb(158, 114, 114);
+  background-color: rgb(227, 132, 132);
 }
 
 .etc .author {
@@ -156,7 +159,7 @@ export default {
 
 .etc .date {
   font-size: 14px;
-  color: rgb(228, 226, 226);
+  color: rgb(238, 227, 227);
 }
 
 /* 수정/삭제 버튼 */
@@ -171,10 +174,10 @@ export default {
 
 .control_box button {
   border: none;
-  box-shadow: inset -2px -2px 1px 0 rgba(96, 68, 68, 0.585);
+  box-shadow: inset -2px -2px 1px 0 rgba(184, 86, 86, 0.585);
   border-radius: 10px;
   color: white;
-  background-color: rgb(155, 110, 110);
+  background-color: rgb(227, 102, 102);
   margin: 5px;
   transition: 0.3s;
   padding: 10px 16px;
@@ -183,7 +186,7 @@ export default {
 .control_box button:hover {
   cursor: pointer;
   color: white;
-  background-color: rgb(173, 124, 124);
+  background-color: rgb(231, 123, 123);
   box-shadow: 0 0 0 0, inset 2px 4px 1px 1px rgba(0, 0, 0, 0.469);
 }
 </style>

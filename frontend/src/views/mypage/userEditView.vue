@@ -61,7 +61,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'useredit',
+  name: 'Useredit',
   data() {
     return {
       userInfo: {},
@@ -79,6 +79,7 @@ export default {
     }
   },
   created() {
+    document.title = this.$route.name
     window.addEventListener('resize', this.handleResize)
     this.handleResize() // 페이지 로드 시 초기 상태 설정
   },

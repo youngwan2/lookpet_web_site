@@ -3,7 +3,7 @@
     <section class="board_container">
       <h1 class="title">자유 게시판</h1>
       <p style="text-align: center; padding: 10px; font-size: 14px">
-        참고) 현재는 테스트를 위해 로그인된 유저가 모든 게시글 수정 삭제 가능
+        <br>
       </p>
       <div
         v-for="post in posts"
@@ -49,6 +49,7 @@
 <script>
 import axios from 'axios'
 export default {
+  name: 'Community',
   data() {
     return {
       auth: false,
@@ -74,6 +75,7 @@ export default {
     }
   },
   created() {
+    document.title = this.$route.name
     const username = document.cookie?.split('=')[1]
     if (username?.length > 2) {
       this.auth = true
@@ -164,14 +166,14 @@ li {
 }
 
 li:hover {
-  background-color: #d5abab;
+  background-color: #fba5a5;
   color: rgb(0, 0, 0);
   cursor: pointer;
 }
 
 /* 각 페이지 별로 포커스된 경우에만 배경색을 적용한다. */
 li.focus {
-  box-shadow: inset 50px 50px 0 0 rgb(136, 87, 87);
+  box-shadow: inset 50px 50px 0 0 rgb(231, 103, 103);
   color: white;
 }
 
@@ -196,6 +198,8 @@ a {
 }
 .title {
   text-align: center;
+  font-size: 1.8rem;
+  color:rgb(240, 87, 87);
 }
 
 /* post_items */
@@ -203,25 +207,26 @@ a {
 .post_id {
   box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.305);
   border-radius: 20px;
-  color:white;
+  color: white;
   margin: 1px 0 15px 0;
   max-width: 60px;
   min-width: 28px;
   text-align: center;
-  background-color:#d2a2a2;
+  background-color: #ff9696;
 }
 
 h3 {
-  color: #593a3a;
+  color: #bf5959;
   padding: 0 5px;
 }
 .post_items {
   margin: 10px auto;
   padding: 10px;
-  box-shadow: inset 1px 1px 1px rgb(189, 160, 160),inset -1px -1px 1px rgb(196, 162, 162);
-  background-color: #ffffff ;
+  box-shadow: inset 1px 1px 1px rgb(255, 170, 170),
+    inset -1px -1px 1px rgb(255, 134, 134);
+  background-color: #ffffff;
   max-width: 900px;
-  border-radius: 5px;
+  border-radius: 2px;
   transition: 0.5s;
 }
 
@@ -247,26 +252,27 @@ h3 {
   font-size: 13px;
   margin: 5px 5px 0 0;
   border-radius: 20px;
-  color:white;
-  box-shadow: inset 2px 2px 2px rgb(207, 193, 193),inset -2px -2px 2px rgb(99, 77, 77);
+  color: white;
+  box-shadow: inset 2px 2px 2px rgb(249, 203, 203),
+    inset -2px -2px 2px rgb(190, 80, 80);
   padding: 6px 12px;
-  background-color: rgb(175, 127, 127);
+  background-color: rgb(249, 113, 113);
 }
 
 /* 글쓰기 버튼 */
 .post_add_btn {
-  box-shadow: 2px 2px 0 0 rgb(108, 80, 80);
+  box-shadow: 2px 2px 0 0 rgb(203, 87, 87);
   border-radius: 10px;
   position: absolute;
-  background: rgb(195, 143, 143);
+  background: rgb(255, 107, 107);
   top: 2rem;
   right: 5px;
   margin: 17.9px 0;
   padding: 5px;
-  color:white;
+  color: white;
 }
 
 .post_add_btn:hover {
-  background: rgb(177, 133, 133);
+  background: rgb(255, 163, 163);
 }
 </style>

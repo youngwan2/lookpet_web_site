@@ -120,7 +120,7 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-  color: #f9ebde;
+  color:white;
 }
 
 li {
@@ -128,15 +128,15 @@ li {
 }
 
 .title > a {
-  color: #f9ebde;
+  color:white;
 }
 .header {
   width: 100%;
   border-radius: 5px;
   padding: 20px 0;
-  box-shadow: inset -5px -5px 3px 0 rgba(95, 66, 66, 0.554);
+  box-shadow: inset 0px -5px 3px 0 rgba(161, 43, 43, 0.554);
   z-index: 100000;
-  background: #9f706c;
+  background: #fc6355;
 }
 .header .header_inner {
   max-width: 1500px;
@@ -150,7 +150,7 @@ li {
 }
 .menu a {
   margin: 10px;
-  color: #f9ebde;
+  color:white;
   font-weight: 600;
   height: 100%;
 }

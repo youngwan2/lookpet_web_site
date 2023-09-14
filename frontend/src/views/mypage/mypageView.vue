@@ -1,9 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="mypage_title">마이페이지</h1>
-    <hr />
     <div class="content">
       <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
+        <h2 class="mypage_title">마이페이지</h2>
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
@@ -75,7 +74,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'mypage',
+  name: 'Mypage',
   data() {
     return {
       exist: '펫 등록을 해주세요.',
@@ -90,6 +89,7 @@ export default {
     }
   },
   created() {
+    document.title = this.$route.name
     window.addEventListener('resize', this.handleResize)
     this.handleResize() // 페이지 로드 시 초기 상태 설정
   },
@@ -178,26 +178,33 @@ export default {
 .container {
   width: 100%;
   height: 100%;
+  min-height: 80vh;
 }
 .mypage_title {
   text-align: center;
+  color: white;
+  text-shadow: 1px 1px 2px rgb(181, 60, 60);
+  margin: 1rem 0 2rem 0;
 }
 .mypage_info_exist {
   text-align: center;
 }
 .content {
   display: flex;
+
+  margin: 3rem 0;
   width: 100%;
+  height: 100%;
 }
 .side_menu {
   margin: 0;
   width: 30%;
+  border-radius: 10px;
   max-width: 300px;
   min-width: 250px;
-  min-height:600px;
   padding: 10px 0;
   margin-right: 10px;
-  background: #815854;
+  background: #ff5f5f;
   overflow: hidden;
   transition: 0.2s linear;
 }
@@ -227,24 +234,28 @@ export default {
   width: 100%;
   overflow-x: auto;
 }
+
+/** 사이드 메뉴 세부 리스트(회원정보/마이펫 영역) */
 ol {
   transition: 0.3s;
   margin-left: -20px;
+  max-width: 120px;
 }
 ol:hover {
   border-bottom: 1px solid #f9ebde;
   transform: translateX(5px);
   color: #f9ebde;
-  background: rgb(198, 111, 17);
-  box-shadow: 1px 1px 5px gray;
+  border-radius: 10px;
+  background: rgb(219, 58, 58);
+  box-shadow: 0 0 1px rgb(247, 247, 247);
   cursor: pointer;
 }
 ol:active {
   box-shadow: -1px -1px 5px gray;
 }
 .pet_card {
-  width: 320px;
-  border: 3px solid #815854;
+  width: 350px;
+  border: 3px solid #ed7065;
   padding-bottom: 40px;
   margin: 10px;
   border-radius: 10px;
@@ -257,13 +268,22 @@ ol:active {
   transform: translateY(-10px);
 }
 .pet_image_box {
-  margin: 10px;
+  text-align: center;
+  -webkit-box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
+    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
+    0px 0px 0px 10px #ff0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
+    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
+    0px 0px 0px 10px #ff0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  margin: 1rem;
 }
+
+/** 펫 카드 디테일 정보 */
 .pet_info {
-  margin: 10px;
+  margin: 2.5rem 10px 10px 10px;
 }
 .pet_info_detail {
-  margin-bottom: 10px;
+  margin-bottom: 1px;
 }
 .pet_info_not {
   margin: auto;
@@ -273,24 +293,29 @@ ol:active {
 }
 
 .pet_list::-webkit-scrollbar-track {
-  background-color: #815854;
+  background-color: #d46157;
+  border-radius: 20px;
 }
 
 .pet_list::-webkit-scrollbar-thumb {
-  background-color: #f5b880;
+  background-color: #dd3737;
+  border-radius: 20px;
 }
 
 .pet_list::-webkit-scrollbar-thumb:hover {
   background-color: #f5963c;
 }
 .pet_info_detail > span:first-child {
-  background: #815854;
+  background: #e15c50;
+  display: inline-block;
   color: #f9ebde;
   border-radius: 5px;
   margin-right: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   padding: 3px;
 }
+
+/** 카드 내부 버튼(수정/삭제) */
 .card_btn_box {
   position: absolute;
   bottom: 5px;
@@ -314,16 +339,18 @@ ol:active {
   box-shadow: -1px -1px 5px gray;
 }
 #edit_btn {
-  background: rgb(167, 196, 143);
+  background: rgb(97, 191, 20);
 }
 #delete_btn {
   background: rgb(236, 120, 52);
 }
 #edit_btn:hover {
-  background: rgb(115, 148, 88);
+  background: rgb(145, 227, 78);
+  cursor: pointer;
 }
 #delete_btn:hover {
-  background: rgb(243, 99, 16);
+  background: rgb(250, 132, 63);
+  cursor: pointer;
 }
 .pet_card:hover .card_btn_box {
   opacity: 1;
@@ -336,11 +363,13 @@ ol:active {
   position: relative;
 }
 
+/* 사이드 바 토글 버튼 */
 .toggle-button {
   position: relative;
   right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
   top: 250px;
-  background-color: #613d3a;
+  background-color: #da4234;
+  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;

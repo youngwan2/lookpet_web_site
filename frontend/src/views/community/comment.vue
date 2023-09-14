@@ -44,7 +44,7 @@
             class="comment_update_btn"
             @click="commentUpdate(i)"
             v-show="isUpdate[i]"
-            >수정하기</span
+            >등록하기</span
           >
 
           <!-- 대댓글(서브 코멘트) 입력 폼 -->
@@ -96,7 +96,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'commentVue',
+  name: 'Comment',
   props: {
     postId: String
   },
@@ -235,24 +235,32 @@ export default {
 </script>
 <style scoped>
 ul {
-  padding: 15px;
+  padding: 5px;
 }
 li {
   list-style: none;
 }
 
+textarea {
+  border: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
 /* 댓글() */
 .comment_title {
-  padding: 10px;
-  color: rgb(138, 93, 93);
-  margin: 12px 0 15px 5px;
+  padding: 5px;
+  color: rgb(196, 99, 99);
+  margin: 12px 0 -4px 5px;
 }
 
 /* 작성자 */
 .author {
   font-size: 14px;
   display: flex;
-  color: rgb(111, 67, 67);
+  color: rgb(175, 71, 71);
   margin-top: 30px;
   padding: 0 8px;
   align-items: center;
@@ -269,19 +277,19 @@ li {
 
 /* 코멘트 */
 .comment {
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 20px;
   box-shadow: inset -2px -2px 4px rgb(134, 97, 97);
   color: white;
   margin: 5px 0;
-  background: linear-gradient(100deg, rgb(162, 120, 120), #b99595);
+  background: linear-gradient(100deg, rgb(232, 119, 119), #e89292);
 }
 
 /* 댓글 수정 버튼 */
 .comment_update_btn {
-  background-color: #98726f;
+  background-color: #f48b83;
   border-radius: 10px;
-  box-shadow: inset -2px -2px 3px rgb(102, 74, 74);
+  box-shadow: inset -2px -2px 3px rgb(130, 91, 91);
   margin: 0 5px;
   display: inline-block;
   color: white !important;
@@ -290,16 +298,16 @@ li {
 
 /* 댓글 삭제 버튼 */
 .comment_del_btn {
-  background-color: #98726f;
+  background-color: #f48b83;
   color: white !important;
-  box-shadow: inset -2px -2px 3px rgb(102, 74, 74);
+  box-shadow: inset -2px -2px 3px rgb(130, 91, 91);
   border-radius: 10px;
   display: inline-block;
   padding: 4px;
 }
 
 :is(.comment_update_btn, .comment_del_btn):hover {
-  background-color: #b99595;
+  background-color: #c77e7e;
   cursor: pointer;
 }
 
@@ -348,13 +356,13 @@ li {
   padding: 5px 12px;
   border: none;
   margin: 2px 0;
-  background: #815854;
+  background: #c6635a;
   color: white;
   border-radius: 15px;
 }
 
 .main_comment_add_btn:hover {
-  background: #98726f;
+  background: #e17a74;
   cursor: pointer;
 }
 /* 대댓글(서브 코멘트) */

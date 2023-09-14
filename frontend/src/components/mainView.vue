@@ -136,8 +136,12 @@
 <script>
 import directMenu from '../components/directMenu.vue'
 export default {
+  name: 'Home',
   data() {
     return {}
+  },
+  created() {
+    document.title = this.$route.name
   },
   methods: {
     run: function (e) {
@@ -191,7 +195,7 @@ a {
 main {
   width: 100%;
   height: 100%;
-  background: #6b5d50;
+  background: #ffffff;
 }
 /* 애니메이션 */
 @keyframes moveIn {
@@ -248,7 +252,7 @@ main {
 main header {
   width: 20%;
   height: 100%;
-  padding: 23vh 5vw;
+  padding: 5rem 5vw 5vh 0;
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
@@ -262,7 +266,8 @@ main header {
 main header h1 {
   /*안쪽의 자간 줄높이 초기화*/
   font-size: 0px;
-  color: orange;
+  font-weight: 700;
+  color: rgb(248, 95, 95);
 }
 main header h1 .span1 {
   animation: moveIn2 3s ease;
@@ -288,7 +293,7 @@ main header h1 span {
 }
 main header address {
   margin-top: 10%;
-  color: #d6d0d0;
+  color: #4d4b4b;
   animation: noneShow 3s;
   animation: moveIn3 4s ease;
   font: normal 1.1vw/1.5 'arial';
@@ -302,6 +307,12 @@ main .banner .banner_video {
   width: 100%;
   object-fit: cover;
   filter: saturate(50%);
+  -webkit-box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
+    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
+    0px 0px 0px 10px #ff0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
+    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
+    0px 0px 0px 10px #ff0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   margin-top: 10%;
   animation: moveIn 3s ease;
 }
@@ -320,7 +331,7 @@ main nav ul {
 }
 main nav ul li a {
   font: normal 20px/1.2 'arial';
-  color: #888;
+  color: #3a3636;
   margin-right: 30px;
 }
 
@@ -330,7 +341,7 @@ main section {
   width: 90%;
   height: 100%;
   display: flex;
-  padding-top: 140px;
+  padding-top: 70px;
   z-index: 1;
 
   /* border:10px solid yellow; */
@@ -338,7 +349,7 @@ main section {
 main section article {
   position: relative;
   flex: 1;
-  padding: 70px 40px 100px;
+  padding: 80px 40px 100px;
   opacity: 0.6;
   transition: flex 1s, opacity 1s;
   z-index: 1;
@@ -349,7 +360,8 @@ main section article::before {
   display: block;
   width: 80%;
   height: 95%;
-  background: #444;
+  background: #fd6767;
+  border-radius: 5px;
   position: absolute;
   top: 0px;
   left: -200px;
@@ -386,7 +398,8 @@ main section article .inner .txt h2::after {
 }
 main section article .inner .txt p {
   font: 14px/1.4 'arial';
-  color: #999;
+  font-weight: 600;
+  color: #000000;
 }
 main section article .inner figure {
   width: 100%;
@@ -425,7 +438,7 @@ main section article:hover .inner .txt h2 {
 }
 main section article:hover .inner .txt h2::after {
   width: 120px;
-  background: orange;
+  background: rgb(242, 242, 242);
 }
 main section article:hover .inner figure {
   height: 25vh;

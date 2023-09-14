@@ -107,8 +107,8 @@ getPostLikeInfoFromServer()
 .like_box p {
   margin: 0 5px;
   padding: 6px 10px;
-  box-shadow: inset 2px 2px 2px 1px rgb(181, 148, 148), 2px 2px 2px 1px rgb(128, 94, 94);
-  background-color: #ae827d;
+  box-shadow: inset 2px 2px 2px 1px rgb(227, 159, 159), 2px 2px 2px 1px rgb(203, 83, 83);
+  background-color: #e57265;
   text-align: center;
   color:white;
   border-radius: 10px;

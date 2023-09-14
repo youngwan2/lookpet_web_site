@@ -105,7 +105,7 @@ export default {
 /* 서브 카테고리 공통 */
 
 .detail_text_h {
-  border-left: 4px solid rgb(178, 116, 116);
+  border-left: 4px solid rgb(236, 121, 121);
   font-size: 1.2rem;
   font-weight: 700;
   padding: 0 5px;
@@ -127,14 +127,14 @@ export default {
 .detail_title {
   font-size: 1.6rem;
   text-align: center;
-  border-top: 7px solid rgb(189, 155, 155);
+  border-top: 7px solid rgb(255, 182, 182);
   border-bottom-left-radius: 8px;
-  border-left: 7px solid black;
+  border-left: 7px solid rgb(173, 60, 60);
   border-top-right-radius: 8px;
   margin: 1.5rem auto;
   max-width: 900px;
   padding: 10px;
-  background: rgb(135, 102, 102);
+  background: rgba(221, 81, 81, 0.741);
   text-shadow: 1px 1px 2px black;
   color: rgb(246, 219, 219);
   filter: drop-shadow(10px 20px 3px rgba(98, 79, 79, 0.253));
@@ -148,9 +148,15 @@ export default {
   padding: 30px 0 0 0;
 }
 .dog_image {
-  box-shadow: 1px 1px 4px 3px rgba(24, 24, 24, 0.2);
-  border-radius: 15px;
+  -webkit-box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
+    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
+    0px 0px 0px 10px #ee4242d1, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
+    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
+    0px 0px 0px 10px #ee4242d1, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  border-radius: 1px;
   max-width: 350px;
+  max-height: 400px;
   margin: 0 20px 0 0px;
   height: 100%;
   min-width: 350px;
@@ -181,13 +187,29 @@ export default {
   margin: 20px 0;
 }
 
+@media screen and (min-width: 769px) {
+
+  .detail_info {
+    margin-left: 1.5rem;
+  }
+  .detail_bottom {
+    margin-top: 1.5rem;
+    min-height: 40vh;
+  }
+}
+
 @media screen and (max-width: 768px) {
   /* 디테일 설명 탑 / 밑 */
   .detail_top {
     flex-direction: column;
   }
+
+  .detail_info {
+    margin-top: 2rem;
+  }
   .detail_bottom {
     margin-top: 0;
+    min-height: 60vh;
   }
   .detail_title {
     margin: 2rem 0 1rem 0;
