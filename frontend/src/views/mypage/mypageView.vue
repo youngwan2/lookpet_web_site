@@ -231,8 +231,7 @@ export default {
 }
 .pet_list {
   display: flex;
-  width: 100%;
-  overflow-x: auto;
+  overflow: auto hidden;
 }
 
 /** 사이드 메뉴 세부 리스트(회원정보/마이펫 영역) */

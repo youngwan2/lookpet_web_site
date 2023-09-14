@@ -134,9 +134,9 @@ li {
   width: 100%;
   border-radius: 5px;
   padding: 20px 0;
-  box-shadow: inset 0px -5px 3px 0 rgba(161, 43, 43, 0.554);
+  box-shadow: inset 0px -5px 3px 0 rgba(29, 1, 1, 0.554);
   z-index: 100000;
-  background: #fc6355;
+  background: #b87474;
 }
 .header .header_inner {
   max-width: 1500px;
