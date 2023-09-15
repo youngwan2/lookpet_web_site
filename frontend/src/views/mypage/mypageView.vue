@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <div class="content">
-      <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
+      <div
+        class="side_menu"
+        :class="{ 'hidden-menu': !isSideMenuOpen }"
+        ref="sideMenu"
+      >
         <h2 class="mypage_title">마이페이지</h2>
         <ul class="side_list">
           <div class="user_menu">
@@ -22,7 +26,11 @@
         </ul>
       </div>
       <div class="toggle-button-container">
-        <button @click="toggleSideMenu" class="toggle-button">
+        <button
+          @click="toggleSideMenu"
+          class="toggle-button"
+          ref="toggleButtonContainer"
+        >
           {{ isSideMenuOpen ? '<<' : '>>' }}
         </button>
       </div>
@@ -97,6 +105,9 @@ export default {
     toggleSideMenu() {
       // 스크린 너비가 600px 이하인 경우에만 토글로 열림/닫힘 상태 변경
       this.isSideMenuOpen = !this.isSideMenuOpen
+
+      // const buttonContainer = this.$refs.toggleButtonContainer
+      // const sideMenu = this.$refs.sideMenu
     },
     handleResize() {
       // 스크린 너비 업데이트
@@ -191,7 +202,6 @@ export default {
 }
 .content {
   display: flex;
-
   margin: 3rem 0;
   width: 100%;
   height: 100%;
@@ -199,6 +209,7 @@ export default {
 .side_menu {
   margin: 0;
   width: 30%;
+  min-height: 70vh;
   border-radius: 10px;
   max-width: 300px;
   min-width: 250px;
@@ -209,8 +220,11 @@ export default {
   transition: 0.2s linear;
 }
 @media screen and (max-width: 600px) {
-  .side_menu {
+  /* .side_menu {
     display: none;
+  } */
+  .side_menu {
+    transform: translateX(-100%);
   }
 }
 .user_menu {
@@ -356,7 +370,11 @@ ol:active {
   transform: translate(0, -10px);
 }
 .hidden-menu {
-  display: none;
+  /* display: none; */
+  transform: translate(-100%);
+  position: absolute;
+  box-shadow: 5px 5px 10px rgb(250, 132, 63);
+  transition: transform 0.1s ease;
 }
 .toggle-button-container {
   position: relative;
@@ -372,8 +390,7 @@ ol:active {
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 0 10px 10px 0;
   width: 35px;
   height: 100px;
   cursor: pointer;

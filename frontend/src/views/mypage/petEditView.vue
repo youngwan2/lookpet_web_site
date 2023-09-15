@@ -1,9 +1,5 @@
 <template>
   <div class="container">
-    <div class="head_line">
-      <div class="move_back" @click="moveBack"><h1>←</h1></div>
-
-    </div>
     <div class="content">
       <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
         <h2 class="pet_edit_title">펫 정보 수정</h2>
@@ -30,98 +26,100 @@
           {{ isSideMenuOpen ? '<<' : '>>' }}
         </button>
       </div>
-      <form @submit.prevent="updatePetInfo" class="pet_register_form">
-        <div class="pet_info">
-          <div class="pet_top">
-            <div class="pet_image_box">
-              <img
-                class="pet_image"
-                v-if="petimage"
-                :src="petimage"
-                alt="pet_image"
-              />
-              <label for="pet_image_input">
-                <div class="move_label" v-if="!petimage">
-                  <span class="add_icon">+</span>
-                  <span>이미지를 올려주세요</span>
+      <div class="info_container">
+        <form @submit.prevent="updatePetInfo" class="pet_register_form">
+          <div class="pet_info">
+            <div class="pet_top">
+              <div class="pet_image_box">
+                <img
+                  class="pet_image"
+                  v-if="petimage"
+                  :src="petimage"
+                  alt="pet_image"
+                />
+                <label for="pet_image_input">
+                  <div class="move_label" v-if="!petimage">
+                    <span class="add_icon">+</span>
+                    <span>이미지를 올려주세요</span>
+                  </div>
+                </label>
+                <label for="pet_image_input"
+                  ><div v-if="petimage" class="change_image">
+                    이미지 변경
+                  </div></label
+                >
+                <input
+                  id="pet_image_input"
+                  type="file"
+                  accept="image/*"
+                  @change="imageUpload"
+                />
+              </div>
+              <div class="pet_info_box">
+                <div class="pet_info_detail">
+                  <span>이름</span>
+                  <input
+                    class="info_text"
+                    autocomplete="off"
+                    type="text"
+                    v-model="petname"
+                  />
                 </div>
-              </label>
-              <label for="pet_image_input"
-                ><div v-if="petimage" class="change_image">
-                  이미지 변경
-                </div></label
-              >
-              <input
-                id="pet_image_input"
-                type="file"
-                accept="image/*"
-                @change="imageUpload"
-              />
-            </div>
-            <div class="pet_info_box">
-              <div class="pet_info_detail">
-                <span>이름</span>
-                <input
-                  class="info_text"
-                  autocomplete="off"
-                  type="text"
-                  v-model="petname"
-                />
-              </div>
-              <div class="pet_info_detail">
-                <span>종</span>
-                <input
-                  class="info_text"
-                  autocomplete="off"
-                  type="text"
-                  v-model="breeds"
-                />
-              </div>
-              <div class="gender_info_detail">
-                <span>성별</span>
-                <span class="gender_icon" id="gender_male">♂</span>
-                <input
-                  class="checkbox"
-                  type="checkbox"
-                  v-model="gender"
-                  @change="checkGender"
-                  value="♂"
-                />
-                <span class="gender_icon" id="gender_female">♀</span>
-                <input
-                  class="checkbox"
-                  type="checkbox"
-                  v-model="gender"
-                  @change="checkGender"
-                  value="♀"
-                />
-              </div>
-              <div class="pet_info_detail">
-                <span>나이</span>
-                <input
-                  class="info_text"
-                  autocomplete="off"
-                  type="number"
-                  v-model="age"
-                  min="1"
-                />
+                <div class="pet_info_detail">
+                  <span>종</span>
+                  <input
+                    class="info_text"
+                    autocomplete="off"
+                    type="text"
+                    v-model="breeds"
+                  />
+                </div>
+                <div class="gender_info_detail">
+                  <span>성별</span>
+                  <span class="gender_icon" id="gender_male">♂</span>
+                  <input
+                    class="checkbox"
+                    type="checkbox"
+                    v-model="gender"
+                    @change="checkGender"
+                    value="♂"
+                  />
+                  <span class="gender_icon" id="gender_female">♀</span>
+                  <input
+                    class="checkbox"
+                    type="checkbox"
+                    v-model="gender"
+                    @change="checkGender"
+                    value="♀"
+                  />
+                </div>
+                <div class="pet_info_detail">
+                  <span>나이</span>
+                  <input
+                    class="info_text"
+                    autocomplete="off"
+                    type="number"
+                    v-model="age"
+                    min="1"
+                  />
+                </div>
               </div>
             </div>
+            <div class="pet_info_introduce">
+              <span>소개</span><br />
+              <textarea
+                class="info_text"
+                id="pet_introduce"
+                type="text"
+                autocomplete="off"
+                v-model="introduce"
+              ></textarea>
+            </div>
+            <button class="pet_edit_btn" @click="pageMove">취소</button>
+            <button type="submit" class="pet_edit_btn">수정하기</button>
           </div>
-          <div class="pet_info_introduce">
-            <span>소개</span><br />
-            <textarea
-              class="info_text"
-              id="pet_introduce"
-              type="text"
-              autocomplete="off"
-              v-model="introduce"
-            ></textarea>
-          </div>
-          <button class="pet_edit_btn" @click="pageMove">취소</button>
-          <button type="submit" class="pet_edit_btn">수정하기</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -171,9 +169,6 @@ export default {
         // 스크린 너비가 600px 초과인 경우, 메뉴를 열도록 설정
         this.isSideMenuOpen = true
       }
-    },
-    moveBack() {
-      this.$router.push({ path: '/mypage' })
     },
     withDrawal() {
       this.$router.push({ path: '/mypage/withdrawal' })
@@ -276,9 +271,7 @@ export default {
 .container {
   width: 100%;
   height: 100%;
-}
-.head_line {
-  display: flex;
+  min-height: 80vh;
 }
 .pet_edit_title {
   text-align: center;
@@ -286,30 +279,16 @@ export default {
   text-shadow: 1px 1px 2px rgb(181, 60, 60);
   margin: 1rem 0 2rem 0;
 }
-.move_back {
-  background: #815854;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 0 10px;
-  padding-bottom: 5px;
-  color: #f9ebde;
-  transition: 0.1s;
-}
-.move_back:hover {
-  transform: scale(1.05);
-  background: rgb(198, 111, 17);
-  cursor: pointer;
-}
 .content {
   display: flex;
+  margin: 1rem 0;
   width: 100%;
   height: 100%;
-  margin: 1rem 0;
 }
-
 .side_menu {
   margin: 0;
   width: 30%;
+  min-height: 70vh;
   border-radius: 10px;
   max-width: 300px;
   min-width: 250px;
@@ -319,9 +298,9 @@ export default {
   overflow: hidden;
   transition: 0.2s linear;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
   .side_menu {
-    display: none;
+    transform: translateX(-100%);
   }
 }
 .user_menu {
@@ -340,12 +319,6 @@ export default {
   display: inline-block;
   margin-bottom: 10px;
 }
-.pet_list {
-  display: flex;
-  width: 100%;
-  overflow-x: auto;
-}
-
 /** 사이드 메뉴 세부 리스트(회원정보/마이펫 영역) */
 ol {
   transition: 0.3s;
@@ -380,29 +353,15 @@ ol:active {
   box-shadow: 1px 1px 5px gray;
   cursor: pointer;
 }
-.side_list {
-  width: 400px;
-  min-width: 200px;
-  color: #f9ebde;
-  width: 100%;
-  list-style: none;
-  transition: 0.1s;
-  margin-bottom: 5px;
-  transition: 0.3s;
-}
-.side_title {
-  font-weight: 800;
-  font-size: 1.2em;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
 /** 펫 정보 (우측 수정할 정보)*/
-.pet_info {
+.info_container {
   width: 100%;
   height: 100%;
-  border: 3px solid #d55044;
-  border-radius: 5px;
+}
+.pet_info {
+  max-width: 700px;
+  border: 5px solid #ff5f5f;
+  margin: auto;
 }
 .pet_top {
   display: flex;
@@ -602,7 +561,10 @@ input[type='number']::-webkit-outer-spin-button {
   text-align: center;
 }
 .hidden-menu {
-  display: none;
+  transform: translate(-100%);
+  position: absolute;
+  box-shadow: 5px 5px 10px rgb(250, 132, 63);
+  transition: transform 0.1s ease;
 }
 .toggle-button-container {
   position: relative;
@@ -618,8 +580,7 @@ input[type='number']::-webkit-outer-spin-button {
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 0 10px 10px 0;
   width: 35px;
   height: 100px;
   cursor: pointer;

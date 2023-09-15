@@ -1,10 +1,5 @@
 <template>
   <div class="container">
-    <div class="head_line">
-      <div class="move_back" @click="moveBack"><h1>←</h1></div>
-      <h1 class="user_info_title">회원탈퇴</h1>
-    </div>
-    <hr />
     <div class="content">
       <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
         <ul class="side_list">
@@ -176,25 +171,36 @@ export default {
   background: rgb(198, 111, 17);
   cursor: pointer;
 }
+.container {
+  width: 100%;
+  height: 100%;
+  min-height: 80vh;
+}
 .content {
   display: flex;
+  margin: 3rem 0;
   width: 100%;
-  height: 600px;
+  height: 100%;
 }
 .side_menu {
   margin: 0;
   width: 30%;
+  min-height: 70vh;
+  border-radius: 10px;
   max-width: 300px;
   min-width: 250px;
   padding: 10px 0;
   margin-right: 10px;
-  background: #815854;
+  background: #ff5f5f;
   overflow: hidden;
   transition: 0.2s linear;
 }
 @media screen and (max-width: 600px) {
-  .side_menu {
+  /* .side_menu {
     display: none;
+  } */
+  .side_menu {
+    transform: translateX(-100%);
   }
 }
 .user_menu {
@@ -221,9 +227,7 @@ export default {
   border-bottom: 1px solid #f9ebde;
 }
 .side_list {
-  width: 400px;
   min-width: 200px;
-  /* background: #815854; */
   color: #f9ebde;
   width: 100%;
   list-style: none;
@@ -244,8 +248,8 @@ export default {
 }
 .info-box {
   width: 50%;
-  height: 30%;
-  min-height: 300px;
+  height: 300px;
+  min-height: 250px;
   min-width: 300px;
   max-width: 500px;
   margin: auto;
@@ -267,7 +271,7 @@ export default {
 .info-content {
   margin-bottom: 10%;
   width: 80%;
-  height: 10%;
+  height: 30px;
   position: relative;
 }
 .info-content > span {
@@ -307,10 +311,15 @@ export default {
   height: 10%;
   padding: 3px;
   border: none;
+  margin-top: 5px;
   background: rgb(223, 220, 220);
 }
 .hidden-menu {
-  display: none;
+  /* display: none; */
+  transform: translate(-100%);
+  position: absolute;
+  box-shadow: 5px 5px 10px rgb(250, 132, 63);
+  transition: transform 0.1s ease;
 }
 .toggle-button-container {
   position: relative;
@@ -320,12 +329,12 @@ export default {
   position: relative;
   right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
   top: 250px;
-  background-color: #613d3a;
+  background-color: #da4234;
+  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 0 10px 10px 0;
   width: 35px;
   height: 100px;
   cursor: pointer;

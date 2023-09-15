@@ -1,9 +1,5 @@
 <template>
   <div class="container">
-    <div class="head_line">
-      <div class="move_back" @click="moveBack"><h1>←</h1></div>
-      <h1 class="pet_register_title">펫 등록</h1>
-    </div>
     <div class="content">
       <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
         <ul class="side_list">
@@ -29,97 +25,99 @@
           {{ isSideMenuOpen ? '<<' : '>>' }}
         </button>
       </div>
-      <form @submit.prevent="petRegister" class="pet_register_form">
-        <div class="pet_info">
-          <div class="pet_top">
-            <div class="pet_image_box">
-              <img
-                class="pet_image"
-                v-if="petimage"
-                :src="petimage"
-                alt="pet_image"
-              />
-              <label for="pet_image_input">
-                <div class="move_label" v-if="!petimage">
-                  <span class="add_icon">+</span>
-                  <span>이미지를 올려주세요</span>
+      <div class="info_container">
+        <form @submit.prevent="petRegister" class="pet_register_form">
+          <div class="pet_info">
+            <div class="pet_top">
+              <div class="pet_image_box">
+                <img
+                  class="pet_image"
+                  v-if="petimage"
+                  :src="petimage"
+                  alt="pet_image"
+                />
+                <label for="pet_image_input">
+                  <div class="move_label" v-if="!petimage">
+                    <span class="add_icon">+</span>
+                    <span>이미지를 올려주세요</span>
+                  </div>
+                </label>
+                <label for="pet_image_input"
+                  ><div v-if="petimage" class="change_image">
+                    <span>이미지 변경</span>
+                  </div></label
+                >
+                <input
+                  id="pet_image_input"
+                  type="file"
+                  accept="image/*"
+                  @change="imageUpload"
+                />
+              </div>
+              <div class="pet_info_box">
+                <div class="pet_info_detail">
+                  <span>이름</span>
+                  <input
+                    class="info_text"
+                    autocomplete="off"
+                    type="text"
+                    v-model="petname"
+                  />
                 </div>
-              </label>
-              <label for="pet_image_input"
-                ><div v-if="petimage" class="change_image">
-                  <span>이미지 변경</span>
-                </div></label
-              >
-              <input
-                id="pet_image_input"
-                type="file"
-                accept="image/*"
-                @change="imageUpload"
-              />
-            </div>
-            <div class="pet_info_box">
-              <div class="pet_info_detail">
-                <span>이름</span>
-                <input
-                  class="info_text"
-                  autocomplete="off"
-                  type="text"
-                  v-model="petname"
-                />
-              </div>
-              <div class="pet_info_detail">
-                <span>종</span>
-                <input
-                  class="info_text"
-                  autocomplete="off"
-                  type="text"
-                  v-model="breeds"
-                />
-              </div>
-              <div class="gender_info_detail">
-                <span>성별</span>
-                <span class="gender_icon" id="gender_male">♂</span>
-                <input
-                  class="checkbox"
-                  type="checkbox"
-                  v-model="gender"
-                  @change="checkGender"
-                  value="♂"
-                />
-                <span class="gender_icon" id="gender_female">♀</span>
-                <input
-                  class="checkbox"
-                  type="checkbox"
-                  v-model="gender"
-                  @change="checkGender"
-                  value="♀"
-                />
-              </div>
-              <div class="pet_info_detail">
-                <span>나이</span>
-                <input
-                  class="info_text"
-                  autocomplete="off"
-                  type="number"
-                  v-model="age"
-                  min="1"
-                />
+                <div class="pet_info_detail">
+                  <span>종</span>
+                  <input
+                    class="info_text"
+                    autocomplete="off"
+                    type="text"
+                    v-model="breeds"
+                  />
+                </div>
+                <div class="gender_info_detail">
+                  <span>성별</span>
+                  <span class="gender_icon" id="gender_male">♂</span>
+                  <input
+                    class="checkbox"
+                    type="checkbox"
+                    v-model="gender"
+                    @change="checkGender"
+                    value="♂"
+                  />
+                  <span class="gender_icon" id="gender_female">♀</span>
+                  <input
+                    class="checkbox"
+                    type="checkbox"
+                    v-model="gender"
+                    @change="checkGender"
+                    value="♀"
+                  />
+                </div>
+                <div class="pet_info_detail">
+                  <span>나이</span>
+                  <input
+                    class="info_text"
+                    autocomplete="off"
+                    type="number"
+                    v-model="age"
+                    min="1"
+                  />
+                </div>
               </div>
             </div>
+            <div class="pet_info_introduce">
+              <span>소개</span><br />
+              <textarea
+                class="info_text"
+                id="pet_introduce"
+                type="text"
+                autocomplete="off"
+                v-model="introduce"
+              ></textarea>
+            </div>
+            <button type="submit" class="pet_register_btn">펫 등록하기</button>
           </div>
-          <div class="pet_info_introduce">
-            <span>소개</span><br />
-            <textarea
-              class="info_text"
-              id="pet_introduce"
-              type="text"
-              autocomplete="off"
-              v-model="introduce"
-            ></textarea>
-          </div>
-          <button type="submit" class="pet_register_btn">펫 등록하기</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -185,9 +183,6 @@ export default {
       if (this.gender.length > 1) {
         this.gender.pop()
       }
-    },
-    moveBack() {
-      this.$router.push({ path: '/mypage' })
     },
     async imageUpload(e) {
       const image = e.target.files[0]
@@ -265,46 +260,37 @@ input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.head_line {
-  display: flex;
-}
 .pet_register_title {
   margin: auto;
 }
-.move_back {
-  background: #815854;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 0 10px;
-  padding-bottom: 5px;
-  color: #f9ebde;
-  transition: 0.1s;
-}
-.move_back:hover {
-  transform: scale(1.05);
-  background: rgb(198, 111, 17);
-  cursor: pointer;
+.container {
+  width: 100%;
+  height: 100%;
+  min-height: 80vh;
 }
 .content {
   display: flex;
+  margin: 3rem 0;
   width: 100%;
   height: 100%;
-  margin: 0;
 }
+
 .side_menu {
   margin: 0;
   width: 30%;
+  min-height: 70vh;
+  border-radius: 10px;
   max-width: 300px;
   min-width: 250px;
   padding: 10px 0;
   margin-right: 10px;
-  background: #815854;
+  background: #ff5f5f;
   overflow: hidden;
   transition: 0.2s linear;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 870px) {
   .side_menu {
-    display: none;
+    transform: translateX(-100%);
   }
 }
 .user_menu {
@@ -328,12 +314,9 @@ input[type='number']::-webkit-outer-spin-button {
   border-bottom: 1px solid #f9ebde;
 }
 .side_list {
-  width: 400px;
-  min-width: 200px;
-  color: #f9ebde;
   width: 100%;
+  color: #f9ebde;
   list-style: none;
-  transition: 0.1s;
   margin-bottom: 5px;
   transition: 0.3s;
 }
@@ -343,14 +326,17 @@ input[type='number']::-webkit-outer-spin-button {
   display: inline-block;
   margin-bottom: 10px;
 }
-.pet_info {
+.info_container {
   width: 100%;
   height: 100%;
-  border: 1px solid gray;
+}
+.pet_info {
+  max-width: 700px;
+  border: 5px solid #ff5f5f;
+  margin: auto;
 }
 .pet_top {
   display: flex;
-  border-radius: 1px solid gray;
 }
 @media screen and (max-width: 600px) {
   .pet_top {
@@ -366,11 +352,12 @@ input[type='number']::-webkit-outer-spin-button {
   width: 70%;
   height: 30px;
   padding: 10px;
-  border-radius: 30px;
-  background: #815854;
+  border-radius: 20px;
+  border: 1px solid rgb(248, 95, 95);
+  background: #ffffff;
   font-size: 1.5rem;
   opacity: 0.6;
-  color: #f9ebde;
+  color: #7f0404;
   box-shadow: 5px 5px 3px gray;
 }
 .info_text:focus {
@@ -380,13 +367,14 @@ input[type='number']::-webkit-outer-spin-button {
 .pet_image_box {
   width: 300px;
   height: 300px;
-  border: 5px solid #815854;
+  border: 5px solid #e35b4f;
+  border-radius: 5px;
   margin: 10px;
   box-shadow: 5px 5px 10px gray;
   display: inline-block;
 }
 .pet_register_btn {
-  background: #815854;
+  background: #f55b4d;
   color: #f9ebde;
   border: none;
   border-radius: 10px;
@@ -452,7 +440,7 @@ input[type='checkbox'] {
   width: 40%;
   height: 15%;
   text-align: center;
-  background: #815854;
+  background: #f75243;
   border-radius: 15px;
   color: #f9ebde;
   position: relative;
@@ -526,7 +514,10 @@ input[type='checkbox'] {
   padding: 5px;
 }
 .hidden-menu {
-  display: none;
+  transform: translate(-100%);
+  position: absolute;
+  box-shadow: 5px 5px 10px rgb(250, 132, 63);
+  transition: transform 0.1s ease;
 }
 .toggle-button-container {
   position: relative;
@@ -536,12 +527,12 @@ input[type='checkbox'] {
   position: relative;
   right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
   top: 250px;
-  background-color: #613d3a;
+  background-color: #da4234;
+  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 0 10px 10px 0;
   width: 35px;
   height: 100px;
   cursor: pointer;
