@@ -219,6 +219,8 @@ export default {
   overflow: hidden;
   transition: 0.2s linear;
 }
+
+/** 600px 모바일 */
 @media screen and (max-width: 600px) {
   /* .side_menu {
     display: none;

@@ -154,6 +154,7 @@ export default {
     toggleSideMenu() {
       // 스크린 너비가 600px 이하인 경우에만 토글로 열림/닫힘 상태 변경
       this.isSideMenuOpen = !this.isSideMenuOpen
+      console.log('버튼 온오프:', this.isSideMenuOpen)
     },
     handleResize() {
       // 스크린 너비 업데이트
@@ -163,7 +164,7 @@ export default {
         document.body.clientWidth
 
       // 스크린 너비가 600px 이하인 경우, 메뉴를 닫도록 설정
-      if (this.screenWidth <= 600) {
+      if (this.screenWidth <= 900) {
         this.isSideMenuOpen = false
       } else {
         // 스크린 너비가 600px 초과인 경우, 메뉴를 열도록 설정
@@ -298,10 +299,18 @@ export default {
   overflow: hidden;
   transition: 0.2s linear;
 }
+/** 900px 미디어 쿼리 (모바일) */
 @media screen and (max-width: 900px) {
   .side_menu {
     transform: translateX(-100%);
   }
+}
+
+.hidden-menu {
+  transform: translate(-100%);
+  position: absolute;
+  box-shadow: 5px 5px 10px rgb(250, 132, 63);
+  transition: transform 0.1s ease;
 }
 .user_menu {
   margin-bottom: 30px;
@@ -365,7 +374,10 @@ ol:active {
 }
 .pet_top {
   display: flex;
+  text-align: center;
 }
+
+/** 600px 모바일 */
 @media screen and (max-width: 600px) {
   .pet_top {
     display: block; /* 미디어 쿼리가 적용될 때, display를 block으로 변경 */
@@ -500,7 +512,7 @@ input[type='checkbox'] {
   margin-bottom: 30px;
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-around;
 }
 .gender_info_detail {
   margin-bottom: 30px;
@@ -515,7 +527,7 @@ input[type='checkbox'] {
   font-size: 1.2rem;
 }
 .pet_info_detail > span:first-child {
-  position: absolute;
+  position: relative;
   left: 0;
   top: 5px;
   background: #815854;
@@ -560,12 +572,7 @@ input[type='number']::-webkit-outer-spin-button {
 .edit_title {
   text-align: center;
 }
-.hidden-menu {
-  transform: translate(-100%);
-  position: absolute;
-  box-shadow: 5px 5px 10px rgb(250, 132, 63);
-  transition: transform 0.1s ease;
-}
+
 .toggle-button-container {
   position: relative;
 }
