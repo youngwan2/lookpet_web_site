@@ -389,11 +389,11 @@ input[type='number']::-webkit-outer-spin-button {
   font-size: 1.5rem;
   opacity: 0.6;
   color: #7f0404;
-  box-shadow: 5px 5px 3px gray;
+  box-shadow: 3px 3px 3px gray;
 }
 .info_text:focus {
   opacity: 1;
-  box-shadow: 3px 3px 5px gray;
+  box-shadow: 3px 3px 3px gray;
 }
 .pet_image_box {
   width: 300px;
@@ -417,7 +417,7 @@ input[type='number']::-webkit-outer-spin-button {
   float: right;
 }
 .pet_register_btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
   color: #f9ebde;
   background: #a4907c;
   box-shadow: 5px 5px 10px gray;

@@ -155,29 +155,6 @@ export default {
 }
 </script>
 <style scoped>
-.head_line {
-  display: flex;
-}
-.mypage_title {
-  text-align: center;
-  color: white;
-  text-shadow: 1px 1px 2px rgb(181, 60, 60);
-  margin: 1rem 0 2rem 0;
-}
-.move_back {
-  background: #815854;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 0 10px;
-  padding-bottom: 5px;
-  color: #f9ebde;
-  transition: 0.1s;
-}
-.move_back:hover {
-  transform: scale(1.05);
-  background: rgb(198, 111, 17);
-  cursor: pointer;
-}
 .container {
   width: 100%;
   height: 100%;
@@ -189,19 +166,37 @@ export default {
   width: 100%;
   height: 100%;
 }
+.mypage_title {
+  text-align: center;
+  color: #f1dec9;
+  background: #a4907c;
+  text-shadow: 1px 1px 1px gray;
+  box-shadow: 0 3px 5px #8d7b68;
+  margin: 1rem 0 2rem 0;
+  transition: 0.15s;
+}
+.mypage_title:hover {
+  box-shadow: 0 5px 5px #8d7b68;
+  background: #8d7b68;
+  transform: scale(1.02);
+  cursor: pointer;
+}
 .side_menu {
   margin: 0;
   width: 30%;
   min-height: 70vh;
-  border-radius: 10px;
+  border: 3px solid #8d7b68;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 0 2px #8d7b68;
   max-width: 300px;
   min-width: 250px;
   padding: 10px 0;
   margin-right: 10px;
-  background: #ff5f5f;
+  background: #f1dec9;
   overflow: hidden;
   transition: 0.2s linear;
 }
+
 @media screen and (max-width: 600px) {
   /* .side_menu {
     display: none;
@@ -216,29 +211,33 @@ export default {
 .active_btn {
   transition: 0.3s;
   margin-left: -20px;
-  white-space: nowrap;
+  max-width: 120px;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 .active_btn:hover {
   border-bottom: 1px solid #f9ebde;
   transform: translateX(5px);
-  color: #f9ebde;
-  background: rgb(198, 111, 17);
-  box-shadow: 1px 1px 5px gray;
+  color: #f1dec9;
+  border-radius: 10px;
+  background: #a4907c;
+  box-shadow: 0 0 1px rgb(247, 247, 247);
   cursor: pointer;
 }
-.active_btn:active {
-  box-shadow: -1px -1px 5px gray;
-}
 .user_delete {
-  background: rgb(198, 111, 17);
-  border-bottom: 1px solid #f9ebde;
+  color: #f1dec9;
+  margin-left: -10px;
+  background: #a4907c;
+  border-bottom: 1px solid #8d7b68;
+  max-width: 120px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  border-radius: 10px;
 }
 .side_list {
-  min-width: 200px;
-  color: #f9ebde;
   width: 100%;
+  color: #8d7b68;
   list-style: none;
-  transition: 0.1s;
   margin-bottom: 5px;
   transition: 0.3s;
 }
@@ -255,18 +254,18 @@ export default {
 }
 .info-box {
   width: 50%;
-  height: 300px;
+  height: 400px;
   min-height: 250px;
   min-width: 300px;
   max-width: 500px;
   margin: auto;
   margin-top: 7%;
-  background: #815854;
+  background: #f1dec9;
   border-radius: 0 10% 0 10%;
+  border:3px solid #8d7b68;
   padding: 20px;
-  color: #f9ebde;
-  transform: translate(0%, 0%);
-  box-shadow: inset 10px 10px 2px #af7770, 40px 70px 5px rgba(83, 83, 83, 0.464);
+  color: #8d7b68;
+  box-shadow: 12px 12px 1px #8d7b68, 40px 70px 5px rgba(83, 83, 83, 0.464);
   animation: updown 1.5s infinite alternate ease-in-out;
 }
 @keyframes updown {
@@ -287,31 +286,39 @@ export default {
 .info-content > input {
   width: 70%;
   height: 100%;
-  border: none;
-  border-radius: 10px;
+  border-radius: 20px;
+  border: 3px solid #8d7b68;
+  background: #ffffff;
   padding: 3px;
+  opacity: 0.6;
   position: absolute;
   left: 50%;
-  background: #f9ebde;
+  box-shadow: 3px 3px 3px gray;
+}
+.info-content>input:focus{
+  opacity: 1;
 }
 .info-box > button {
   width: 100%;
   height: 15%;
+  background: #c8b6a6;
   border: none;
   border-radius: 20px;
   position: relative;
   top: 20%;
   transition: 0.15s;
   font-size: 1.5rem;
-  background: #f9ebde;
 }
 .info-box > button:hover {
   transform: scale(1.03);
-  background: #ee7129;
-  color: #fff;
+  color: #f9ebde;
+  background: #a4907c;
+  box-shadow: 5px 5px 10px gray;
+  cursor: pointer;
 }
 .info-box > button:active {
-  box-shadow: inset 3px 3px 5px gray;
+  background: #8d7b68;
+  box-shadow: -3px -3px 5px gray;
 }
 #agree {
   width: 100%;
@@ -319,13 +326,12 @@ export default {
   padding: 3px;
   border: none;
   margin-top: 5px;
-  background: rgb(223, 220, 220);
+  background: #c8b6a6;
 }
 .hidden-menu {
-  /* display: none; */
   transform: translate(-100%);
   position: absolute;
-  box-shadow: 5px 5px 10px rgb(250, 132, 63);
+  box-shadow: 5px 0 10px #8d7b68;
   transition: transform 0.1s ease;
 }
 .toggle-button-container {
@@ -336,8 +342,8 @@ export default {
   position: relative;
   right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
   top: 250px;
-  background-color: #da4234;
-  box-shadow: 3px 0 2px rgb(142, 36, 36);
+  background-color: #a4907c;
+  box-shadow: 5px 0 3px #8d7b68;
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;
@@ -348,6 +354,7 @@ export default {
   transition: 0.1s linear;
 }
 .toggle-button:hover {
-  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
+  box-shadow: inset 5px 0 2px #8d7b68;
+  background: #8d7b68;
 }
 </style>
