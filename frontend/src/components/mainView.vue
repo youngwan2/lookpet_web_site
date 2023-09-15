@@ -334,6 +334,9 @@ main .banner .banner_video {
   .aside_video01 {
     display: flex;
   }
+  #article_video04{
+    display:none;
+  }
 }
 /* nav */
 main nav {

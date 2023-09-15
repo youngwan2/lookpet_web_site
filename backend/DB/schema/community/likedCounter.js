@@ -9,10 +9,12 @@ const likedCounterSchema = new Schema({
   likeCount: {
     type: Number,
     default: 0,
+    min:0
   },
   unlikeCount: {
     type: Number,
     default: 0,
+    min:0
   },
 });
 
