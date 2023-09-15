@@ -1,12 +1,8 @@
 <template>
   <div class="container">
     <div class="content">
-      <div
-        class="side_menu"
-        :class="{ 'hidden-menu': !isSideMenuOpen }"
-        ref="sideMenu"
-      >
-        <h2 class="mypage_title">마이페이지</h2>
+      <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
+        <h2 class="mypage_title" @click="toMypage">마이페이지</h2>
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
@@ -45,7 +41,7 @@
               <span>이름</span><span>{{ pet.petname }}</span>
             </div>
             <div class="pet_info_detail">
-              <span>종</span><span>{{ pet.breeds }}</span>
+              <span>품종</span><span>{{ pet.breeds }}</span>
             </div>
             <div class="pet_info_detail">
               <span>성별</span><span>{{ pet.gender[0] }}</span>
@@ -124,6 +120,9 @@ export default {
         this.isSideMenuOpen = true
       }
     },
+    toMypage() {
+      this.$router.push({ path: '/mypage' })
+    },
     withDrawal() {
       this.$router.push({ path: '/mypage/withdrawal' })
     },
@@ -193,9 +192,18 @@ export default {
 }
 .mypage_title {
   text-align: center;
-  color: white;
-  text-shadow: 1px 1px 2px rgb(181, 60, 60);
+  color: #f1dec9;
+  background: #a4907c;
+  text-shadow: 1px 1px 1px gray;
+  box-shadow: 0 3px 5px #8d7b68;
   margin: 1rem 0 2rem 0;
+  transition: 0.15s;
+}
+.mypage_title:hover {
+  box-shadow: 0 5px 5px #8d7b68;
+  background: #8d7b68;
+  transform: scale(1.02);
+  cursor: pointer;
 }
 .mypage_info_exist {
   text-align: center;
@@ -210,12 +218,14 @@ export default {
   margin: 0;
   width: 30%;
   min-height: 70vh;
-  border-radius: 10px;
+  border: 3px solid #8d7b68;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 0 2px #8d7b68;
   max-width: 300px;
   min-width: 250px;
   padding: 10px 0;
   margin-right: 10px;
-  background: #ff5f5f;
+  background: #f1dec9;
   overflow: hidden;
   transition: 0.2s linear;
 }
@@ -234,7 +244,7 @@ export default {
 }
 .side_list {
   width: 100%;
-  color: #f9ebde;
+  color: #8d7b68;
   list-style: none;
   margin-bottom: 5px;
   transition: 0.3s;
@@ -255,26 +265,25 @@ ol {
   transition: 0.3s;
   margin-left: -20px;
   max-width: 120px;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 ol:hover {
   border-bottom: 1px solid #f9ebde;
   transform: translateX(5px);
-  color: #f9ebde;
+  color: #f1dec9;
   border-radius: 10px;
-  background: rgb(219, 58, 58);
+  background: #a4907c;
   box-shadow: 0 0 1px rgb(247, 247, 247);
   cursor: pointer;
 }
-ol:active {
-  box-shadow: -1px -1px 5px gray;
-}
 .pet_card {
   width: 350px;
-  border: 3px solid #ed7065;
+  border: 3px solid #8d7b68;
   padding-bottom: 40px;
   margin: 10px;
   border-radius: 10px;
-  background: rgb(255, 255, 255);
+  background: #f1dec9;
   position: relative;
   box-shadow: 5px 5px 10px gray;
   transition: 0.15s;
@@ -284,12 +293,12 @@ ol:active {
 }
 .pet_image_box {
   text-align: center;
-  -webkit-box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
-    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
-    0px 0px 0px 10px #ff0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-  box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
-    20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
-    0px 0px 0px 10px #ff0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0px 20px 0px -10px #f1dec9, 0px -20px 0px -10px #f1dec9,
+    20px 0px 0px -10px #f1dec9, -20px 0px 0px -10px #f1dec9,
+    0px 0px 0px 10px #8d7b68, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 20px 0px -10px #f1dec9, 0px -20px 0px -10px #f1dec9,
+    20px 0px 0px -10px #f1dec9, -20px 0px 0px -10px #f1dec9,
+    0px 0px 0px 10px #8d7b68, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   margin: 1rem;
 }
 
@@ -308,20 +317,20 @@ ol:active {
 }
 
 .pet_list::-webkit-scrollbar-track {
-  background-color: #d46157;
+  background-color: #f1dec9;
   border-radius: 20px;
 }
 
 .pet_list::-webkit-scrollbar-thumb {
-  background-color: #dd3737;
+  background-color: #a4907c;
   border-radius: 20px;
 }
 
 .pet_list::-webkit-scrollbar-thumb:hover {
-  background-color: #f5963c;
+  background-color: #8d7b68;
 }
 .pet_info_detail > span:first-child {
-  background: #e15c50;
+  background: #8d7b68;
   display: inline-block;
   color: #f9ebde;
   border-radius: 5px;
@@ -354,17 +363,18 @@ ol:active {
   box-shadow: -1px -1px 5px gray;
 }
 #edit_btn {
-  background: rgb(97, 191, 20);
+  background: #c8b6a6;
 }
 #delete_btn {
-  background: rgb(236, 120, 52);
+  background: #ff9170;
 }
 #edit_btn:hover {
-  background: rgb(145, 227, 78);
+  background: #a4907c;
+  color: #f9ebde;
   cursor: pointer;
 }
 #delete_btn:hover {
-  background: rgb(250, 132, 63);
+  background: #ff6030;
   cursor: pointer;
 }
 .pet_card:hover .card_btn_box {
@@ -375,7 +385,7 @@ ol:active {
   /* display: none; */
   transform: translate(-100%);
   position: absolute;
-  box-shadow: 5px 5px 10px rgb(250, 132, 63);
+  box-shadow: 5px 0 10px #8d7b68;
   transition: transform 0.1s ease;
 }
 .toggle-button-container {
@@ -387,8 +397,8 @@ ol:active {
   position: relative;
   right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
   top: 250px;
-  background-color: #da4234;
-  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
+  background-color: #a4907c;
+  box-shadow: 5px 0 3px #8d7b68;
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;
@@ -396,5 +406,10 @@ ol:active {
   width: 35px;
   height: 100px;
   cursor: pointer;
+  transition: 0.1s linear;
+}
+.toggle-button:hover {
+  box-shadow: inset 5px 0 2px #8d7b68;
+  background: #8d7b68;
 }
 </style>

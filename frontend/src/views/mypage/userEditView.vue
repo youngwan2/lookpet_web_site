@@ -2,6 +2,7 @@
   <div class="container">
     <div class="content">
       <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
+        <h2 class="mypage_title" @click="toMypage">마이페이지</h2>
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
@@ -79,6 +80,9 @@ export default {
     this.handleResize() // 페이지 로드 시 초기 상태 설정
   },
   methods: {
+    toMypage() {
+      this.$router.push({ path: '/mypage' })
+    },
     toggleSideMenu() {
       // 스크린 너비가 600px 이하인 경우에만 토글로 열림/닫힘 상태 변경
       this.isSideMenuOpen = !this.isSideMenuOpen
@@ -154,8 +158,11 @@ export default {
 .head_line {
   display: flex;
 }
-.user_info_title {
-  margin: auto;
+.mypage_title {
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 2px rgb(181, 60, 60);
+  margin: 1rem 0 2rem 0;
 }
 .move_back {
   background: #815854;
@@ -318,7 +325,7 @@ export default {
   right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
   top: 250px;
   background-color: #da4234;
-  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
+  box-shadow: 3px 0 2px rgb(142, 36, 36);
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;
@@ -326,5 +333,9 @@ export default {
   width: 35px;
   height: 100px;
   cursor: pointer;
+  transition: 0.1s linear;
+}
+.toggle-button:hover {
+  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
 }
 </style>

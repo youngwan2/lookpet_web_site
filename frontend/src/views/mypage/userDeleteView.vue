@@ -2,6 +2,7 @@
   <div class="container">
     <div class="content">
       <div class="side_menu" :class="{ 'hidden-menu': !isSideMenuOpen }">
+        <h2 class="mypage_title" @click="toMypage">마이페이지</h2>
         <ul class="side_list">
           <div class="user_menu">
             <li class="side_title">회원정보</li>
@@ -94,6 +95,9 @@ export default {
         this.isSideMenuOpen = true
       }
     },
+    toMypage() {
+      this.$router.push({ path: '/mypage' })
+    },
     userEdit() {
       this.$router.push({ path: '/mypage/useredit' })
     },
@@ -154,8 +158,11 @@ export default {
 .head_line {
   display: flex;
 }
-.user_info_title {
-  margin: auto;
+.mypage_title {
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 2px rgb(181, 60, 60);
+  margin: 1rem 0 2rem 0;
 }
 .move_back {
   background: #815854;
@@ -330,7 +337,7 @@ export default {
   right: 10px; /* 사이드 메뉴 오른쪽에 배치 */
   top: 250px;
   background-color: #da4234;
-  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
+  box-shadow: 3px 0 2px rgb(142, 36, 36);
   color: #f9ebde;
   font-size: 1.2rem;
   border: none;
@@ -338,5 +345,9 @@ export default {
   width: 35px;
   height: 100px;
   cursor: pointer;
+  transition: 0.1s linear;
+}
+.toggle-button:hover {
+  box-shadow: inset 5px 0 2px rgb(142, 36, 36);
 }
 </style>

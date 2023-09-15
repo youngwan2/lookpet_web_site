@@ -59,15 +59,19 @@
         </article>
       </nav>
       <ul class="util">
-        <router-link to="/auth/login" v-if="loginUsername.length < 2"
-          >Login</router-link
-        >
+        <li>
+          <router-link to="/auth/login" v-if="loginUsername.length < 2"
+            >Login</router-link
+          >
+        </li>
         <li v-if="loginUsername.length > 2" @click="logout(loginUsername)">
           Logout
         </li>
-        <router-link to="/mypage" v-if="loginUsername.length > 2"
-          >mypage</router-link
-        >
+        <li>
+          <router-link to="/mypage" v-if="loginUsername.length > 2"
+            >mypage</router-link
+          >
+        </li>
       </ul>
     </div>
   </header>
@@ -120,21 +124,29 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-  color:#949087;
+  color: #949087;
 }
-
+a:hover {
+  color: orange;
+  transition: 0.15s;
+}
 li {
   list-style: none;
+}
+li:hover {
+  color: orange;
+  transition: 0.15s;
+  cursor: pointer;
 }
 
 .title > a {
   /* border:1px solid aqua; */
-  color:#949087;
-  font-family:'Dancing Script', cursive;
+  color: #949087;
+  font-family: 'Dancing Script', cursive;
 }
 .title > a:hover {
   color: orange;
-  transition: 1.5s;
+  transition: 0.15s;
 }
 .header {
   width: 100%;
@@ -144,8 +156,8 @@ li {
   z-index: 100000;
   /* background: #6b5d50; */
   /* background:#949087; */
-  color:#949087;
-  background:#faf6ed url('../assets/bg.png');
+  color: #949087;
+  background: #faf6ed url('../assets/bg.png');
 }
 .header .header_inner {
   max-width: 1500px;
@@ -159,7 +171,7 @@ li {
 }
 .menu a {
   margin: 10px;
-  color:#949087;
+  color: #949087;
   font-weight: 600;
   height: 100%;
 }

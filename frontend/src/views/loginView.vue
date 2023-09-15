@@ -217,13 +217,14 @@ input:focus {
   background-color: #f9ebde;
   margin: 1rem 0 0 0;
   font-size: 15px;
-  box-shadow: inset 1px 1px 5px black;
+  box-shadow: 1px 1px 5px black;
   padding: 10px;
 }
 
 .login_btn:hover {
   cursor: pointer;
   background-color: #fedcda;
+  box-shadow: inset 1px 1px 5px black;
 }
 
 /* 회원가입 이동 버튼 */
@@ -239,6 +240,6 @@ input:focus {
 }
 .signup_btn:hover {
   color: orange;
-  transition: 1.2s;
+  transition: 0.2s;
 }
 </style>
