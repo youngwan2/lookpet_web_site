@@ -166,9 +166,9 @@ router.delete('/board/:id/comment', (req, res) => {
 
 // 해당 게시글의 좋아요 정보를 불러와서 유저에게 전달
 router.get('/board/:id/like-counter', (req, res) => {
-  const { postId } = req.params;
+  const postId = req.params.id*1;
   likeCounterModel
-    .findOne({ postId: postId })
+    .findOne({ postId: postId * 1 },{_id:0,__v:0})
     .then((result) => {
       console.log('좋아요/싫어요 결과:', result);
       res.json(result);
@@ -179,6 +179,8 @@ router.get('/board/:id/like-counter', (req, res) => {
       );
       console.log(error);
     });
+
+  
 });
 
 // 해당 게시글에 좋아요/싫어요를 클릭한 유저의 정보를 저장
@@ -203,7 +205,7 @@ router.post('/board/:id/like-user', (req, res) => {
             like: likeState,
             unlike: unLikeState,
           })
-          .then((result) => {
+          .then(() => {
             // 좋아요 상태라면 좋아요 1를 기본 셋팅 아니라면 싫어요 1을 셋팅
             if (likeState) {
               likeCounterModel
@@ -217,7 +219,8 @@ router.post('/board/:id/like-user', (req, res) => {
                 .insertMany({ postId: postId, unlikeCount: 1 })
                 .then((unliked) => {
                   console.log(unliked);
-                });
+                })
+                .catch(console.error);
             }
 
             res.json({
@@ -229,7 +232,7 @@ router.post('/board/:id/like-user', (req, res) => {
           });
         // 데이터베이스에서 해당 게시글에 좋아요/싫어요 유저 정보를 찾았다면 실행
       } else {
-        likeUserModel.findOne({ postId, username }).then((likeUserResult) => {
+        likeUserModel.findOne({ postId, username }).then(() => {
           likeCounterModel.findOne({ postId: postId }).then((findPost) => {
             console.log('찾은 게시글:', findPost);
             let { likeCount, unlikeCount } = findPost;
@@ -237,25 +240,115 @@ router.post('/board/:id/like-user', (req, res) => {
             console.log('총 좋아요:', likeCount, '총 싫어요:', unlikeCount);
 
             // 좋아요는 활성화, 싫어요는 비활성화
-            if(likeState && !unLikeState) {
+            if (likeState && !unLikeState) {
+              console.log('좋아요 활성, 싫어요 비활성');
               likeUserModel
-              .updateOne(
-                { postId, username },
-                { like: likeState, unlike: unLikeState }
-              )
-              .then((likedResult) => {
-                console.log('좋아요 처리 결과:', likedResult);
-
-                likeCounterModel.updateOne(
-                  { postId: postId },
-                  { like: likeCount++ }
-                );
-              });
+                .updateOne(
+                  { postId, username },
+                  { like: likeState, unlike: unLikeState }
+                )
+                .then(() => {
+                  --unlikeCount;
+                  if (unlikeCount < 0) {
+                    unlikeCount = 0;
+                  }
+                  likeCounterModel
+                    .updateOne(
+                      { postId: postId },
+                      { likeCount: ++likeCount, unlikeCount: unlikeCount },
+                      {
+                        new: true,
+                        runValidators: true,
+                      }
+                    )
+                    .then(() => {
+                      console.log('좋아요 증가, 싫어요 감소');
+                    })
+                    .catch(console.error);
+                });
+              console.log(
+                '내부 총 좋아요:',
+                likeCount,
+                '총 싫어요:',
+                unlikeCount
+              );
             }
 
             // 좋아요 비활성화, 싫어요 활성화
+            if (!likeState && unLikeState) {
+              console.log('좋아요 비활성, 싫어요 활성');
 
+              likeUserModel
+                .updateOne(
+                  { postId, username },
+                  { like: likeState, unlike: unLikeState }
+                )
+                .then(() => {
+                  --likeCount;
+                  if (likeCount < 0) {
+                    likeCount = 0;
+                  }
+                  likeCounterModel
+                    .updateOne(
+                      { postId: postId },
+                      { unlikeCount: ++unlikeCount, likeCount: likeCount },
+                      {
+                        new: true,
+                        runValidators: true,
+                      }
+                    )
+                    .then(() => {
+                      console.log('좋아요 감소, 싫어요 증가');
+                    })
+                    .catch(console.error);
+                });
+              console.log(
+                '내부 총 좋아요:',
+                likeCount,
+                '총 싫어요:',
+                unlikeCount
+              );
+            }
 
+            // 좋아요 비활성, 싫어요 비활성
+            if (!likeState && !unLikeState) {
+              console.log('좋아요 비활성, 싫어요 비활성');
+
+              likeUserModel
+                .updateOne(
+                  { postId, username },
+                  { like: likeState, unlike: unLikeState }
+                )
+                .then(() => {
+                  --unlikeCount, --likeCount;
+                  // 좋아요와 싫어요 수가 0보다 작다면 0으로 초기화
+                  if (unlikeCount < 0) {
+                    unlikeCount = 0;
+                  }
+                  if (likeCount < 0) {
+                    likeCount = 0;
+                  }
+
+                  likeCounterModel
+                    .updateOne(
+                      { postId: postId },
+                      { unlikeCount: unlikeCount, likeCount: likeCount },
+                      {
+                        new: true,
+                        runValidators: true,
+                      }
+                    )
+                    .then(() => {
+                      console.log('좋아요 감소, 싫어요 감소');
+                    });
+                });
+              console.log(
+                '내부 총 좋아요:',
+                likeCount,
+                '총 싫어요:',
+                unlikeCount
+              );
+            }
           });
           res.json({ meg: '잘받음' });
         });

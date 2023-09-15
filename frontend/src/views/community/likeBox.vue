@@ -10,7 +10,7 @@
 </template>
 <script setup>
 import axios from 'axios'
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 // 좋아요와 싫어요 갯수를 카운팅한다.
@@ -93,18 +93,21 @@ const sendUserInfoToServer = async (updateUserInfo) => {
 }
 
 /* 해당 포스트의 좋아요/싫어요 정보를 서버로 부터 받아온다. */
-/* const getPostLikeInfoFromServer = () => {
+const getPostLikeInfoFromServer = () => {
   axios
-    .get(`/board/${route.value}/like-counter`)
+    .get(`http://localhost:3000/board/${route.value * 1}/like-counter`)
     .then((response) => {
-      console.log('서버로 부터 받아온 좋아요 정보:', response)
+      console.log('서버로 부터 받아온 좋아요 정보:', response.data)
+      liked.value = response.data.likeCount
+      unliked.value = response.data.unlikeCount
     })
     .catch((error) => {
       console.log(error)
     })
 }
-getPostLikeInfoFromServer()
-*/
+onMounted(() => {
+  getPostLikeInfoFromServer()
+})
 </script>
 <style scoped>
 /* 좋아요/싫어요 */
