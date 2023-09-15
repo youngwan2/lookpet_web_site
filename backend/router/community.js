@@ -166,12 +166,16 @@ router.delete('/board/:id/comment', (req, res) => {
 
 // 해당 게시글의 좋아요 정보를 불러와서 유저에게 전달
 router.get('/board/:id/like-counter', (req, res) => {
-  const postId = req.params.id*1;
+  const postId = req.params.id * 1;
+  const username = req.query.username;
   likeCounterModel
-    .findOne({ postId: postId * 1 },{_id:0,__v:0})
+    .findOne({ postId: postId * 1 }, { _id: 0, __v: 0 })
     .then((result) => {
       console.log('좋아요/싫어요 결과:', result);
-      res.json(result);
+      // 좋아요/싫어요를 클릭한 유저의 정보를 담아서 보낸다(중복클릭)
+      likeUserModel.findOne({ username }).then((userInfo) => {
+        res.status(200).json({ result, userInfo });
+      });
     })
     .catch((error) => {
       console.log(
@@ -179,8 +183,6 @@ router.get('/board/:id/like-counter', (req, res) => {
       );
       console.log(error);
     });
-
-  
 });
 
 // 해당 게시글에 좋아요/싫어요를 클릭한 유저의 정보를 저장
@@ -206,23 +208,6 @@ router.post('/board/:id/like-user', (req, res) => {
             unlike: unLikeState,
           })
           .then(() => {
-            // 좋아요 상태라면 좋아요 1를 기본 셋팅 아니라면 싫어요 1을 셋팅
-            if (likeState) {
-              likeCounterModel
-                .insertMany({ postId: postId, likeCount: 1 })
-                .then((liked) => {
-                  console.log(liked);
-                });
-            }
-            if (unLikeState) {
-              likeCounterModel
-                .insertMany({ postId: postId, unlikeCount: 1 })
-                .then((unliked) => {
-                  console.log(unliked);
-                })
-                .catch(console.error);
-            }
-
             res.json({
               msg: `${postId} 게시글에 좋아요/싫어요를 클릭하셨습니다.`,
             });

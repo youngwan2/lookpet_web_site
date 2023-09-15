@@ -1,10 +1,10 @@
 <template>
   <article class="like_box">
-    <p @click="likeCounter">
-      좋아요<span>( {{ liked }} )</span>
+    <p @click="likeChecker">
+      좋아요<span>( {{ likeCounter.liked }} )</span>
     </p>
-    <p @click="unlikeCounter">
-      싫어요<span>( {{ unliked }} )</span>
+    <p @click="unlikeChecker">
+      싫어요<span>( {{ likeCounter.unliked }} )</span>
     </p>
   </article>
 </template>
@@ -14,8 +14,11 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 // 좋아요와 싫어요 갯수를 카운팅한다.
-const liked = ref(0)
-const unliked = ref(0)
+
+const likeCounter = reactive({
+  liked: 0,
+  unliked: 0
+})
 
 // 파라미스 정보가 담겨 있다.
 const route = ref(useRoute().params.id)
@@ -29,7 +32,7 @@ const userInfo = reactive({
 })
 
 /* 좋아요 측정 함수 */
-function likeCounter() {
+function likeChecker() {
   if (userInfo.username === undefined) {
     return alert('로그인 유저만 허용 됩니다.')
   }
@@ -38,20 +41,21 @@ function likeCounter() {
   userInfo.like = !userInfo.like
   // 좋아요가 true 라면 좋아요를 1 증가 시킨다.
   if (userInfo.like) {
-    liked.value++
+    likeCounter.liked++
     // 싫어요가 true 이며, 1이상이면 1을 감소시킨다.
-    if (userInfo.unlike && unliked.value > 0) {
-      unliked.value--
+    if (userInfo.unlike && likeCounter.unliked > 0) {
+      likeCounter.unliked--
       userInfo.unlike = false
     }
   } else {
-    liked.value--
+    likeCounter.liked--
   }
+
   sendUserInfoToServer(userInfo)
 }
 
 /* 싫어요 측정 함수 */
-function unlikeCounter() {
+function unlikeChecker() {
   if (userInfo.username === undefined) {
     return alert('로그인 유저만 허용 됩니다.')
   }
@@ -59,18 +63,20 @@ function unlikeCounter() {
 
   // 싫어요가 활성화되어 있으면 싫어요를 1 증가 시킨다.
   if (userInfo.unlike) {
-    unliked.value++
+    likeCounter.unliked++
     // 좋아요가 활성화(true) 되어 있고, 좋아요가 1 이상이라면
     // 좋아요를 1 감소 시키고, 좋아요 상태를 비활성화시킨다.
-    if (userInfo.like && liked.value > 0) {
-      liked.value--
+    if (userInfo.like && likeCounter.liked > 0) {
+      likeCounter.liked--
       userInfo.like = false
     }
 
     // 싫어요가 비활성화된다면 싫어요를 1 감소 시킨다.
   } else {
-    unliked.value--
+    likeCounter.unliked--
   }
+  // 서버에 좋아요/싫어요 유저 정보를 보낸다.
+
   sendUserInfoToServer(userInfo)
 }
 
@@ -92,14 +98,28 @@ const sendUserInfoToServer = async (updateUserInfo) => {
     })
 }
 
-/* 해당 포스트의 좋아요/싫어요 정보를 서버로 부터 받아온다. */
+/* 해당 포스트의 좋아요/싫어요 정보 및 클릭 유저의 정보를 서버로 부터 받아온다. */
 const getPostLikeInfoFromServer = () => {
   axios
-    .get(`http://localhost:3000/board/${route.value * 1}/like-counter`)
+    .get(
+      `http://localhost:3000/board/${route.value * 1}/like-counter?username=${
+        document.cookie.split('=')[1]
+      }`
+    )
     .then((response) => {
       console.log('서버로 부터 받아온 좋아요 정보:', response.data)
-      liked.value = response.data.likeCount
-      unliked.value = response.data.unlikeCount
+      const { likeCount, unlikeCount } = response.data.result
+      const {
+        username,
+        like: likeState,
+        unlike: unlikeState
+      } = response.data.userInfo
+
+      likeCounter.liked = likeCount
+      likeCounter.unliked = unlikeCount
+      userInfo.username = username
+      userInfo.like = likeState
+      userInfo.unlike = unlikeState
     })
     .catch((error) => {
       console.log(error)
