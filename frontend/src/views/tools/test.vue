@@ -151,7 +151,7 @@ export default {
   max-width: 450px;
   border-top: 10px solid rgb(232, 201, 201);
   border-left: 10px solid rgb(134, 101, 101);
-  border-right: 10px solid  rgb(134, 101, 101);
+  border-right: 10px solid rgb(134, 101, 101);
   border-bottom: 10px inset rgb(150, 115, 115);
   position: relative;
   text-align: center;

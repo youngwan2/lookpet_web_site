@@ -191,7 +191,7 @@ a {
 main {
   width: 100%;
   height: 100%;
-  background: #6b5d50;
+  background: #faf6ed url('../assets/bg.png');
 }
 /* 애니메이션 */
 @keyframes moveIn {
@@ -257,21 +257,25 @@ main header {
   z-index: 3;
   float: left;
   /*    background: #333;*/
-  /* border:10px solid pink; */
+  /* border:10px solid pink; *
 }
 main header h1 {
   /*안쪽의 자간 줄높이 초기화*/
   font-size: 0px;
-  color: orange;
+  color: gray;
+  font-family: 'Dancing Script', cursive;
 }
 main header h1 .span1 {
   animation: moveIn2 3s ease;
+  font-family: 'Dancing Script', cursive;
 }
 main header h1 .span2 {
   animation: moveIn2 2s ease;
+  font-family: 'Dancing Script', cursive;
 }
 main header h1 .span3 {
   animation: moveIn2 1s ease;
+  font-family: 'Dancing Script', cursive;
 }
 main header h1::after {
   content: '';
@@ -288,7 +292,8 @@ main header h1 span {
 }
 main header address {
   margin-top: 10%;
-  color: #d6d0d0;
+  /* color: #d6d0d0; */
+  color: #949087;
   animation: noneShow 3s;
   animation: moveIn3 4s ease;
   font: normal 1.1vw/1.5 'arial';
@@ -304,6 +309,21 @@ main .banner .banner_video {
   filter: saturate(50%);
   margin-top: 10%;
   animation: moveIn 3s ease;
+}
+@media (max-width: 600px) {
+  main header {
+    border: 1px solid aqua;
+    clear: both;
+    display: none;
+  }
+  main .banner {
+    /* border: 1px solid pink; */
+    clear: both;
+    width: 100%;
+  }
+  .aside_video01 {
+    display: flex;
+  }
 }
 /* nav */
 main nav {
@@ -349,7 +369,7 @@ main section article::before {
   display: block;
   width: 80%;
   height: 95%;
-  background: #444;
+  background: #949087;
   position: absolute;
   top: 0px;
   left: -200px;
@@ -370,7 +390,7 @@ main section article .inner .txt {
 }
 main section article .inner .txt h2 {
   font: normal 2.5vw/1 'Alegreya Sans Sc';
-  color: #fff;
+  color: #2b2703;
   margin-bottom: 40px;
   padding-top: 70px;
   transition: 1s;
@@ -386,7 +406,8 @@ main section article .inner .txt h2::after {
 }
 main section article .inner .txt p {
   font: 14px/1.4 'arial';
-  color: #999;
+  /* color: #999; */
+  color: #2b2703;
 }
 main section article .inner figure {
   width: 100%;

@@ -120,7 +120,7 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-  color: #f9ebde;
+  color:#949087;
 }
 
 li {
@@ -128,15 +128,24 @@ li {
 }
 
 .title > a {
-  color: #f9ebde;
+  /* border:1px solid aqua; */
+  color:#949087;
+  font-family:'Dancing Script', cursive;
+}
+.title > a:hover {
+  color: orange;
+  transition: 1.5s;
 }
 .header {
   width: 100%;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   padding: 20px 0;
-  box-shadow: inset -5px -5px 3px 0 rgba(95, 66, 66, 0.554);
+  /* box-shadow: inset -5px -5px 3px 0 rgba(95, 66, 66, 0.554); */
   z-index: 100000;
-  background: #9f706c;
+  /* background: #6b5d50; */
+  /* background:#949087; */
+  color:#949087;
+  background:#faf6ed url('../assets/bg.png');
 }
 .header .header_inner {
   max-width: 1500px;
@@ -150,7 +159,7 @@ li {
 }
 .menu a {
   margin: 10px;
-  color: #f9ebde;
+  color:#949087;
   font-weight: 600;
   height: 100%;
 }

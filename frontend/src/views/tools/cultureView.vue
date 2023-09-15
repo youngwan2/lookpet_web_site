@@ -364,6 +364,7 @@ export default {
 .culture_title {
   margin: 30px;
   text-align: center;
+  color: #949087;
 }
 .category_box {
   padding: 10px;
@@ -376,8 +377,8 @@ export default {
   box-shadow: 3px 3px 3px gray;
   margin: 0 0 10px 10px;
   padding: 5px;
-  background: #815854;
-  color: #f9ebde;
+  background: #93d8d0;
+  color: white;
   transition: 0.1s ease-in;
 }
 .category_menu:hover {
@@ -393,7 +394,7 @@ export default {
 }
 .category_menu.selected {
   background: rgb(198, 111, 17);
-  color: #f9ebde;
+  color: #ffffff;
   box-shadow: -2px -2px 5px gray;
 }
 .page_message {
@@ -438,7 +439,8 @@ export default {
   margin: 0;
   width: 30%;
   min-width: 250px;
-  background: #815854;
+  /* background: #815854; */
+  background: #93d8d0;
   color: #f9ebde;
   padding: 10px 0;
   overflow: hidden;
@@ -479,7 +481,8 @@ export default {
   box-shadow: 3px 3px 3px gray;
   margin: 0 0 10px 10px;
   padding: 5px;
-  background: #815854;
+  /* background: #815854; */
+  background: #93d8d0;
   color: #f9ebde;
   transition: 0.1s ease-in;
 }

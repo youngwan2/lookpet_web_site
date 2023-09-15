@@ -156,10 +156,11 @@ input:focus {
 /* 페이지 타이틀 */
 .title {
   position: absolute;
-  text-shadow: 30px 30px 3px rgb(113, 111, 111);
+  /* text-shadow: 30px 30px 3px rgb(113, 111, 111); */
   left: 50%;
   font-size: 1.6rem;
-  color: #815854;
+  /* color: #815854; */
+  color: gray;
   transform: translate(-50%);
   margin-top: 8rem;
 }
@@ -173,7 +174,7 @@ input:focus {
 }
 
 /* 회원가입 폼 */
-.signup_form {
+/* .signup_form {
   max-width: 500px;
   border-radius: 5px;
   border-top-left-radius: 2px;
@@ -189,8 +190,38 @@ input:focus {
   transform: translate(-50%, -50%);
   box-shadow: inset 10px 10px 2px #c78d87, 40px 70px 5px rgba(0, 0, 0, 0.464);
   animation: updown 1s infinite alternate ease-in-out;
+} */
+.signup_form {
+  max-width: 500px;
+  max-height: 400px;
+  position: absolute;
+  left: 28%;
+  top: 28%;
+  width: 100%;
+  height: 100%;
+  /* background: #93d8d0; */
+  /* background-image: linear-gradient(#cbd5ee, #73bfbb); */
+  border: 1px solid #ccc;
+  outline: 2px solid #ccc;
+  outline-offset: 4px;
+  border-radius: 6px;
 }
-
+@media (max-width: 600px) {
+  .signup_form {
+    max-width: 500px;
+    max-height: 400px;
+    position: absolute;
+    left: 0%;
+    top: 28%;
+    width: 100%;
+    height: 100%;
+    /* background: #93d8d0; */
+    border: 1px solid #ccc;
+    outline: 2px solid #ccc;
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+}
 @keyframes updown {
   from {
     transform: translate(-50%, -49.9%);

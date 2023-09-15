@@ -176,13 +176,14 @@ export default {
   position: relative;
   box-sizing: border-box;
   /* background: linear-gradient(45deg, #ac8bef, #2ddbdc); */
-  background: #6b5d50;
+  /* background: #6b5d50; */
+  background:#faf6ed url('../assets/bg.png');
 }
 .wrap h1 {
   font-weight: normal;
   font-size: 24px;
   font-family: 'orbitron';
-  color: #fff;
+  color: gray;
   letter-spacing: 1px;
   position: absolute;
   left: 50px;
@@ -331,7 +332,7 @@ export default {
   font-size: 16px;
   font-family: 'orbitron';
   letter-spacing: 1px;
-  color: #eee;
+  color: gray;
 }
 .swiper-pagination-fraction span:nth-of-type(1) {
   font-size: 30px;

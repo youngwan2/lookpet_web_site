@@ -93,10 +93,11 @@ export default {
 <style scoped>
 .title {
   position: absolute;
-  text-shadow: 30px 30px 3px rgb(113, 111, 111);
+  /* text-shadow: 30px 30px 3px rgb(113, 111, 111); */
   left: 50%;
   font-size: 1.6rem;
-  color: #815854;
+  /* color: #815854; */
+  color: gray;
   transform: translate(-50%);
   margin-top: 8rem;
 }
@@ -108,7 +109,7 @@ export default {
 }
 
 /* 로그인 폼 */
-.login_form {
+/* .login_form {
   max-width: 500px;
   border-radius: 5px;
   border-top-left-radius: 2px;
@@ -124,6 +125,37 @@ export default {
   transform: translate(-50%, -50%);
   box-shadow: inset 10px 10px 2px #c78d87, 40px 70px 5px rgba(0, 0, 0, 0.464);
   animation: updown 1.5s infinite alternate ease-in-out;
+} */
+.login_form {
+  max-width: 500px;
+  max-height: 400px;
+  position: absolute;
+  left: 28%;
+  top: 28%;
+  width: 100%;
+  height: 100%;
+  /* background: #93d8d0; */
+  /* background-image: linear-gradient(#cbd5ee, #73bfbb); */
+  border: 1px solid #ccc;
+  outline: 2px solid #ccc;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+@media (max-width: 600px) {
+  .login_form {
+    max-width: 500px;
+    max-height: 400px;
+    position: absolute;
+    left: 0%;
+    top: 28%;
+    width: 100%;
+    height: 100%;
+    /* background: #93d8d0; */
+    border: 1px solid #ccc;
+    outline: 2px solid #ccc;
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
 }
 
 @keyframes updown {
@@ -201,7 +233,12 @@ input:focus {
   margin-top: 1.5rem;
 }
 .signup_btn {
-  color: white;
+  /* color: white; */
+  color: #949087;
   text-decoration: none;
+}
+.signup_btn:hover {
+  color: orange;
+  transition: 1.2s;
 }
 </style>
