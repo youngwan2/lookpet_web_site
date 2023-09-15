@@ -6,11 +6,11 @@ const likedCounterSchema = new Schema({
     type: String,
     required: true,
   },
-  like: {
+  likeCount: {
     type: Number,
     default: 0,
   },
-  unlike: {
+  unlikeCount: {
     type: Number,
     default: 0,
   },

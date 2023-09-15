@@ -18,11 +18,13 @@
         <br />
         <div class="password_con">
           <input
+            @input="passwordCheck"
             type="password"
             placeholder="PW(영문/숫자 조합 8자 이상)"
             name="password"
             v-model="password"
           />
+          <span style="margin: 14px 0 0 5px">{{ psCheck }}</span>
         </div>
         <br />
         <div class="email_con">
@@ -31,7 +33,9 @@
             placeholder="example@address.com"
             name="email"
             v-model="email"
+            @input="emailCheck"
           />
+          <span style="margin: 14px 0 0 5px">{{ emCheck }}</span>
         </div>
         <br />
         <div class="nickname_con">
@@ -65,7 +69,9 @@ export default {
     return {
       username: '',
       password: '',
+      psCheck: '',
       email: '',
+      emCheck: '',
       message: '',
       nickname: '',
       isCheck: false
@@ -75,19 +81,54 @@ export default {
     document.title = this.$route.name
   },
   methods: {
+    // 아이디 중복 체크 함수
     doubleIdCheck() {
       axios
         .post('http://localhost:3000/auth/idcheck', { username: this.username })
         .then((res) => {
           this.message = res.data.message
           this.isCheck = res.data.success
-          console.log(this.message)
+          this.isCheck ? alert(this.message) : alert('중복된 아이디입니다.')
         })
         .catch((error) => {
           console.log('회원가입 시도 중 문제 발생::', error)
         })
     },
+    // 패스워드 사용 유무 체크 함수
+    passwordCheck() {
+      console.log(this.password)
+      // eslint-disable-next-line
+      const pwReg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/ //영문 숫자 조합 8장리 이상
+      const result = pwReg.test(this.password)
+      if (this.password.length > 7) {
+        result ? (this.psCheck = '가능') : (this.isCheck = '불가')
+      } else {
+        this.psCheck = '불가'
+      }
+    },
+
+    // 이메일 사용 유무 체크 함수
+    emailCheck() {
+      const mailReg =
+        // eslint-disable-next-line
+        /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+      const result = mailReg.test(this.email)
+      if (this.email.length >= 3) {
+        result ? (this.emCheck = '가능') : (this.emCheck = '불가')
+      } else {
+        this.emCheck = '불가'
+      }
+    },
+    // 닉네임 중복 체크 함수
     doubleNickCheck() {
+      // 닉네임 입력 양식과 맞지 않는 경우 함수 실행을 일찍 종료한다.
+      const nickReg = /^[가-힣]{2,6}$/g
+      const nickCheckResult = nickReg.test(this.nickname)
+      if (!nickCheckResult) {
+        return alert('양식에 맞춰 입력해주세요(한글 2자 ~ 6자)')
+      }
+
+      // 양식에 맞으면 닉네임 정보를 서버로 보내고, DB 내 데이터 중복 체크 후 결과 리턴
       axios
         .post('http://localhost:3000/auth/nickcheck', {
           nickname: this.nickname
@@ -95,12 +136,13 @@ export default {
         .then((res) => {
           this.message = res.data.message
           this.isCheck = res.data.success
-          console.log(this.message)
+          alert(this.message)
         })
         .catch((error) => {
           console.log('회원가입 시도 중 문제 발생::', error)
         })
     },
+    // 회원가입 요청 함수
     signupRequest() {
       const userInfo = {
         username: this.username,
@@ -109,8 +151,8 @@ export default {
         nickname: this.nickname
       }
 
+      /* 유효성 검사를 회원가입 요청 전에 마지막으로 다시수행 */
       // 정규식 검사
-
       const nameReg = /^[A-Za-z0-9]{4,10}$/g
       // eslint-disable-next-line
       const pwReg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/ //영문 숫자 조합 8장리 이상
@@ -160,10 +202,11 @@ input:focus {
 /* 페이지 타이틀 */
 .title {
   position: absolute;
-  text-shadow: 30px 30px 3px rgb(113, 111, 111);
+  /* text-shadow: 30px 30px 3px rgb(113, 111, 111); */
   left: 50%;
   font-size: 1.6rem;
-  color: #815854;
+  /* color: #815854; */
+  color: gray;
   transform: translate(-50%);
   margin-top: 8rem;
 }
@@ -177,7 +220,7 @@ input:focus {
 }
 
 /* 회원가입 폼 */
-.signup_form {
+/* .signup_form {
   max-width: 500px;
   border-radius: 5px;
   border-top-left-radius: 2px;
@@ -193,8 +236,38 @@ input:focus {
   transform: translate(-50%, -50%);
   box-shadow: inset 10px 10px 2px #c78d87, 40px 70px 5px rgba(0, 0, 0, 0.464);
   animation: updown 1s infinite alternate ease-in-out;
+} */
+.signup_form {
+  max-width: 500px;
+  max-height: 400px;
+  position: absolute;
+  left: 28%;
+  top: 28%;
+  width: 100%;
+  height: 100%;
+  /* background: #93d8d0; */
+  /* background-image: linear-gradient(#cbd5ee, #73bfbb); */
+  border: 1px solid #ccc;
+  outline: 2px solid #ccc;
+  outline-offset: 4px;
+  border-radius: 6px;
 }
-
+@media (max-width: 600px) {
+  .signup_form {
+    max-width: 500px;
+    max-height: 400px;
+    position: absolute;
+    left: 0%;
+    top: 28%;
+    width: 100%;
+    height: 100%;
+    /* background: #93d8d0; */
+    border: 1px solid #ccc;
+    outline: 2px solid #ccc;
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+}
 @keyframes updown {
   from {
     transform: translate(-50%, -49.9%);

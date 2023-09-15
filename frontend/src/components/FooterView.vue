@@ -18,7 +18,7 @@
 <style scoped>
 footer {
   width: 100%;
-  background: #333;
+  background: #949087;
   padding: 100px 0px;
   border-top: 1px solid #888;
 }
@@ -39,7 +39,7 @@ footer .inner .upper::after {
 footer .inner .upper h1 {
   float: left;
   font: bold 24px/1 'arial';
-  color: #666;
+  color: #fff;
 }
 footer .inner .upper ul {
   float: right;
@@ -59,12 +59,12 @@ footer .inner .lower {
 footer .inner .lower address {
   width: 100%;
   font: 12px/1.3 'arial';
-  color: #777;
+  color: #c7c3ba;
   margin-bottom: 20px;
 }
 footer .inner .lower p {
   width: 100%;
   font: 12px/1 'arial';
-  color: #777;
+  color: #c7c3ba;
 }
 </style>

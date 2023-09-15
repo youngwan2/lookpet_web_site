@@ -1,6 +1,5 @@
 <template>
   <div class="cat_breed_section">
-    <span v-show="isLoading" class="loading_spinner">로딩중...</span>
     <h2 class="title">냥이 사전</h2>
     <span class="info_text">고양이/품종정보</span>
     <section>
