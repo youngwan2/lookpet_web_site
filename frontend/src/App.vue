@@ -23,7 +23,9 @@ const loginUsername = document.cookie.split('=')[1] ?? ''
 }
 
 body {
-  background: #ffffff;
+  background: #949087;
+  font-family: sans-serif;
+  background:#faf6ed url('./assets/bg.png')
 }
 
 body::-webkit-scrollbar {

@@ -331,6 +331,7 @@ export default {
 
 <style scoped>
 .page_container {
+  /* border:3px solid aqua; */
   min-height: 100vh;
   animation: appear 1s 1 ease-in-out;
 }
@@ -342,14 +343,13 @@ export default {
   }
 }
 .hospital_title {
+  color: gray;
   text-align: center;
   margin: 30px;
   border-bottom: 1px solid gray;
 }
 .region_box {
-  padding: 10px;
   border-bottom: 1px solid gray;
-  text-align: center;
 }
 .region_menu {
   border: none;
@@ -357,8 +357,8 @@ export default {
   box-shadow: 3px 3px 3px gray;
   margin: 0 0 10px 10px;
   padding: 5px;
-  background: #815854;
-  color: #f9ebde;
+  background: #93d8d0;
+  color: #fff;
   transition: 0.1s ease-in;
 }
 .region_menu:hover {
@@ -408,8 +408,11 @@ export default {
   padding: 11px 10px 5px 10px;
 }
 .page_shifter:hover {
-  background: rgb(245, 142, 8);
+  /* background: rgb(245, 142, 8); */
+  background: #93d8d0;
+  color: #fff;
   cursor: pointer;
+  transition: 1.2s;
 }
 .hospital_content {
   display: flex;
@@ -421,7 +424,9 @@ export default {
   margin: 0;
   width: 30%;
   min-width: 250px;
-  background: #815854;
+  /* background: #815854; */
+  /* background:linear-gradient(90deg,beige,rgb(101, 83, 83)); */
+  background: #93d8d0;
   color: #f9ebde;
   padding: 10px 0;
   overflow: hidden;
