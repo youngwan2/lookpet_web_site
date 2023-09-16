@@ -1,5 +1,13 @@
 <template>
   <section class="newpost_container">
+    <div class="select_container">
+      <label for="category">분류</label>
+      <select @change="categorySelector" autofocus class="category_select">
+        <option value="dog">강아지</option>
+        <option value="cat">고양이</option>
+        <option value="free" selected>자유</option>
+      </select>
+    </div>
     <input
       class="post_title"
       type="text"
@@ -58,7 +66,8 @@ export default {
         title: '',
         content: '',
         author: '',
-        preview: ''
+        preview: '',
+        category: 'free'
       }
     }
   },
@@ -108,6 +117,11 @@ export default {
     // 미리보기에 사용
     setHTML() {
       this.$refs.preview.setHTML(this.editorContent)
+    },
+    categorySelector(e) {
+      this.post.category = e.target.value
+
+      console.log(this.post)
     }
   }
 }
@@ -117,6 +131,29 @@ export default {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+/* 포스트 카테고리 */
+.select_container {
+  margin-top: 2rem;
+}
+.select_container label {
+  font-weight: 600;
+  display: inline-block;
+  min-width: 50px;
+  text-align: center;
+}
+.category_select {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border:2px solid rgb(175, 114, 114)
+}
+
+.category_select option {
+  background: rgb(174, 101, 101);
+  color:white;
+}
+
+/* 포스트 타이틀 */
 .post_title {
   width: 98.7%;
   margin: 10px 0 0 0;

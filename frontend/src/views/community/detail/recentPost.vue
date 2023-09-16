@@ -21,7 +21,7 @@
           >
             <td>{{ post.id }}</td>
             <td>{{ post.title }}</td>
-            <td>{{ post.date }}</td>
+            <td style="max-width: 100px">{{ post.date }}</td>
             <td>{{ post.author }}</td>
           </tr>
         </tbody>
@@ -56,11 +56,14 @@ export default {
 
 .recent_title {
   margin: 0rem 0 2.5rem 0.9rem;
-  color: rgb(196, 99, 99);
+  color: rgb(158, 114, 114);
 }
 
 .recent_table {
   text-align: center;
+  border: 1px dashed gray;
+  padding: 15px;
+  border-radius: 5px;
   width: 95%;
   margin: 0 auto;
   background: white;
@@ -68,17 +71,29 @@ export default {
 
 .recent_header th {
   padding: 10px 0;
-  background: rgb(145, 90, 90);
+  background: rgb(170, 141, 141);
   color: white;
   border-radius: 10px;
 }
 
 .recent_body td {
   padding: 5px;
+  cursor: pointer;
   border-radius: 5px;
   margin: 0 10px;
 }
+
+.recent_body:hover {
+  box-shadow: 0 0 1px 3px rgb(183, 102, 102);
+  border-radius: 5px;
+}
 .recent_body:nth-of-type(2n) {
-  background: rgb(219, 177, 177);
+  background: rgba(188, 161, 161, 0.704);
+}
+
+@media screen and (max-width: 520px) {
+  .recent_table {
+    font-size: 14px;
+  }
 }
 </style>

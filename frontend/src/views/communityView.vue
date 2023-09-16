@@ -1,26 +1,45 @@
 <template>
   <div ref="board">
     <section class="board_container">
-      <h1 class="title">자유 게시판</h1>
-      <form @submit.prevent>
-        <label for="search">검색</label>
-        <input
-          type="text"
-          class="board_search"
-          v-model="searchVal"
-          @input="boardSearch"
-        />
-      </form>
-      <p style="text-align: center; padding: 10px; font-size: 14px">
-        <br />
-      </p>
+      <h1 class="title">커뮤니티</h1>
+      <article class="board_top_etc">
+        <form @submit.prevent class="board_search_form">
+          <label for="search"><h3>검색</h3></label>
+          <input
+            type="text"
+            class="board_search"
+            v-model="searchVal"
+            @input="boardSearch"
+          />
+        </form>
+        <article class="filter_container">
+          <h3>필터</h3>
+          <div class="filter">
+            <p class="dog" data-type="dog" @click="getFilteredPostFromDB">
+              강아지
+            </p>
+            <p class="cat" data-type="cat" @click="getFilteredPostFromDB">
+              고양이
+            </p>
+            <p class="free" data-type="free" @click="getFilteredPostFromDB">
+              자유
+            </p>
+            <p class="all" data-type="all" @click="getFilteredPostFromDB">
+              전체
+            </p>
+          </div>
+        </article>
+      </article>
       <div
         v-for="post in posts"
         :key="post.id"
         class="post_items"
         @click="moveToDetail(post.id)"
       >
-        <p class="post_id">{{ post.id }}</p>
+        <div class="post_top">
+          <p class="post_id">{{ post.id }}</p>
+          <p class="post_category">{{ post.category }}</p>
+        </div>
         <h3>{{ post.title }}</h3>
         <p class="content">{{ post.preview }}</p>
         <div style="display: flex" class="author">
@@ -63,6 +82,7 @@ export default {
     return {
       auth: false,
       posts: [],
+      category: 'all', // 상단 카테고리 버튼 클릭 시 지정한 요소의 타입이 저장됨
       currentPage: 1,
       perPage: 10,
       focusedPage: 1,
@@ -100,10 +120,13 @@ export default {
       this.$refs.board.scrollIntoView({ behavior: 'smooth' })
       this.currentPageGroup = Math.ceil(this.currentPage / this.perPage)
       axios
-        .get(`http://localhost:3000/board?page=${this.currentPage}`)
+        .get(
+          `http://localhost:3000/board?page=${this.currentPage}&category=${this.category}`
+        )
         .then((response) => {
           this.totalPageCount = response.data.totalCount
           this.posts = response.data.result
+          console.log(this.posts)
           this.pageList = this.totalPageCount
         })
         .catch((error) => {
@@ -155,6 +178,10 @@ export default {
     /* 게시글 검색  */
     boardSearch(e) {
       console.log(e.target.value)
+    },
+    getFilteredPostFromDB(e) {
+      this.category = e.target.dataset.type
+      this.getBoardList()
     }
   }
 }
@@ -206,7 +233,7 @@ a {
   width: 95%;
   max-width: 900px;
   position: relative;
-  padding: 3rem 0 0 0;
+  padding: 2rem 0 0 0;
   margin: 0 auto;
   min-height: 100vh;
 }
@@ -220,15 +247,34 @@ a {
 
 /* post_items */
 
-.post_id {
+.post_top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post_top .post_id {
   box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.305);
   border-radius: 20px;
   color: white;
   margin: 1px 0 15px 0;
   max-width: 60px;
-  min-width: 28px;
+  min-width: 50px;
   text-align: center;
   background-color: #b49191;
+}
+
+/* 각 게시글 카테고리 */
+.post_top .post_category {
+  font-weight: 600;
+  background: rgb(255, 187, 92);
+  font-size: 15px;
+  border-radius: 10px;
+  max-width: 50px;
+  width: 100%;
+  max-height: 15px;
+  min-width: 40px;
+  text-align: center;
+  padding: 1px 5px 8px 5px;
 }
 
 h3 {
@@ -239,15 +285,15 @@ h3 {
   cursor: pointer;
   margin: 10px auto;
   padding: 10px;
-  border: 2px solid rgb(194, 152, 152);
+  box-shadow: inset 0 0 1px 1px rgb(164, 110, 110);
   border-radius: 10px;
   background-color: #ffffff;
   max-width: 900px;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 
 .post_items:hover {
-  background:#e4d6d6a8;
+  box-shadow: inset 0 0 1px 2px rgb(196, 132, 132);
 }
 
 /* 콘텐츠 */
@@ -278,18 +324,70 @@ h3 {
 
 /* 글쓰기 버튼 */
 .post_add_btn {
-  box-shadow: 2px 2px 0 0 rgb(164, 107, 9);
-  border-radius: 10px;
+  box-shadow: inset -2px -2px 0 0 rgb(216, 145, 22),
+    -2px -2px 0 0 rgb(216, 145, 22);
+  border-radius: 30px;
   position: absolute;
-  background: rgb(239, 162, 29);
+  background: rgb(255, 255, 255);
   top: 8rem;
+  color: black;
   right: 5px;
   margin: 17.9px 0;
-  padding: 5px;
-  color: white;
+  padding: 10px;
 }
 
 .post_add_btn:hover {
-  background: rgb(230, 151, 14);
+  font-weight: 600;
+  background: rgb(244, 210, 150);
+}
+
+.board_top_etc {
+  width: 100%;
+  padding: 4px;
+}
+
+/* 필터 */
+
+.filter_container {
+  align-items: center;
+  display: flex;
+  margin: 5px 0;
+  padding: 10px 0 0 0;
+}
+
+.filter_container .filter {
+  display: flex;
+  margin: 0 5px;
+  padding: 3px 0;
+}
+
+.filter_container .filter p {
+  margin: 5px;
+  padding: 3px 5px;
+  background: rgb(208, 169, 169);
+  border-radius: 5px;
+}
+
+.filter_container .filter p:hover {
+  cursor: pointer;
+  box-shadow: 0 0 1px 2px rgb(225, 186, 164);
+}
+
+/* 게시판 검색(조회) */
+.board_search_form label h3 {
+  display: inline-block;
+}
+
+.board_search_form .board_search {
+  margin: 0 0 0 13px;
+  border: none;
+  color: white;
+  background: rgb(165, 136, 136);
+  border-radius: 5px;
+  padding: 8px 7px;
+}
+
+.board_search_form .board_search:focus {
+  outline: none;
 }
 </style>

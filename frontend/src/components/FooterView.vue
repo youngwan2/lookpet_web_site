@@ -18,8 +18,9 @@
 <style scoped>
 footer {
   width: 100%;
-  background: #949087;
+  background: #483d3d;
   padding: 100px 0px;
+  margin: 5rem 0 0 0;
   border-top: 1px solid #888;
 }
 footer .inner {

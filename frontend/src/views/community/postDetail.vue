@@ -161,16 +161,12 @@ export default {
 .etc {
   margin: 1.3rem 0;
   padding: 10px;
-  border: 1px solid rgb(224, 212, 212);
+  border: 2px solid rgb(142, 110, 110);
   width: 170px;
-  box-shadow: inset 3px 3px 2px rgba(255, 170, 170, 0.591),
-    inset -3px -3px 2px rgba(209, 87, 87, 0.591);
   border-radius: 10px;
-  background-color: rgb(227, 132, 132);
 }
 
 .etc .author {
-  color: white;
   border-radius: 20px;
   display: inline-block;
   padding: 3px 0;
@@ -179,7 +175,6 @@ export default {
 
 .etc .date {
   font-size: 14px;
-  color: rgb(238, 227, 227);
 }
 
 /* 수정/삭제 버튼 */
@@ -194,19 +189,18 @@ export default {
 
 .control_box button {
   border: none;
-  box-shadow: inset -2px -2px 1px 0 rgba(184, 86, 86, 0.585);
+  background: transparent;
+  border: 2px solid rgba(113, 69, 69, 0.833);
   border-radius: 10px;
-  color: white;
-  background-color: rgb(227, 102, 102);
-  margin: 5px;
+  margin: 3px;
   transition: 0.3s;
-  padding: 10px 16px;
+  padding: 8px 14px;
 }
 
 .control_box button:hover {
   cursor: pointer;
   color: white;
-  background-color: rgb(231, 123, 123);
-  box-shadow: 0 0 0 0, inset 2px 4px 1px 1px rgba(0, 0, 0, 0.469);
+  background-color: rgba(209, 167, 167, 0.774);
+  box-shadow: 0 0 0 0, inset 2px 3px 1px 1px rgba(0, 0, 0, 0.469);
 }
 </style>

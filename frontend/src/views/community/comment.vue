@@ -249,7 +249,7 @@ textarea:focus {
 /* 댓글() */
 .comment_title {
   padding: 5px;
-  color: rgb(196, 99, 99);
+  color: rgba(153, 104, 104, 0.732);
   margin: 12px 0 -4px 5px;
 }
 
@@ -257,7 +257,7 @@ textarea:focus {
 .author {
   font-size: 14px;
   display: flex;
-  color: rgb(175, 71, 71);
+  color: rgb(157, 92, 92);
   margin-top: 30px;
   padding: 0 8px;
   align-items: center;
@@ -276,35 +276,31 @@ textarea:focus {
 .comment {
   border-radius: 10px;
   padding: 20px;
-  box-shadow: inset -2px -2px 4px rgb(134, 97, 97);
-  color: white;
-  margin: 5px 0;
-  background: linear-gradient(100deg, rgb(232, 119, 119), #e89292);
+  box-shadow: inset 0 0 1px 1.5px rgb(134, 97, 97);
+  background: white;
+  color: rgb(99, 69, 69);
+  max-width: 1200px;
+  margin: 10px 0;
 }
 
 /* 댓글 수정 버튼 */
 .comment_update_btn {
-  background-color: #f48b83;
   border-radius: 10px;
-  box-shadow: inset -2px -2px 3px rgb(130, 91, 91);
+  box-shadow: inset 0 0 1px 1.5px rgb(130, 91, 91);
   margin: 0 5px;
   display: inline-block;
-  color: white !important;
   padding: 4px;
 }
 
 /* 댓글 삭제 버튼 */
 .comment_del_btn {
-  background-color: #f48b83;
-  color: white !important;
-  box-shadow: inset -2px -2px 3px rgb(130, 91, 91);
+  box-shadow: inset 0 0 1px 1.5px rgb(130, 91, 91);
   border-radius: 10px;
   display: inline-block;
-  padding: 4px;
+  padding: 5px;
 }
 
 :is(.comment_update_btn, .comment_del_btn):hover {
-  background-color: #c77e7e;
   cursor: pointer;
 }
 

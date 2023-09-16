@@ -10,7 +10,7 @@ const likeUserModel = require("../DB/schema/community/likeUserModel");
 /** 게시글 등록 */
 router.post("/board", (req, res) => {
   // 제목, 내용, 작성자
-  const { title, content, author, preview } = req.body;
+  const { title, content, author, preview, category } = req.body;
 
   // 게시글의 갯수를 저장하는 컬렉션의 도큐먼트를 불러온다.
   postCounterModel
@@ -24,6 +24,7 @@ router.post("/board", (req, res) => {
           content: content,
           preview: preview,
           author: author,
+          category: category,
         })
         .then((addResult) => {
           console.log("성공적으로 게시글이 등록되었습니다.", addResult);
@@ -42,24 +43,40 @@ router.post("/board", (req, res) => {
 
 /** 게시글 조회*/
 router.get("/board", (req, res) => {
-  const { page } = req.query;
+  const { page, category } = req.query;
+  console.log(category);
   console.log(page);
   postModel
     .countDocuments()
     .count()
     .then((count) => {
-      postModel
-        .find({}, { _id: 0, _v: 0 })
-        .sort({ id: -1 })
-        .skip((page * 1 - 1) * 10)
-        .limit(10)
-        .then((result) => {
-          const totalCount = Math.ceil(count / 10);
-          res.json({ result, totalCount });
-        })
-        .catch((error) => {
-          console.log("게시글을 가져오던 중 에러가 발생하였습니다.", error);
-        });
+      if (category === "all") {
+        postModel
+          .find({ }, { _id: 0, _v: 0 })
+          .sort({ id: -1 })
+          .skip((page * 1 - 1) * 10)
+          .limit(10)
+          .then((result) => {
+            const totalCount = Math.ceil(count / 10);
+            res.json({ result, totalCount });
+          })
+          .catch((error) => {
+            console.log("게시글을 가져오던 중 에러가 발생하였습니다.", error);
+          });
+      } else {
+        postModel
+          .find({ $and: [{ category: category }] }, { _id: 0, _v: 0 })
+          .sort({ id: -1 })
+          .skip((page * 1 - 1) * 10)
+          .limit(10)
+          .then((result) => {
+            const totalCount = Math.ceil(count / 10);
+            res.json({ result, totalCount });
+          })
+          .catch((error) => {
+            console.log("게시글을 가져오던 중 에러가 발생하였습니다.", error);
+          });
+      }
     })
     .catch((error) => {
       console.log("전체 페이지 수 가져오던 중 에러 발생", error);
@@ -81,17 +98,19 @@ router.get("/board/:id", (req, res) => {
 
 /* 최신글 목록 조회(디테일 게시판 하단 게시글 목록) */
 router.get("/board/:id/recent", (req, res) => {
-  const posId = req.params.id
+  const posId = req.params.id;
   postModel
-    .find({}, { _id: 0, __v: 0 }).sort({id:-1}).limit(10)
+    .find({}, { _id: 0, __v: 0 })
+    .sort({ id: -1 })
+    .limit(10)
     .then((resultPost) => {
-      const filter = resultPost.filter((post)=>{
-        return post.id !== posId*1
-      })
+      const filter = resultPost.filter((post) => {
+        return post.id !== posId * 1;
+      });
       res.json({ filter });
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       res.status(500).json({ msg: "데이터를 찾지 못 했습니다." });
     });
 });
@@ -208,13 +227,13 @@ router.post("/board/:id/like-user", (req, res) => {
   const { postId, username, like: likeState, unlike: unLikeState } = req.body;
   const userInfo = req.body;
 
-  console.log("좋아요 클릭한 유저정보:", userInfo);
+  // console.log("좋아요 클릭한 유저정보:", userInfo);
   // 좋아요를 클릭한 유저정보가 해당 게시글에 존재하지 않으면 추가하고,
   // 존재한다면, 해당 게시글을 찾아 상태를 변경시키고, 변경된 값을 포스트에 반영한다.
   likeUserModel
     .findOne({ postId, username })
     .then((findResult) => {
-      console.log("찾은 유저 정보:", findResult);
+      // console.log("찾은 유저 정보:", findResult);
       // 해당 게시글에 유저 정보 없는 경우 정보를 추가
       if (!findResult) {
         likeUserModel
