@@ -150,14 +150,15 @@ a {
   background-color: white;
   border-radius: 50px;
   margin: 2rem auto;
-  box-shadow: inset 5px 3px rgb(166, 144, 144), inset -2px -5px rgb(107, 90, 90);
+  box-shadow: inset 5px 3px rgb(166, 144, 144),
+    inset -2px -5px rgb(167, 140, 140);
   padding: 10px;
 }
 
 /* 검색창 input*/
 .cat_seacrh_form input {
   max-width: 300px;
-  color: #e85353;
+  color: #654a4a;
   font-weight: 600;
   font-size: 1rem;
   background-color: white;
@@ -198,38 +199,35 @@ section {
 .cat_image {
   width: 230px;
   height: 230px;
-  border-bottom: 4px solid #c49e9b;
+  border-bottom: 3px solid #c49e9b;
 }
 
 .cat_items {
   margin: 10px;
-  border: 1px solid #d3bcba;
-  border-top: 8px solid rgb(171, 123, 123);
-  border-left: 5px solid rgb(88, 62, 62);
-  border-top-right-radius: 11px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 5px;
-  background-color: #e2756b;
+  border-radius: 5px;
+  border: 3px solid #ae908e;
+  background-color: #ffffff;
   max-width: 230px;
   max-height: 300px;
   text-align: center;
-  transform: translateZ(0) translateY(0px) perspective(600px);
+  transform: translateZ(0) translateY(0px) perspective(800px);
   transform-origin: center center;
   transform-style: preserve-3d;
-  transition: 1s ease-in-out;
+  transition: 0.5s ease-in-out;
   padding: 1px 0;
 }
 
 .cat_items:hover {
-  box-shadow: 20px 50px 5px rgba(0, 0, 0, 0.145);
-  transform: translateZ(10px) translateY(-10px) rotateX(0);
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.145);
+  transform: translateY(-30px) rotateX(-2deg);
 }
 
 .cat_items .cat_name {
   font-size: 15px;
   height: 35px;
+  font-weight: 700;
+  color: rgb(137, 126, 126);
   padding: 0px 10px 10px 0;
-  color: #f9ebde;
 }
 
 .loading_spinner {

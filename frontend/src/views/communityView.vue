@@ -2,8 +2,17 @@
   <div ref="board">
     <section class="board_container">
       <h1 class="title">자유 게시판</h1>
+      <form @submit.prevent>
+        <label for="search">검색</label>
+        <input
+          type="text"
+          class="board_search"
+          v-model="searchVal"
+          @input="boardSearch"
+        />
+      </form>
       <p style="text-align: center; padding: 10px; font-size: 14px">
-        <br>
+        <br />
       </p>
       <div
         v-for="post in posts"
@@ -141,6 +150,11 @@ export default {
         this.currentPage++
         this.getBoardList()
       }
+    },
+
+    /* 게시글 검색  */
+    boardSearch(e) {
+      console.log(e.target.value)
     }
   }
 }
@@ -173,7 +187,7 @@ li:hover {
 
 /* 각 페이지 별로 포커스된 경우에만 배경색을 적용한다. */
 li.focus {
-  box-shadow: inset 50px 50px 0 0 rgb(231, 103, 103);
+  box-shadow: inset 50px 50px 0 0 rgb(157, 134, 134);
   color: white;
 }
 
@@ -198,8 +212,10 @@ a {
 }
 .title {
   text-align: center;
+  color: #a07f7d;
   font-size: 1.8rem;
-  color:rgb(240, 87, 87);
+  text-shadow: 1px 1px 1px rgb(205, 129, 129), 2px 2px 1px rgb(255, 254, 254);
+  margin: 1rem 0 2rem 0;
 }
 
 /* post_items */
@@ -212,22 +228,26 @@ a {
   max-width: 60px;
   min-width: 28px;
   text-align: center;
-  background-color: #ff9696;
+  background-color: #b49191;
 }
 
 h3 {
-  color: #bf5959;
+  color: #a48282;
   padding: 0 5px;
 }
 .post_items {
+  cursor: pointer;
   margin: 10px auto;
   padding: 10px;
-  box-shadow: inset 1px 1px 1px rgb(255, 170, 170),
-    inset -1px -1px 1px rgb(255, 134, 134);
+  border: 2px solid rgb(194, 152, 152);
+  border-radius: 10px;
   background-color: #ffffff;
   max-width: 900px;
-  border-radius: 2px;
   transition: 0.5s;
+}
+
+.post_items:hover {
+  background:#e4d6d6a8;
 }
 
 /* 콘텐츠 */
@@ -252,20 +272,17 @@ h3 {
   font-size: 13px;
   margin: 5px 5px 0 0;
   border-radius: 20px;
-  color: white;
-  box-shadow: inset 2px 2px 2px rgb(249, 203, 203),
-    inset -2px -2px 2px rgb(190, 80, 80);
+  color: rgb(77, 58, 58);
   padding: 6px 12px;
-  background-color: rgb(249, 113, 113);
 }
 
 /* 글쓰기 버튼 */
 .post_add_btn {
-  box-shadow: 2px 2px 0 0 rgb(203, 87, 87);
+  box-shadow: 2px 2px 0 0 rgb(164, 107, 9);
   border-radius: 10px;
   position: absolute;
-  background: rgb(255, 107, 107);
-  top: 2rem;
+  background: rgb(239, 162, 29);
+  top: 8rem;
   right: 5px;
   margin: 17.9px 0;
   padding: 5px;
@@ -273,6 +290,6 @@ h3 {
 }
 
 .post_add_btn:hover {
-  background: rgb(255, 163, 163);
+  background: rgb(230, 151, 14);
 }
 </style>

@@ -9,7 +9,7 @@
     <QuillEditor
       theme="snow"
       toolbar="full"
-      style="height: 100vh"
+      style="height: 100vh; background: white; padding: 10px"
       ref="content"
       @textChange="getHTML"
     />
@@ -85,11 +85,11 @@ export default {
         .post('http://localhost:3000/board', this.post)
         .then((result) => {
           console.log('전송 성공!', result)
-          this.$router.push({ path: '/community' })
         })
         .catch((error) => {
           console.log('전송실패..', error)
         })
+      this.$router.push({ path: '/community' })
     },
     previewPost() {
       this.isPreview = !this.isPreview
@@ -97,8 +97,11 @@ export default {
 
     // 서버로 전송할 데이터 생성
     getHTML() {
+      // 에디터에서 작성한 내용을 참조하는 요소를 content 에 담는다.
       const content = this.$refs.content
+      // 해당 content의 메서드 중 getHTML을 사용하면 HTML을 받아올 수 있다.
       this.editorContent = content.getHTML()
+      // getText를 사용하면 HTML을 제외한 텍스트만 받아올 수 있다(프리뷰 용도로 활용)
       this.post.preview = content.getText()
     },
 
@@ -189,6 +192,7 @@ export default {
 }
 
 .preview_btn:hover {
+  cursor: pointer;
   background: rgb(216, 214, 214);
 }
 
@@ -209,6 +213,16 @@ export default {
 
 .preview_return_btn:hover {
   cursor: pointer;
-  color: rgb(241, 125, 125);
+  color: rgb(255, 209, 209);
+}
+
+@media screen and (max-width: 526px) {
+  .preview_btn {
+    position: relative;
+  }
+
+  .complete_btn {
+    position: relative;
+  }
 }
 </style>

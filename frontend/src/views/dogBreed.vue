@@ -92,9 +92,9 @@ export default {
 }
 .dog_title {
   text-align: center;
-  font-size: 1.5rem;
-  color: #815854;
-  text-shadow: 1px 1px 1px rgb(107, 79, 79), 2px 2px 1px rgb(236, 204, 204);
+  color: #a07f7d;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 1px rgb(205, 129, 129), 2px 2px 1px rgb(255, 254, 254);
   margin-top: 2.3rem;
 }
 ul,
@@ -134,23 +134,23 @@ a {
 .dog_seacrh_form {
   max-width: 500px;
   background-color: white;
-  box-shadow: inset 5px 3px rgb(239, 150, 150), inset -2px -5px rgb(200, 60, 60);
   border-radius: 50px;
   margin: 2rem auto;
+  box-shadow: inset 5px 3px rgb(166, 144, 144),
+    inset -2px -5px rgb(167, 140, 140);
   padding: 10px;
 }
 
 /* 검색창 input*/
 .dog_seacrh_form input {
-  max-width: 400px;
-  width: 100%;
-  width: 100%;
-  padding: 18px 12px 15px 12px;
-  color: #e85353;
+  max-width: 300px;
+  color: #654a4a;
   font-weight: 600;
   font-size: 1rem;
-  border: none;
   background-color: white;
+  width: 120%;
+  padding: 18px 12px 15px 12px;
+  border: none;
 }
 
 .dog_seacrh_form input:focus {
@@ -186,38 +186,34 @@ section {
 .dog_image {
   width: 230px;
   height: 230px;
-  border-top-left-radius: 5px;
-  border-bottom: 4px solid #c49e9b;
+  border-bottom: 3px solid #c49e9b;
 }
 
 .dog_items {
   margin: 10px;
-  border: 1px solid #e18c85;
-  border-top: 10px solid rgb(255, 190, 190);
-  border-left: 10px solid rgb(250, 137, 137);
-  border-top-right-radius: 11px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 5px;
-  background-color: #e2756b;
+  border-radius: 5px;
+  border: 3px solid  #ae908e;
+  background-color: #ffffff;
   max-width: 230px;
   max-height: 300px;
   text-align: center;
-  transform: translateZ(0) translateY(0px);
+  transform: translateZ(0) translateY(0px) perspective(800px);
   transform-origin: center center;
   transform-style: preserve-3d;
-  transition: 1s ease-in-out;
+  transition: 0.5s ease-in-out;
   padding: 1px 0;
 }
 
 .dog_items:hover {
-  box-shadow: 20px 50px 5px rgba(0, 0, 0, 0.145);
-  transform: translateZ(10px) translateY(-80px) rotateX(0);
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.145);
+  transform: translateY(-30px) rotateX(-2deg);
 }
 
 .dog_items .dog_name {
   font-size: 15px;
   height: 35px;
-  color: #f9ebde;
+  font-weight: 700;
+  color:rgb(137, 126, 126);
   padding: 0px 10px 10px 0;
 }
 .loading_spinner {

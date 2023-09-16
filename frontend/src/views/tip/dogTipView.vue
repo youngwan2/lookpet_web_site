@@ -140,9 +140,9 @@ export default {
 .title {
   text-align: center;
   margin: 30px;
-  font-size: 1.8rem;
-  color: rgb(223, 103, 103);
-  text-shadow: 1px 1px 1px rgb(246, 144, 144);
+  font-size: 2rem;
+  color: rgb(142, 115, 115);
+  text-shadow: 1px 1px 1px rgb(162, 150, 150);
 }
 .container {
   border: 1px solid gray;
@@ -166,8 +166,7 @@ export default {
   transition: 0.3s;
   transform: perspective(600px);
   transform-style: preserve-3d;
-  box-shadow: inset 3px 3px rgb(255, 183, 183),
-    inset -3px -3px rgba(214, 44, 44, 0.686) !important;
+  box-shadow: 0 0 1px 2px rgba(250, 159, 74, 0.968);
 }
 @keyframes appear {
   from {
@@ -195,12 +194,10 @@ export default {
   width: 110px;
   text-align: center;
   color: white;
-  background: rgba(255, 63, 63, 0.753);
+  background: rgb(246, 177, 113);
   border-radius: 10px;
   font-weight: 600;
   font-size: 1.2rem;
-  box-shadow: inset 2px 4px rgb(253, 155, 155),
-    inset -2px -4px rgba(207, 85, 85, 0.829);
   padding: 10px;
   margin: 5px auto;
 }
@@ -220,7 +217,7 @@ export default {
   align-content: center;
 }
 .page_shifter {
-  border: 1px solid rgba(245, 173, 173, 0.807);
+  border: 1px solid rgba(255, 149, 0, 0.807);
   list-style: none;
   text-align: center;
   width: 25px;
@@ -231,12 +228,13 @@ export default {
 }
 
 .page_shifter:hover {
-  background: rgb(254, 169, 169);
+  background: rgb(254, 216, 119);
   color: black;
   cursor: pointer;
 }
+
 li.focus {
-  background: rgb(255, 107, 107);
+  background: rgb(251, 195, 53);
   color: white;
 }
 </style>

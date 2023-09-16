@@ -1,116 +1,120 @@
 <template>
   <main>
-    <header>
-      <h1>
-        <span class="span1">Look</span><br />
-        <span class="span2">Pet</span><br />
-        <span class="span3">Project</span>
-      </h1>
-      <address>2023 DS ACADEMY<br />SENIER PROJECT.</address>
-    </header>
-
-    <setion class="banner">
-      <video
-        class="banner_video"
-        src="../assets/video/video01.mp4"
-        muted
-        loop
-        autoplay
-      ></video>
-    </setion>
+    <section class="main_top_section">
+      <header>
+        <h1>
+          <span class="span1">Look</span><br />
+          <span class="span2">Pet</span><br />
+        </h1>
+        <address>2023 DS ACADEMY<br />SENIER PROJECT.</address>
+      </header>
+      <section class="banner">
+        <video
+          class="banner_video"
+          src="../assets/video/video01.mp4"
+          muted
+          loop
+          autoplay
+        ></video>
+      </section>
+    </section>
     <!-- section -->
-    <section>
-      <article
-        id="article_video01"
-        class="article_video"
-        v-on:mouseenter="run"
-        v-on:mouseleave="pause"
-        v-on:click="aside_on"
-      >
-        <div class="inner">
-          <div class="txt">
-            <h2>01</h2>
-            <p>HAPPY<br /><br />#1</p>
-            <figure>
-              <video
-                class="article_figure_video"
-                src="../assets/video/video05.mp4"
-                muted
-                loop
-              ></video>
-            </figure>
+    <section class="middle_section">
+      <h2>멍냥이 자랑 <span style="font-size: 18px; color:rgb(178, 174, 174)">(BOAST)</span></h2>
+      <div class="middle_article_video">
+        <!-- 영상 탑 1 -->
+        <article
+          id="article_video01"
+          class="article_video"
+          v-on:mouseenter="run"
+          v-on:mouseleave="pause"
+          v-on:click="aside_on"
+        >
+          <div class="inner">
+            <div class="txt">
+              <h2>01</h2>
+              <p>HAPPY<br /><br />#1</p>
+              <figure>
+                <video
+                  class="article_figure_video"
+                  src="../assets/video/video05.mp4"
+                  muted
+                  loop
+                ></video>
+              </figure>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <article
-        id="article_video02"
-        class="article_video"
-        v-on:mouseenter="run"
-        v-on:mouseleave="pause"
-        v-on:click="aside_on"
-      >
-        <div class="inner">
-          <div class="txt">
-            <h2>02</h2>
-            <p>FRIENDLY<br /><br />#2</p>
-            <figure>
-              <video
-                class="article_figure_video"
-                src="../assets/video/video02.mp4"
-                muted
-                loop
-              ></video>
-            </figure>
+        <article
+          id="article_video02"
+          class="article_video"
+          v-on:mouseenter="run"
+          v-on:mouseleave="pause"
+          v-on:click="aside_on"
+        >
+          <div class="inner">
+            <div class="txt">
+              <h2>02</h2>
+              <p>FRIENDLY<br /><br />#2</p>
+              <figure>
+                <video
+                  class="article_figure_video"
+                  src="../assets/video/video02.mp4"
+                  muted
+                  loop
+                ></video>
+              </figure>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <article
-        id="article_video03"
-        class="article_video"
-        v-on:mouseenter="run"
-        v-on:mouseleave="pause"
-        v-on:click="aside_on"
-      >
-        <div class="inner">
-          <div class="txt">
-            <h2>03</h2>
-            <p>LOVELY<br /><br />#3</p>
-            <figure>
-              <video
-                class="article_figure_video"
-                src="../assets/video/video03.mp4"
-                muted
-                loop
-              ></video>
-            </figure>
+        <article
+          id="article_video03"
+          class="article_video"
+          v-on:mouseenter="run"
+          v-on:mouseleave="pause"
+          v-on:click="aside_on"
+        >
+          <div class="inner">
+            <div class="txt">
+              <h2>03</h2>
+              <p>LOVELY<br /><br />#3</p>
+              <figure>
+                <video
+                  class="article_figure_video"
+                  src="../assets/video/video03.mp4"
+                  muted
+                  loop
+                ></video>
+              </figure>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <article
-        id="article_video04"
-        class="article_video"
-        v-on:mouseenter="run"
-        v-on:mouseleave="pause"
-        v-on:click="aside_on"
-      >
-        <div class="inner">
-          <div class="txt">
-            <h2>04</h2>
-            <p>CUTIE<br /><br />#4</p>
-            <figure>
-              <video
-                class="article_figure_video"
-                src="../assets/video/video04.mp4"
-                muted
-                loop
-              ></video>
-            </figure>
+        <article
+          id="article_video04"
+          class="article_video"
+          v-on:mouseenter="run"
+          v-on:mouseleave="pause"
+          v-on:click="aside_on"
+        >
+          <div class="inner">
+            <div class="txt">
+              <h2>04</h2>
+              <p>CUTIE<br /><br />#4</p>
+              <figure>
+                <video
+                  class="article_figure_video"
+                  src="../assets/video/video04.mp4"
+                  muted
+                  loop
+                ></video>
+              </figure>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </section>
 
     <!-- aside -->
@@ -129,8 +133,8 @@
         ></video>
       </figure>
     </aside>
+    <directMenu />
   </main>
-  <directMenu></directMenu>
 </template>
 
 <script>
@@ -195,19 +199,16 @@ a {
 main {
   width: 100%;
   height: 100%;
-  background: #faf6ed url('../assets/bg.png');
 }
 /* 애니메이션 */
 @keyframes moveIn {
   from {
-    position: absolute;
     right: -100%;
     width: 65%;
     margin-top: 6%;
     opacity: 0;
   }
   to {
-    position: absolute;
     right: 5%;
     width: 65%;
     margin-top: 6%;
@@ -216,28 +217,10 @@ main {
 }
 @keyframes moveIn2 {
   from {
-    position: absolute;
     opacity: 0;
-    left: -10%;
   }
   to {
-    position: absolute;
     opacity: 1;
-    left: 35%;
-  }
-}
-@keyframes moveIn3 {
-  from {
-    position: absolute;
-    /* left: -10%; */
-    opacity: 0;
-    margin-top: 110%;
-  }
-  to {
-    position: absolute;
-    /* left: 33%; */
-    opacity: 1;
-    margin-top: 87%;
   }
 }
 @keyframes noneShow {
@@ -248,24 +231,28 @@ main {
     opacity: 0;
   }
 }
+
+.main_top_section {
+  display: flex;
+}
 /* header */
 main header {
-  width: 20%;
+  width: 40%;
   height: 100%;
-  padding: 5rem 5vw 5vh 0;
   display: flex;
+  margin: 0 auto;
+  flex-direction: column;
   flex-wrap: wrap;
   align-content: space-between;
   justify-content: center;
   position: relative;
   z-index: 3;
-  float: left;
-  /*    background: #333;*/
-  /* border:10px solid pink; *
 }
 main header h1 {
   /*안쪽의 자간 줄높이 초기화*/
   font-size: 0px;
+  margin: 0 0 0 6rem;
+  width: 60px;
   color: gray;
   font-family: 'Dancing Script', cursive;
 }
@@ -294,21 +281,21 @@ main header h1::after {
 main header h1 span {
   font: normal 3.8vw/2 'arial';
 }
+/* 주소 */
 main header address {
-  margin-top: 10%;
-  /* color: #d6d0d0; */
+  margin: 8% 0 0 95px;
   color: #949087;
-  animation: noneShow 3s;
-  animation: moveIn3 4s ease;
+  animation: moveIn2 4s ease-in-out;
   font: normal 1.1vw/1.5 'arial';
 }
 /* banner */
 main .banner {
-  width: 65%;
-  float: left;
+  padding: 0;
+  width: 50%;
 }
 main .banner .banner_video {
   width: 100%;
+  min-height: 300px;
   object-fit: cover;
   filter: saturate(50%);
   -webkit-box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
@@ -317,8 +304,6 @@ main .banner .banner_video {
   box-shadow: 0px 20px 0px -10px #ffffff, 0px -20px 0px -10px #ffffff,
     20px 0px 0px -10px #ffffff, -20px 0px 0px -10px #ffffff,
     0px 0px 0px 10px #ff0000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-  margin-top: 10%;
-  animation: moveIn 3s ease;
 }
 @media (max-width: 600px) {
   main header {
@@ -334,8 +319,8 @@ main .banner .banner_video {
   .aside_video01 {
     display: flex;
   }
-  #article_video04{
-    display:none;
+  #article_video04 {
+    display: none;
   }
 }
 /* nav */
@@ -358,26 +343,41 @@ main nav ul li a {
 }
 
 /* section */
-main section {
+/* 섹션 전체 영역에 지정 */
+main > section {
   position: relative;
   width: 90%;
   height: 100%;
   display: flex;
   padding-top: 70px;
+  margin: 0 auto;
   z-index: 1;
-
-  /* border:10px solid yellow; */
+  max-width: 1600px;
 }
-main section article {
+
+/* 미들 섹션 */
+.middle_section {
+  display: flex;
+  min-height: 60vh;
+  flex-direction: column;
+  color: #949087;
+}
+
+/* 미들 섹션의 각 아티클 */
+.middle_article_video {
+  width: 100%;
+  display: flex;
+}
+.middle_article_video article {
   position: relative;
+  margin: 10px;
   flex: 1;
-  padding: 80px 40px 100px;
   opacity: 0.6;
   transition: flex 1s, opacity 1s;
   z-index: 1;
   cursor: pointer;
 }
-main section article::before {
+.middle_article_video article::before {
   content: '';
   display: block;
   width: 80%;

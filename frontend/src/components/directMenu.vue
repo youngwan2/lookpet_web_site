@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <h2>바로가기<span>(DIRECT MENU)</span></h2>
     <swiper
       :direction="horizontal"
       :loop="true"
@@ -31,8 +32,6 @@
       :modules="modules"
       class="swiper-wrapper"
     >
-      <h1>DIRECT<span>MENU</span></h1>
-
       <swiper-slide class="swiper-slide">
         <div class="inner">
           <div class="con">
@@ -95,7 +94,7 @@
           <div class="con">
             <img src="../assets/icon/hospital.svg" />
             <h2 @click="gotoPage('/tools/hospital')">06.동물병원 정보 조회</h2>
-            <p>현재 위치에서 가까운 동물병원을 확인할 수 있습니다.</p>
+            <p style="margin-top: 50px;">현재 위치에서 가까운 동물병원을 확인할 수 있습니다.</p>
           </div>
         </div>
       </swiper-slide>
@@ -170,7 +169,11 @@ export default {
 </script>
 <style scoped>
 .wrap {
-  width: 100%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  max-width: 1600px !important;
+  margin: 2rem auto 0 auto;
   height: 100vh;
   overflow: hidden;
   position: relative;
@@ -179,23 +182,25 @@ export default {
   /* background: #6b5d50; */
   background:#faf6ed url('../assets/bg.png');
 }
-.wrap h1 {
-  font-weight: normal;
+.wrap h2 {
+  font-weight: bold;
   font-size: 24px;
+  max-width: 1600px;
   font-family: 'orbitron';
   color: gray;
   letter-spacing: 1px;
-  position: absolute;
   left: 50px;
   top: 70px;
 }
-.wrap h1 span {
+.wrap h2 span {
   opacity: 0.8;
+  font-size: 18px;
 }
 
 /*기본 슬라이드 프레임*/
 .wrap .swiper-wrapper {
   width: 100%;
+
   height: 100%;
 }
 .wrap .swiper-wrapper .swiper-slide {
@@ -214,7 +219,7 @@ export default {
   /* border: 3px solid aqua; */
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: #463c3c83;
   padding: 30px;
   box-sizing: border-box;
   opacity: 1;
@@ -230,7 +235,7 @@ export default {
   top: 0px;
   left: 0px;
   opacity: 0;
-  background: #fff;
+  background: #b8b5b5;
 }
 .wrap .swiper-wrapper .swiper-slide-prev .inner,
 .wrap .swiper-wrapper .swiper-slide-next .inner {
@@ -272,12 +277,13 @@ export default {
   font-weight: normal;
   font-size: 40px;
   font-family: 'roboto';
-  color: #111;
+  color:white;
   margin-top: 15px;
   margin-bottom: 20px;
 }
 .wrap .swiper-wrapper .swiper-slide .inner .con h2:hover {
   color: orange;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.555);
   transition: 1.2s;
   cursor: pointer;
 }
@@ -287,21 +293,23 @@ export default {
   display: block;
   width: 30px;
   height: 2px;
-  background-color: #888;
+  background-color: #fdf8f8;
   margin-top: 15px;
   transition: 2s;
 }
 .wrap .swiper-wrapper .swiper-slide-active:hover .con h2::after {
   width: 400px;
-  background: aqua;
+  background: rgb(231, 210, 101);
 }
 
-.wrap .swiper-wrapper .swiper-slide .inner .con p {
+.wrap .swiper-wrapper .swiper-slide .inner p {
   font-weight: normal;
-  font-size: 13px;
+  font-size: 18px;
   font-family: 'arial';
+  margin: 10px 0 0 0;
+  text-align: center;
   line-height: 1.3;
-  color: #aaa;
+  color: white;
   letter-spacing: 1px;
 }
 /* 좌우 버튼  */

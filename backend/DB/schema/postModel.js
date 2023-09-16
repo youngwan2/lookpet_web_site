@@ -14,6 +14,11 @@ const postSchema = new Schema({
     type: String,
     require: true,
   },
+  category: {
+    type:String,
+    require:true,
+    default:'자유'
+  },
   date: {
     // 작성날짜
     type: String,

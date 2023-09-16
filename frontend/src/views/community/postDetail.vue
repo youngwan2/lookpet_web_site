@@ -40,6 +40,7 @@
         </article>
       </div>
       <comment :postId="post.id" />
+      <recentPost :recentPosts="recentPosts"/>
     </section>
   </div>
 </template>
@@ -48,13 +49,16 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import '@vueup/vue-quill/dist/vue-quill.bubble.css'
 import comment from '../community/comment.vue'
+import recentPost from './detail/recentPost.vue'
 import axios from 'axios'
 import LikeBox from './likeBox.vue'
+
 export default {
   components: {
     QuillEditor,
     comment,
-    LikeBox
+    LikeBox,
+    recentPost
   },
   name: 'CommunityDetailPost',
   data() {
@@ -62,21 +66,24 @@ export default {
       post: [],
       liked: 0,
       unliked: 0,
-      isAuthorization: false
+      isAuthorization: false,
+      recentPosts: []
     }
   },
   created() {
     document.title = this.$route.name
   },
-  mounted() {
+  async mounted() {
     this.$refs.detail.scrollIntoView({ behavior: 'smooth' })
     const { id } = this.$route.params
     console.log(id)
-    axios
+    await axios
       .get(`http://localhost:3000/board/${id}`)
       .then((response) => {
         this.post = response.data[0]
         this.setHTML(this.post)
+
+        this.getRecentPostFromDB()
         return this.authorization()
       })
       .catch((error) => {
@@ -116,6 +123,19 @@ export default {
       } else {
         this.isAuthorization = false
       }
+    },
+    /* 최신글 목록을 디비에서 꺼내온다. */
+    getRecentPostFromDB() {
+      const id = this.$route.params.id
+      axios
+        .get(`http://localhost:3000/board/${id}/recent`)
+        .then((response) => {
+          this.recentPosts = response.data.filter
+          console.log(this.recentPosts)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }

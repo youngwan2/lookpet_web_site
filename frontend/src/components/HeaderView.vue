@@ -152,12 +152,9 @@ li:hover {
   width: 100%;
   /* border-radius: 5px; */
   padding: 20px 0;
-  /* box-shadow: inset -5px -5px 3px 0 rgba(95, 66, 66, 0.554); */
+  border-bottom: 2px solid rgb(213, 192, 178);
   z-index: 100000;
-  /* background: #6b5d50; */
-  /* background:#949087; */
   color: #949087;
-  background: #faf6ed url('../assets/bg.png');
 }
 .header .header_inner {
   max-width: 1500px;
@@ -166,7 +163,7 @@ li:hover {
   justify-content: space-around;
   align-items: center;
 }
-.meun {
+.menu {
   font: 'arial';
 }
 .menu a {
