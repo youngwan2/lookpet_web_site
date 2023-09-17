@@ -21,6 +21,7 @@
         <RouterLink to="/service/qna" class="menu_item">고객센터</RouterLink>
 
         <article class="drop_box" :class="menuOpenClassName" ref="dropBox">
+          <span @click="menuOpen" class="menu_close_btn">X</span>
           <ul class="drop_item">
             <p>강아지</p>
             <RouterLink to="/dog/breed">품종 정보</RouterLink>
@@ -163,29 +164,40 @@ li:hover {
   justify-content: space-around;
   align-items: center;
 }
+
+/* 메뉴 */
 .menu {
   font: 'arial';
 }
+
+/* 각 뷰 라우터 */
 .menu a {
   margin: 10px;
   color: #949087;
   font-weight: 600;
-  height: 100%;
-}
-
-.menu:hover .drop_box {
-  visibility: visible;
-  z-index: 100;
-  opacity: 1;
   height: 25%;
 }
+/* 메뉴 닫기 버튼 */
+.menu_close_btn {
+  position: absolute;
+  right: 10px;
+  font-size: 1.25rem;
+  color:rgb(55, 54, 54);
+  top: 10px;
+}
 
+.menu_close_btn:hover {
+  color:brown;
+}
+
+/* 드랍 메뉴 */
 .drop_box {
   position: absolute;
   background: white;
   z-index: 10000;
   transition: 0.5s;
-  height: 0%;
+  transform: scaleY(0);
+  transform-origin: 0% 0%;
   width: 100%;
   visibility: hidden;
   left: 0;
@@ -195,6 +207,13 @@ li:hover {
   justify-content: center;
   align-content: center;
   opacity: 0;
+}
+
+.menu:hover .drop_box {
+  visibility: visible;
+  transform: scaleX(1);
+  z-index: 100;
+  opacity: 1;
 }
 
 .dog_foot {
@@ -304,18 +323,20 @@ li:hover {
 
   /* on 이 되면 카테고리 메뉴가 보인다. */
   .drop_box.on {
-    transform: translate(0);
+    transform: translate(0) scaleX(1);
+    transform-origin: 0% 0% ;
     height: 100%;
-    width: 40%;
+    min-width: 45%;
+    min-width: 270px;
+    width: 45%;
     visibility: visible;
     opacity: 1;
   }
   .drop_box.off {
-    transform: translate(-100px);
+    transform: translate(-300px) scaleX(0);
     visibility: hidden;
     opacity: 0;
     height: 100%;
-    width: 0%;
   }
 }
 

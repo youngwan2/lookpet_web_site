@@ -1,6 +1,13 @@
 <template>
   <section>
-    <button class="modal_icon" @click="modalSwitch">모델 <br />(on/off)</button>
+    <button class="modal_icon" @click="modalSwitch">
+      <img
+        src="../assets/icon/model.png"
+        alt="ai-model"
+        width="83"
+        height="60"
+      />
+    </button>
     <article class="modal" :class="state.display">
       <button class="modal_close" @click="modalSwitch">
         <img src="../assets/icon/return.svg" />
@@ -294,27 +301,28 @@ function choiceAnimal(e) {
 .off {
   visibility: hidden;
   opacity: 0;
-  translate: -500px 0;
+  translate: -2000px 0;
 }
 
 /* 모달 아이콘 */
 .modal_icon {
   position: fixed;
-  background: white;
-  box-shadow: 2px 2px inset bisque, -2px -2px inset rgb(250, 183, 183);
   padding: 10px;
   border: none;
+  background: transparent;
   border-radius: 10px;
-  right: 40px;
-  bottom: 30px;
+  right: 20px;
+  bottom: 0px;
   /* z-index: 10000; */
   transform: translate(0, -50%);
 }
 
+.modal_icon img {
+  filter: drop-shadow(4px 5px 5px rgba(0, 0, 0, 0.378));
+}
+
 .modal_icon:hover {
   cursor: pointer;
-  background: bisque;
-  transition: 1.2s;
 }
 
 .modal_inner_con {
@@ -514,7 +522,7 @@ function choiceAnimal(e) {
   text-shadow: 1px 1px 2px black;
   transition: 0.5s;
   border-radius: 20px;
-  background-color: goldenrod;
+  background-color: rgb(224, 182, 159);
   opacity: 0;
   bottom: 60px;
   left: 150px;
@@ -570,18 +578,18 @@ function choiceAnimal(e) {
   transition: 0.2s;
   max-width: 700px;
   box-shadow: inset 5px 10px 6px 0 rgba(15, 16, 14, 0.43);
-  background-color: rgb(219, 159, 6);
+  background-color: rgb(201, 170, 147);
   color: white;
   border-radius: 20px;
   text-align: center;
   margin: 20px auto;
   font-size: 1.2rem;
   font-weight: 500;
-  padding: 16px 0 13px 0;
+  padding: 16px 10px 13px 10px;
 }
 
 .sub_title:hover {
-  background-color: rgb(255, 183, 0);
+  background-color: rgb(209, 182, 146);
   color: rgb(255, 255, 255);
   text-shadow: 1px 1px 2px rgb(59, 57, 57);
   font-weight: 600;
@@ -601,10 +609,10 @@ function choiceAnimal(e) {
 .add_link a {
   text-decoration: none;
   color: black;
-  background-color: gold;
+  background-color: rgb(220, 169, 136);
   margin: 5px;
   border-radius: 3px;
-  border: 1px dashed goldenrod;
+  border: 1px dashed rgb(92, 91, 90);
   padding: 10px;
 }
 

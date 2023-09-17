@@ -6,7 +6,12 @@
           <span class="span1">Look</span><br />
           <span class="span2">Pet</span><br />
         </h1>
-        <address>2023 DS ACADEMY<br />SENIER PROJECT.</address>
+        <address>
+          <p>
+            강아지와 고양이에 대한 정보공유<br />
+            커뮤니티 'Look Pet' 에 오신 것을 환영합니다.
+          </p>
+        </address>
       </header>
       <section class="banner">
         <video
@@ -19,8 +24,14 @@
       </section>
     </section>
     <!-- section -->
+    <br>
+    <br>
+    <br>
     <section class="middle_section">
-      <h2>멍냥이 자랑 <span style="font-size: 18px; color:rgb(178, 174, 174)">(BOAST)</span></h2>
+      <h2>
+        멍냥이 자랑
+        <span style="font-size: 18px; color: rgb(178, 174, 174)">(BOAST)</span>
+      </h2>
       <div class="middle_article_video">
         <!-- 영상 탑 1 -->
         <article
@@ -285,9 +296,16 @@ main header h1 span {
 main header address {
   margin: 8% 0 0 95px;
   color: #949087;
+  text-align: center;
   animation: moveIn2 4s ease-in-out;
-  font: normal 1.1vw/1.5 'arial';
+  font: normal 1vw/1.2 'arial';
 }
+
+main header address p {
+  line-height: 1.3;
+  color:rgb(74, 74, 74);
+}
+
 /* banner */
 main .banner {
   padding: 0;
@@ -359,6 +377,7 @@ main > section {
 .middle_section {
   display: flex;
   min-height: 60vh;
+  margin-top: 1rem ;
   flex-direction: column;
   color: #949087;
 }

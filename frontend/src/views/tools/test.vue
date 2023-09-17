@@ -81,13 +81,13 @@ export default {
 .page_title {
   text-align: center;
   max-width: 920px;
-  color: rgb(237, 214, 214);
-  border-radius: 30px;
+  color: rgb(248, 246, 243);
+  border-radius: 8%;
   padding: 15px 0;
-  text-shadow: 1px 1px 2px black;
-  background-color: rgb(156, 115, 115);
-  box-shadow: inset -2px -6px 1px 0 rgb(72, 52, 52),
-    inset 4px 4px 0 0 rgb(207, 160, 160);
+  text-shadow: 1px 1px 2px rgba(36, 36, 36, 0.846);
+  background-color: rgb(219, 187, 160);
+  box-shadow: inset -2px -3px 1px 0 rgb(180, 151, 110),
+    inset 3px 3px 0 0 rgb(217, 190, 152);
   margin: 40px auto -35px auto;
   animation: top 1s 1 cubic-bezier(0.175, 2.52, 0.765, 0.1);
 }
@@ -115,16 +115,33 @@ export default {
 
 .title {
   color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   font-size: 1.5rem;
   font-weight: 600;
   padding: 5px 0;
-  background: rgb(168, 124, 124);
+  background: rgb(211, 176, 154);
 }
 
 .msg {
-  margin-top: 4rem;
-  padding: 15px 0 10px 0;
+  margin: 5.5rem 5px 0 5px;
+  padding: 15px 5px 10px 5px;
+  border: 3px solid rgb(202, 159, 124);
   line-height: 2;
+  background: white;
+  border-radius: 20px;
+}
+
+.msg::before {
+  content: '';
+  position: absolute;
+  top: 7.25rem;
+  left: 50%;
+  transform: translate(-50%);
+  border-bottom: 20px solid white;
+  filter: drop-shadow(0px -3px 0 rgb(202, 159, 124));
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
 }
 .test_link {
   position: relative;
@@ -134,14 +151,14 @@ export default {
   margin: 10px 0;
   font-size: 1.25rem;
   font-weight: 600;
-  background: rgb(228, 187, 187);
-  box-shadow: 2px 2px 5px rgb(172, 129, 129);
+  background: rgb(212, 174, 145);
+  box-shadow: 2px 2px 3px rgb(172, 129, 129);
   border-radius: 20px;
-  padding: 12px 8px;
+  padding: 10px 12px;
 }
 
 .test_link:hover {
-  background: rgb(166, 125, 125);
+  background: rgb(255, 181, 147);
   color: white;
 }
 
@@ -149,21 +166,22 @@ export default {
 .cat {
   margin: 10px 10px;
   max-width: 450px;
-  border-top: 10px solid rgb(232, 201, 201);
-  border-left: 10px solid rgb(134, 101, 101);
-  border-right: 10px solid rgb(134, 101, 101);
-  border-bottom: 10px inset rgb(150, 115, 115);
+  border: 3px solid rgb(190, 165, 131);
   position: relative;
   text-align: center;
   width: 100%;
-  border-radius: 2px;
+  border-radius: 10px;
   min-height: 430px;
+  transform: perspective(600px);
+  transform-origin: top left;
+  transform-style: preserve-3d;
   transition: 0.5s;
 }
 
 :is(.dog, .cat):hover {
-  background: rgb(255, 255, 255);
-  transform: translate(0, -30px);
+  background: rgba(245, 212, 195, 0.34);
+  transform: translate(0, -30px) rotateY(10deg);
+  transform-origin: top right;
   cursor: pointer;
   box-shadow: 10px 20px 5px 0 rgba(0, 0, 0, 0.199);
 }
@@ -188,9 +206,9 @@ export default {
 }
 
 .category {
-  background-color: rgb(141, 93, 93);
+  background-color: rgb(206, 164, 121);
   border-radius: 20px;
-  padding: 3px 5px;
+  padding: 4px 6px;
   color: white;
   margin: 1.7rem 0 0 0;
   position: absolute;

@@ -63,7 +63,10 @@ router.get("/board", (req, res) => {
           .catch((error) => {
             console.log("게시글을 가져오던 중 에러가 발생하였습니다.", error);
           });
-      } else {
+      } else if (category==="popular") {
+        
+      }   
+      else {
         postModel
           .find({ $and: [{ category: category }] }, { _id: 0, _v: 0 })
           .sort({ id: -1 })

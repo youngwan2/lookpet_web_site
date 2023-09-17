@@ -1,5 +1,13 @@
 <template>
   <div class="cat_breed_section">
+    <div class="loading_spinner" v-show="isLoading">
+      <img
+        src="../assets/loading.gif"
+        alt="loading_spinner"
+        width="400"
+        height="300"
+      />
+    </div>
     <h2 class="title">냥이 사전</h2>
     <span class="info_text">고양이/품종정보</span>
     <section>
@@ -40,6 +48,9 @@
           </router-link>
         </li>
       </ul>
+      <button @click="addCatData" class="add-post-btn">
+        더보기({{ page }}/4)
+      </button>
     </section>
   </div>
 </template>
@@ -51,7 +62,8 @@ export default {
     return {
       catBreedInfo: [],
       needs: '',
-      isLoading: true
+      isLoading: true,
+      page: 1
     }
   },
   created() {
@@ -60,10 +72,10 @@ export default {
   async mounted() {
     this.isLoading = true
     await axios
-      .get('http://localhost:3000/cat/breed')
+      .get(`http://localhost:3000/cat/breed/total?page=${0}`)
       .then((response) => {
         if (response.status === 200) {
-          this.catBreedInfo = response.data
+          this.catBreedInfo = [...this.catBreedInfo, ...response.data]
           this.isLoading = false
         }
       })
@@ -71,7 +83,30 @@ export default {
         console.error('cat 정보를 받아오는 중 에러가 발생하였습니다:', error)
       })
   },
+
   methods: {
+    async addCatData() {
+      this.isLoading = true
+      if (this.page === 4) {
+        this.isLoading = false
+        return alert('마지막 리스트입니다.')
+      } else {
+        await axios
+          .get(`http://localhost:3000/cat/breed/total?page=${this.page++}`)
+          .then((response) => {
+            if (response.status === 200) {
+              this.catBreedInfo = [...this.catBreedInfo, ...response.data]
+              this.isLoading = false
+            }
+          })
+          .catch((error) => {
+            console.error(
+              'cat 정보를 받아오는 중 에러가 발생하였습니다:',
+              error
+            )
+          })
+      }
+    },
     submit() {
       console.log('전송!')
     },
@@ -85,6 +120,7 @@ export default {
         .then((res) => {
           console.log(res)
           this.catBreedInfo = res.data
+          this.page = 4
         })
         .catch((e) => {
           console.log('데이터를 가져오는중 에러가 발생했습니다.', e)
@@ -95,8 +131,6 @@ export default {
 </script>
 
 <style scoped>
-@charset "utf-8";
-
 * {
   margin: 0px;
   padding: 0px;
@@ -118,13 +152,6 @@ a {
   margin: 0 auto;
   max-width: 1500px;
   animation: appear 1s 1 ease-in-out;
-}
-
-@keyframes appear {
-  from {
-    opacity: 0;
-    visibility: hidden;
-  }
 }
 
 /** 페이지 제목 */
@@ -158,7 +185,7 @@ a {
 /* 검색창 input*/
 .cat_seacrh_form input {
   max-width: 300px;
-  color: #654a4a;
+  color: #b59090;
   font-weight: 600;
   font-size: 1rem;
   background-color: white;
@@ -216,12 +243,10 @@ section {
   transition: 0.5s ease-in-out;
   padding: 1px 0;
 }
-
 .cat_items:hover {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.145);
   transform: translateY(-30px) rotateX(-2deg);
 }
-
 .cat_items .cat_name {
   font-size: 15px;
   height: 35px;
@@ -230,6 +255,7 @@ section {
   padding: 0px 10px 10px 0;
 }
 
+/* 로딩 스피너 */
 .loading_spinner {
   font-size: 3rem;
   position: fixed;
@@ -237,12 +263,32 @@ section {
   top: 0;
   line-height: 500px;
   color: white;
+  z-index: 100000000;
   text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.712);
   font-weight: 900;
   transform: translate(-50%);
   width: 100%;
   text-align: center;
-  height: 100vh;
-  background: rgba(60, 59, 58, 0.231);
+  min-height: 143vh;
+  background: rgba(0, 0, 0, 0.305);
+}
+
+.loading_spinner img {
+  position: absolute;
+  border-radius: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 30%;
+}
+
+/* 더보기 버튼 */
+.add-post-btn {
+  text-align: center;
+  margin: 3rem auto 0 auto;
+  font-size: 1.25rem;
+  padding: 15px 20px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
 }
 </style>

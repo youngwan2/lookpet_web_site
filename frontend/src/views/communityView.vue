@@ -24,6 +24,13 @@
             <p class="free" data-type="free" @click="getFilteredPostFromDB">
               자유
             </p>
+            <p
+              class="popular"
+              data-type="popular"
+              @click="getFilteredPostFromDB"
+            >
+              자유
+            </p>
             <p class="all" data-type="all" @click="getFilteredPostFromDB">
               전체
             </p>
@@ -179,6 +186,8 @@ export default {
     boardSearch(e) {
       console.log(e.target.value)
     },
+
+    /* 필터된 게시글 목록 가져오기 */
     getFilteredPostFromDB(e) {
       this.category = e.target.dataset.type
       this.getBoardList()
@@ -239,9 +248,8 @@ a {
 }
 .title {
   text-align: center;
-  color: #a07f7d;
+  color: #b19191;
   font-size: 1.8rem;
-  text-shadow: 1px 1px 1px rgb(205, 129, 129), 2px 2px 1px rgb(255, 254, 254);
   margin: 1rem 0 2rem 0;
 }
 
@@ -260,13 +268,13 @@ a {
   max-width: 60px;
   min-width: 50px;
   text-align: center;
-  background-color: #b49191;
+  background-color: #d5b39b;
 }
 
 /* 각 게시글 카테고리 */
 .post_top .post_category {
   font-weight: 600;
-  background: rgb(255, 187, 92);
+  background: rgb(220, 194, 157);
   font-size: 15px;
   border-radius: 10px;
   max-width: 50px;
@@ -278,14 +286,14 @@ a {
 }
 
 h3 {
-  color: #a48282;
+  color: #ad825f;
   padding: 0 5px;
 }
 .post_items {
   cursor: pointer;
   margin: 10px auto;
   padding: 10px;
-  box-shadow: inset 0 0 1px 1px rgb(164, 110, 110);
+  box-shadow: inset 0 0 1px 1px rgb(174, 157, 134);
   border-radius: 10px;
   background-color: #ffffff;
   max-width: 900px;
@@ -293,7 +301,7 @@ h3 {
 }
 
 .post_items:hover {
-  box-shadow: inset 0 0 1px 2px rgb(196, 132, 132);
+  box-shadow: inset 0 0 1px 2px rgb(158, 129, 103);
 }
 
 /* 콘텐츠 */
@@ -324,21 +332,19 @@ h3 {
 
 /* 글쓰기 버튼 */
 .post_add_btn {
-  box-shadow: inset -2px -2px 0 0 rgb(216, 145, 22),
-    -2px -2px 0 0 rgb(216, 145, 22);
-  border-radius: 30px;
+  border-radius: 15px;
+  border: 1px solid rgb(159, 141, 109);
   position: absolute;
   background: rgb(255, 255, 255);
   top: 8rem;
   color: black;
-  right: 5px;
+  right: 0;
   margin: 17.9px 0;
   padding: 10px;
 }
 
 .post_add_btn:hover {
-  font-weight: 600;
-  background: rgb(244, 210, 150);
+  box-shadow: inset 0 0 1px 1px rgb(143, 123, 89);
 }
 
 .board_top_etc {
@@ -364,13 +370,13 @@ h3 {
 .filter_container .filter p {
   margin: 5px;
   padding: 3px 5px;
-  background: rgb(208, 169, 169);
+  background: rgb(231, 202, 170);
   border-radius: 5px;
 }
 
 .filter_container .filter p:hover {
   cursor: pointer;
-  box-shadow: 0 0 1px 2px rgb(225, 186, 164);
+  box-shadow: 0 0 1px 2px rgb(140, 110, 93);
 }
 
 /* 게시판 검색(조회) */
@@ -380,10 +386,11 @@ h3 {
 
 .board_search_form .board_search {
   margin: 0 0 0 13px;
+  max-width: 213px;
+  width: 100%;
   border: none;
-  color: white;
-  background: rgb(165, 136, 136);
-  border-radius: 5px;
+  box-shadow: 0 0 1px 1px rgb(166, 128, 91);
+  border-radius: 2px;
   padding: 8px 7px;
 }
 

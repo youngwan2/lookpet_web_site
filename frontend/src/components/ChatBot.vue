@@ -1,7 +1,7 @@
 <template>
   <div>
     <button class="chat_open_btn" @click="chatDisplaySwitch"></button>
-    <div class="chatbot_container" ref="chat">
+    <div class="chatbot_container off" ref="chat">
       <div class="chatbot_header">
         <h1 class="chatbot_title">
           CHAT
@@ -9,8 +9,12 @@
         </h1>
       </div>
 
-      <ul class="message_window">
-        <li v-show="management.length < 1" class="chat_intro_message">
+      <ul class="message_window" ref="window">
+        <li
+          v-show="management.length < 1"
+          class="chat_intro_message"
+          ref="introMessage"
+        >
           AI 전문가에게 여러분 가족에 대한 상담을 요청해보세요!
         </li>
         <li
@@ -27,11 +31,22 @@
         </li>
       </ul>
       <form @submit.prevent class="chat_form">
-        <label for="chat_input">아이콘</label>
+        <label
+          for="chat_input"
+          style="
+            margin-left: 4px;
+            border-radius: 50%;
+            display: inline-block;
+            width: 20px;
+            background: rgb(255, 171, 171);
+            height: 17px;
+          "
+        ></label>
         <input
           id="chat_input"
           type="text"
           v-model="message"
+          placeholder="무엇이 궁금하신가요?"
           @keyup.enter="sendMeg"
         />
         <button type="button" class="submit_btn" @click="sendMeg">전송</button>
@@ -56,11 +71,16 @@ export default {
   methods: {
     chatDisplaySwitch() {
       console.log(this.$refs.chat.classList.toggle('off'))
+      this.$refs.introMessage.classList.toggle('on')
     },
 
     async sendMeg() {
       if (this.message === '') return
-      this.management.push({ id: 'user', name: '', content: this.message })
+      this.management.push({
+        id: 'user',
+        name: '',
+        content: this.message
+      })
       this.loadingState.isLoading = true
       this.loadingState.message = '답변을 작성 중입니다!'
       try {
@@ -77,9 +97,15 @@ export default {
 
         this.loadingState.isLoading = false
         this.loadingState.message = ''
+
+        this.$refs.window.scrollTo({ top: 1000000000 })
       } catch (error) {
         console.log(error)
         this.message = ''
+        alert(
+          '죄송합니다. 현재 AI 상담사가 부재중 이므로 나중에 다시 시도해주세요.'
+        )
+        this.$refs.window.scrollTo({ top: 1000000000 })
       }
     }
   }
@@ -114,14 +140,14 @@ export default {
   position: fixed;
   width: 100%;
   min-width: 290px;
-  max-width: 350px;
-  background: linear-gradient(180deg, rgb(248, 205, 119), rgb(230, 216, 183));
+  max-width: 400px;
+  background: white;
   border-radius: 20px;
-  right: 3rem;
+  right: 4rem;
   bottom: 12rem;
   box-shadow: 0 0 50px 25px rgba(0, 0, 0, 0.129),
     0 0 50px 25px rgba(0, 0, 0, 0.082);
-  height: 60vh;
+  height: 65vh;
   transition: 0.5s ease-in-out;
   transform-origin: bottom right;
 }
@@ -150,7 +176,7 @@ export default {
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.227);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  background-color: rgb(218, 91, 91);
+  background-color: rgb(215, 181, 159);
   padding: 5px 0;
   text-align: center;
   color: white;
@@ -162,11 +188,31 @@ export default {
   text-align: center;
   line-height: 2;
   margin-top: 2rem;
+  box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.312);
+  border-radius: 10px;
+  padding: 5px;
 }
+
+.chat_intro_message.on {
+  animation: topAppear 1.5s 1 ease-in-out;
+}
+
+.chat_intro_message::before {
+  content: '';
+  position: absolute;
+  top: 5.5rem;
+  left: 50%;
+  filter: drop-shadow(1px -3px 2px rgba(0, 0, 0, 0.197));
+  border-bottom: 15px solid white;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  transform: translate(-50%);
+}
+
 .message_window {
   margin: 10px 0;
   overflow: hidden scroll;
-  max-height: 340px;
+  max-height: 400px;
 }
 
 .message_window::-webkit-scrollbar {
@@ -175,7 +221,7 @@ export default {
 }
 
 .message_window::-webkit-scrollbar-thumb {
-  background-color: brown;
+  background-color: rgb(201, 137, 81);
 }
 
 .message_window .message {
@@ -191,15 +237,26 @@ ul {
   position: relative;
   flex-direction: reverse;
   width: 100%;
+  animation: 0.5s appear ease-in-out 1;
+  margin: 8px 0;
+}
+
+@keyframes appear {
+  from {
+    transform: translate(-30px);
+    opacity: 0;
+  }
 }
 
 .gpt .name {
-  padding: 0 0 5px 5px;
+  padding: 0 0 5px 6px;
+  color: black;
+  font-size: 14px;
   display: inline-block;
 }
 
 .gpt .profile_img {
-  background-color: brown;
+  background-color: rgb(199, 85, 85);
   width: 30px;
   height: 30px;
   margin: 0 5px;
@@ -208,7 +265,7 @@ ul {
 }
 
 .gpt .profile_contents .content {
-  background-color: white;
+  background-color: rgb(255, 176, 133);
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.127);
   color: black;
   margin: 0 5px;
@@ -217,26 +274,57 @@ ul {
   padding: 10px;
 }
 
+.gpt .profile_contents .content::after {
+  content: '';
+  position: absolute;
+  left: 30px;
+  bottom: 3px;
+  rotate: -3deg;
+  border-right: 25px solid rgb(255, 176, 133);
+  border-top: 13px solid rgba(255, 255, 255, 0);
+  border-bottom: 13px solid rgba(255, 255, 255, 0);
+}
+
 /** 유저 */
 .user {
   position: relative;
   flex-direction: row-reverse;
   width: 100%;
+  animation: 0.5s appearReverse ease-in-out 1;
+}
+
+@keyframes appearReverse {
+  from {
+    transform: translate(30px);
+    opacity: 0;
+  }
 }
 
 .user .profile_contents .content {
-  background-color: white;
+  background-color: rgb(186, 105, 39);
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.127);
-  color: black;
+  color: white;
   margin: 5px 5px;
   min-width: 200px;
   border-radius: 10px;
   padding: 10px;
 }
 
+.user .profile_contents .content::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  bottom: 7px;
+  rotate: 3deg;
+  border-left: 25px solid rgb(186, 105, 39);
+  border-top: 13px solid rgba(255, 255, 255, 0);
+  border-bottom: 13px solid rgba(255, 255, 255, 0);
+}
+
 .chat_form {
   position: absolute;
   bottom: 0;
+  box-shadow: 0 -5px 4px 0 rgba(0, 0, 0, 0.103);
   background-color: rgb(255, 255, 255);
   width: 97%;
   left: 50%;
@@ -261,7 +349,7 @@ ul {
   position: absolute;
   right: 0;
   top: 0;
-  background-color: rgb(181, 58, 58);
+  background-color: rgb(224, 163, 149);
   border-radius: 5px;
   color: white;
   width: 50px;
@@ -269,7 +357,7 @@ ul {
 }
 
 .submit_btn:hover {
-  background-color: rgb(174, 92, 92);
+  background-color: rgb(215, 142, 102);
   cursor: pointer;
 }
 </style>

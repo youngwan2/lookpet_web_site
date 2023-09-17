@@ -41,8 +41,9 @@ export default {
   methods: {
     postSwitch(i) {
       const id = i
-      this.$router.push(`/community/detail/${id}`)
-      window.location.reload()
+      this.$router.replace(`/community/detail/${id}`).then(() => {
+        window.location.reload()
+      })
     }
   }
 }
