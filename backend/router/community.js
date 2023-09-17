@@ -52,7 +52,7 @@ router.get("/board", (req, res) => {
     .then((count) => {
       if (category === "all") {
         postModel
-          .find({ }, { _id: 0, _v: 0 })
+          .find({}, { _id: 0, _v: 0 })
           .sort({ id: -1 })
           .skip((page * 1 - 1) * 10)
           .limit(10)
@@ -209,7 +209,7 @@ router.get("/board/:id/like-counter", (req, res) => {
     .then((result) => {
       console.log("좋아요/싫어요 결과:", result);
       // 좋아요/싫어요를 클릭한 유저의 정보를 담아서 보낸다(중복클릭)
-      likeUserModel.findOne({ username }).then((userInfo) => {
+      likeUserModel.findOne({ postId,username }).then((userInfo) => {
         console.log("유저정보:", userInfo);
         res.status(200).json({ result, userInfo });
       });
@@ -227,13 +227,12 @@ router.post("/board/:id/like-user", (req, res) => {
   const { postId, username, like: likeState, unlike: unLikeState } = req.body;
   const userInfo = req.body;
 
-  // console.log("좋아요 클릭한 유저정보:", userInfo);
+  console.log("좋아요 클릭한 유저정보:", userInfo);
   // 좋아요를 클릭한 유저정보가 해당 게시글에 존재하지 않으면 추가하고,
   // 존재한다면, 해당 게시글을 찾아 상태를 변경시키고, 변경된 값을 포스트에 반영한다.
   likeUserModel
     .findOne({ postId, username })
     .then((findResult) => {
-      // console.log("찾은 유저 정보:", findResult);
       // 해당 게시글에 유저 정보 없는 경우 정보를 추가
       if (!findResult) {
         likeUserModel
@@ -244,79 +243,124 @@ router.post("/board/:id/like-user", (req, res) => {
             unlike: unLikeState,
           })
           .then(() => {
+            // 방금 유저의 좋아요가 활성화 된 상태이고
             if (likeState) {
               likeCounterModel.findOne({ postId }).then((result) => {
-                console.log("해당 게시글에는 이미 정보가 존재함:", result);
+                // 이전에 해당 포스트에 좋아요가 증가한 결과가 없다면 새로 1을 셋팅
                 if (!result) {
-                  console.log("정보가 없다.");
+                  console.log(
+                    "이전 정보가 없으므로 좋아요 1을 기본 셋팅합니다."
+                  );
                   likeCounterModel.insertMany({ postId, likeCount: 1 });
+                  // 정보가 있다면 해당 좋아요를 1 증가 시킨다.
                 } else {
-                  console.log("정보가 있다");
+                  let { likeCount } = result;
+                  console.log("좋아요 갯수:", likeCount);
+                  console.log(
+                    "정보가 있으므로 기존 좋아요에서 1을 증가시킵니다."
+                  );
+                  ++likeCount;
+                  likeCounterModel
+                    .updateOne({ postId }, { likeCount })
+                    .then(() => {
+                      console.log("성공적으로 좋아요를 1 증가 시켰습니다.");
+                    });
                 }
               });
             }
+            // 방금 유저의 싫어요가 활성화 된 상태라면
             if (unLikeState) {
-              likeCounterModel.insertMany({ postId, unlikeCount: 1 });
+              likeCounterModel.findOne({ postId }).then((result) => {
+                // 현재 포스트에 좋아요/싫어요 가 증가한 결과가 존재하지 않을떄
+
+                console.log("이전 포스트 좋아요/싫어요 정보:", result);
+                if (!result) {
+                  console.log(
+                    "이전 정보가 없으므로 싫어요 1을 기본 셋팅합니다."
+                  );
+                  likeCounterModel.insertMany({ postId, unlikeCount: 1 });
+                  // 이전 포스트에 좋아요/싫어요 가 증가한 결과가 존재 할 때
+                } else {
+                  let { unlikeCount } = result;
+                  console.log("싫어요 갯수:", unlikeCount);
+                  console.log(
+                    "이전 정보가 존재하므로 기존 게시글의 싫어요를 1 증가 시킵니다."
+                  );
+                  ++unlikeCount;
+                  likeCounterModel
+                    .updateOne({ postId }, { unlikeCount })
+                    .then(() => {
+                      console.log("성공적으로 싫어요를 1 증가 시켰습니다.");
+                    });
+                }
+              });
             }
 
             res.json({
-              msg: `${postId} 게시글에 좋아요/싫어요를 클릭하셨습니다.`,
+              msg: `${postId} 게시글에 좋아요/싫어요를 최초로 클릭하셨습니다.`,
             });
           })
           .catch((error) => {
             console.log(error);
           });
-        // 데이터베이스에서 해당 게시글에 좋아요/싫어요 유저 정보를 찾았다면 실행
+        // 해당 게시글에 좋아요/싫어요 유저 정보를 찾았다면
       } else {
-        likeUserModel.updateOne({
-          postId: postId,
-          username: username,
-          like: likeState,
-          unlike: unLikeState,
-        });
+        // 기존 유저 정보에 변동 사항(state)을 업데이트 한다
+        likeUserModel.updateOne(
+          {
+            postId: postId,
+            username: username,
+            like: likeState,
+            unlike: unLikeState,
+          },
+          { upsert: true }
+        );
         likeCounterModel.findOne({ postId: postId }).then((findPost) => {
-          console.log("찾은 게시글:", findPost);
           let { likeCount, unlikeCount } = findPost;
           console.log("총 좋아요:", likeCount, "총 싫어요:", unlikeCount);
+
+          /*
+           * ********************************************************************
+           * * 각각의 경우의 수를 나눠서 좋아요/싫어요에 대한 분기처리를 실시한다. **
+           * ********************************************************************
+           */
 
           // 좋아요는 활성화, 싫어요는 비활성화
           if (likeState && !unLikeState) {
             console.log("좋아요 활성, 싫어요 비활성");
             // 해당 유저 정보를 가져와서 변화된 상태를 업데이트 한다.
-            likeUserModel
-              .updateOne(
-                { postId, username },
-                { like: likeState, unlike: unLikeState }
-              )
-              // 그 후 싫어요는 감소 시키고, 좋아요는 증가시킨다.
-              .then(() => {
-                --unlikeCount;
+            return (
+              likeUserModel
+                .updateOne(
+                  { postId, username },
+                  { like: likeState, unlike: unLikeState },
+                  { upsert: true }
+                )
+                // 그 후 싫어요는 감소 시키고, 좋아요는 증가시킨다.
+                .then(() => {
+                  --unlikeCount;
 
-                // 이 때 싫어요가 0보다 작다면 0으로 초기화시킨다.
-                if (unlikeCount < 0) {
-                  unlikeCount = 0;
-                }
-                likeCounterModel
-                  .updateOne(
-                    { postId: postId },
-                    { likeCount: ++likeCount, unlikeCount: unlikeCount },
-                    {
-                      //이 옵션을 지정하면 스키마에서의 유효성검사를
-                      // 업데이트 시에서 실시간으로 관찰하며 실시한다.
-                      new: true,
-                      runValidators: true,
-                    }
-                  )
-                  .then(() => {
-                    console.log("좋아요 증가, 싫어요 감소");
-                  })
-                  .catch(console.error);
-              });
-            console.log(
-              "내부 총 좋아요:",
-              likeCount,
-              "총 싫어요:",
-              unlikeCount
+                  // 이 때 싫어요가 0보다 작다면 0으로 초기화시킨다.
+                  if (unlikeCount < 0) {
+                    unlikeCount = 0;
+                  }
+                  likeCounterModel
+                    .updateOne(
+                      { postId: postId },
+                      { likeCount: ++likeCount, unlikeCount: unlikeCount },
+                      {
+                        //이 옵션을 지정하면 스키마에서의 유효성검사를
+                        // 업데이트 시에서 실시간으로 관찰하며 실시한다.
+                        new: true,
+                        runValidators: true,
+                        upsert: true,
+                      }
+                    )
+                    .then(() => {
+                      console.log("좋아요 증가, 싫어요 감소");
+                    })
+                    .catch(console.error);
+                })
             );
           }
 
@@ -324,10 +368,11 @@ router.post("/board/:id/like-user", (req, res) => {
           if (!likeState && unLikeState) {
             console.log("좋아요 비활성, 싫어요 활성");
 
-            likeUserModel
+            return likeUserModel
               .updateOne(
                 { postId, username },
-                { like: likeState, unlike: unLikeState }
+                { like: likeState, unlike: unLikeState },
+                { upsert: true }
               )
               .then(() => {
                 --likeCount;
@@ -341,6 +386,7 @@ router.post("/board/:id/like-user", (req, res) => {
                     {
                       new: true,
                       runValidators: true,
+                      upsert: true,
                     }
                   )
                   .then(() => {
@@ -348,53 +394,79 @@ router.post("/board/:id/like-user", (req, res) => {
                   })
                   .catch(console.error);
               });
-            console.log(
-              "내부 총 좋아요:",
-              likeCount,
-              "총 싫어요:",
-              unlikeCount
-            );
           }
+          // // 활성 상태였던 좋아요가 비활성 된다면
+          // if (!likeState) {
+          //   console.log("좋아요 비활성");
+          //   // 해당 유저 정보를 찾아서 상태를 업데이트 하고,
+          //   return (
+          //     likeUserModel
+          //       .updateOne(
+          //         { postId, username },
+          //         { like: likeState, unlike: unLikeState },
+          //         { upsert: true }
+          //       )
+          //       // 좋아요 갯수를 1 감소 시킨 후
+          //       .then(() => {
+          //         --likeCount;
+          //         if (unlikeCount < 0) {
+          //           unlikeCount = 0;
+          //         }
+          //         if (likeCount < 0) {
+          //           likeCount = 0;
+          //         }
+          //         // 변동 사항을 카운터 컬렉션에 업데이트 한다.
+          //         likeCounterModel
+          //           .updateOne(
+          //             { postId: postId },
+          //             { likeCount: likeCount },
+          //             {
+          //               new: true,
+          //               runValidators: true,
+          //               upsert: true,
+          //             }
+          //           )
+          //           .then(() => {
+          //             console.log("좋아요가 1 감소 됩니다.");
+          //           });
+          //       })
+          //   );
+          // }
 
-          // 좋아요 비활성, 싫어요 비활성
-          if (!likeState && !unLikeState) {
-            console.log("좋아요 비활성, 싫어요 비활성");
-
-            likeUserModel
-              .updateOne(
-                { postId, username },
-                { like: likeState, unlike: unLikeState }
-              )
-              .then(() => {
-                --unlikeCount, --likeCount;
-                // 좋아요와 싫어요 수가 0보다 작다면 0으로 초기화
-                if (unlikeCount < 0) {
-                  unlikeCount = 0;
-                }
-                if (likeCount < 0) {
-                  likeCount = 0;
-                }
-
-                likeCounterModel
-                  .updateOne(
-                    { postId: postId },
-                    { unlikeCount: unlikeCount, likeCount: likeCount },
-                    {
-                      new: true,
-                      runValidators: true,
-                    }
-                  )
-                  .then(() => {
-                    console.log("좋아요 감소, 싫어요 감소");
-                  });
-              });
-            console.log(
-              "내부 총 좋아요:",
-              likeCount,
-              "총 싫어요:",
-              unlikeCount
-            );
-          }
+          // // 활성 상태였던 싫어요가 비활성 된다면
+          // if (!unLikeState) {
+          //   console.log("좋아요 비활성");
+          //   // 해당 유저 정보를 찾아서 상태를 업데이트 하고,
+          //   return (
+          //     likeUserModel
+          //       .updateOne(
+          //         { postId, username },
+          //         { like: likeState, unlike: unLikeState },
+          //         { upsert: true }
+          //       )
+          //       // 싫어요를 1 감소 시켜서
+          //       .then(() => {
+          //         --unlikeCount;
+          //         if (unlikeCount < 0) {
+          //           unlikeCount = 0;
+          //         }
+          //         // 기존 좋아요 카운터 모델을 업데이트 한다.
+          //         likeCounterModel
+          //           .updateOne(
+          //             { postId: postId },
+          //             { unlikeCount },
+          //             {
+          //               new: true,
+          //               runValidators: true,
+          //               upsert: true,
+          //             }
+          //           )
+          //           .then(() => {
+          //             console.log("싫어요가 1 감소 됩니다.");
+          //           });
+          //       })
+          //   );
+          // }
         });
         res.json({ meg: "잘받음" });
       }
@@ -408,30 +480,8 @@ router.post("/board/:id/like-user", (req, res) => {
 module.exports = router;
 
 /* 
-내일 해야 할 것: watch를 사용해서 변화된 내용이 바로 렌더링 되도록 하기
-import Vue from "vue";
-
-export default {
-  name: "MyComponent",
-  setup() {
-    const [count, setCount] = useState(0);
-
-    watch(
-      count,
-      (newCount) => {
-        console.log("Count changed to:", newCount);
-        // 컴포넌트를 다시 렌더링합니다.
-        // ...
-      },
-      { immediate: true }
-    );
-
-    return {
-      count,
-    };
-  },
-};
-
-
-
+현재 좋아요 기능 추가 개선 필요점)
+- 좋아요를 활성화한 상태에서 다시 좋아요를 누르면 반영되지 않음
+- 싫어요의 경우도 마찬가지
+- 로직을 추가할 때 관련 로직들이 서로 충돌하는 문제가 발생하여 이를 개선해야 함.
 */
