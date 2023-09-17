@@ -8,6 +8,7 @@
         height="60"
       />
     </button>
+
     <article class="modal" :class="state.display">
       <button class="modal_close" @click="modalSwitch">
         <img src="../assets/icon/return.svg" />
@@ -16,7 +17,7 @@
         <h2 class="title">우리집 멍냥이는 어떤 종일까?</h2>
         <p
           style="
-            font-size: 13px;
+            font-size: 14px;
             text-align: center;
             display: inline-block;
             width: 100%;
@@ -75,19 +76,19 @@
         <h1 class="page_title" ref="pageTitle">
           가족님을 위한 추가 정보를 준비했어요!
         </h1>
-        <article class="content">
-          <div class="item_box">
+        <article class="content" ref="content">
+          <div class="item_box" ref="item1">
             <h2 class="breed_info_title sub_title">
               해당 품종에 대한 추가 정보입니다!
-              <span style="font-size: 11px; padding: 10px">
+              <span style="font-size: 14px; padding: 10px">
                 <br />※ 모델의 정확도에 따라 부정확한 정보를 제공할 수 있으니
                 참고용도로만 사용해주세요!</span
               >
             </h2>
             <div class="breed_info" v-show="!breedInfo.addInfo[0]?.name">
-              <h2>
+              <h3 style="text-align: center">
                 죄송합니다.. 해당 품종의 정보는 현재는 찾을 수 없어요. <br />
-              </h2>
+              </h3>
             </div>
             <div class="breed_info" v-show="breedInfo.addInfo[0]?.name">
               <div class="breed_info_inner_con">
@@ -118,7 +119,8 @@
               </div>
             </div>
           </div>
-          <div class="item_box">
+          <!-- 추가 품종 정보 -->
+          <div class="item_box" ref="item2">
             <h2 class="breed_info_title sub_title">
               더 다양한 품종 정보를 확인하려면?
             </h2>
@@ -127,7 +129,8 @@
               <a href="/cat/breed">고양이 품종 정보</a>
             </article>
           </div>
-          <div class="item_box">
+          <!-- 꿀팁 정보 -->
+          <div class="item_box" ref="item3">
             <h2 class="tip_info_title sub_title">
               멍이와 냥이 꿀팁 정보가 궁금하다면?
             </h2>
@@ -136,7 +139,8 @@
               <a href="/cat/tip">고양이 팁</a>
             </article>
           </div>
-          <div class="item_box">
+          <!-- 테스트 정보 -->
+          <div class="item_box" ref="item4">
             <h2 class="test_info_title sub_title">
               간단한 테스트를 통해 멍냥이에 대해 더 알아가고자 한다면?
             </h2>
@@ -151,13 +155,17 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import store from '../store/store'
 
 // import * as tf from '@tensorflow/tfjs'
 import * as tmImage from '@teachablemachine/image'
 
 const pageTitle = ref(null)
+const item1 = ref(null)
+const item2 = ref(null)
+const item3 = ref(null)
+const item4 = ref(null)
 const breedInfo = reactive({ addInfo: '' })
 const addClass = ref('on').value
 /* 예측 값 상태관리 */
@@ -203,6 +211,34 @@ const add = () => {
   pageTitle.value.scrollIntoView()
 }
 
+/* 특정 시점에 애니메이션 적용 */
+
+onMounted(() => {
+  console.log(pageTitle.value)
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((el) => {
+      if (el.isIntersecting) {
+        el.target.style.cssText = `
+        transform:translate(-50%, 0);
+        left:50%;
+        opacity:1;`
+      } else {
+        el.target.style.cssText = `
+        transform:translate(0, 0);
+        opacity:0;
+      `
+      }
+    })
+  })
+
+  observer.observe(pageTitle.value)
+  observer.observe(item1.value)
+  observer.observe(item2.value)
+  observer.observe(item3.value)
+  observer.observe(item4.value)
+})
+
 /* 모델 출력 함수 */
 function input(e) {
   state.resultDisplay = 'off'
@@ -232,10 +268,22 @@ function input(e) {
 
             /* store 로 예측된 동물 이름을 전달한다. */
 
-            store.dispatch('getBreedInfoFromDB', {
-              name: data.className,
-              breed: choiceBreed.value
-            })
+            if (choiceBreed.value === 'cat') {
+              const animalName = data.className.replace('hair', '-Hair')
+
+              store.dispatch('getBreedInfoFromDB', {
+                name: animalName,
+                breed: choiceBreed.value
+              })
+            }
+
+            if (choiceBreed.value === 'dog') {
+              const animalName = data.className.replace('-', ' ')
+              store.dispatch('getBreedInfoFromDB', {
+                name: animalName,
+                breed: choiceBreed.value
+              })
+            }
 
             setTimeout(() => {
               breedInfo.addInfo = store.state.addInfo
@@ -325,6 +373,41 @@ function choiceAnimal(e) {
   cursor: pointer;
 }
 
+.modal_icon::before {
+  content: '';
+  position: absolute;
+  border-left: 20px solid transparent;
+  rotate: -25deg;
+  left: 3px;
+  visibility: hidden;
+  opacity: 0;
+  border-bottom: 20px solid rgb(254, 187, 62);
+}
+
+.modal_icon::after {
+  content: '멍냥이 품종 AI 예측';
+  font-size: 1.05rem;
+  position: absolute;
+  padding: 20px 0;
+  filter:drop-shadow(-3px 3px 5px rgba(0, 0, 0, 0.277));
+  right: 5.3rem;
+  visibility: hidden;
+  opacity: 0;
+  top: -1rem;
+  border-radius: 15px;
+  width: 200px;
+  background: rgb(254, 187, 62);
+}
+
+.modal_icon:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+.modal_icon:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
 .modal_inner_con {
   margin: 0 auto;
   max-width: 600px;
@@ -332,7 +415,7 @@ function choiceAnimal(e) {
 
 /* 모달창 */
 .modal {
-  z-index: 1000000;
+  z-index: 10000000;
   transition: 1s;
   overflow: hidden auto;
   display: flex;
@@ -522,7 +605,7 @@ function choiceAnimal(e) {
   text-shadow: 1px 1px 2px black;
   transition: 0.5s;
   border-radius: 20px;
-  background-color: rgb(224, 182, 159);
+  background-color: goldenrod;
   opacity: 0;
   bottom: 60px;
   left: 150px;
@@ -551,12 +634,32 @@ function choiceAnimal(e) {
 /* 공통 */
 
 .page_title {
-  margin-top: 3rem;
+  margin: 3rem auto 3rem auto;
+  display: inline-block;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -100px);
   transform-origin: top top;
+  transition: 1s;
   text-align: center;
+  position: relative;
   font-size: 1.5rem;
+  background: rgb(255, 166, 0);
   border-radius: 20px;
-  padding: 20px 0;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.359);
+  color: white;
+  padding: 20px 15px;
+}
+
+.page_title::after {
+  content: '';
+  left: 50%;
+  transform: translate(-50%);
+  position: absolute;
+  top: -10px;
+  border-bottom: 20px solid rgb(255, 166, 0);
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
 }
 
 .content {
@@ -577,8 +680,8 @@ function choiceAnimal(e) {
 .sub_title {
   transition: 0.2s;
   max-width: 700px;
-  box-shadow: inset 5px 10px 6px 0 rgba(15, 16, 14, 0.43);
-  background-color: rgb(201, 170, 147);
+  box-shadow: inset 2px 2px 3px 0 rgba(15, 16, 14, 0.43);
+  background-color: rgba(255, 107, 21, 0.87);
   color: white;
   border-radius: 20px;
   text-align: center;
@@ -586,19 +689,25 @@ function choiceAnimal(e) {
   font-size: 1.2rem;
   font-weight: 500;
   padding: 16px 10px 13px 10px;
+  font-weight: 600;
 }
 
 .sub_title:hover {
-  background-color: rgb(209, 182, 146);
+  background-color: rgb(254, 122, 60);
   color: rgb(255, 255, 255);
   text-shadow: 1px 1px 2px rgb(59, 57, 57);
-  font-weight: 600;
+
   cursor: pointer;
 }
 
 /* 추가정보에 대한 각 텍스트 컨테이너 */
 .item_box {
-  margin: 60px;
+  margin: 80px 0;
+  position: relative;
+  transition: 1s;
+  width: 100%;
+  opacity: 0;
+  transform: translate(0, -50px);
 }
 
 .add_link {
@@ -609,7 +718,7 @@ function choiceAnimal(e) {
 .add_link a {
   text-decoration: none;
   color: black;
-  background-color: rgb(220, 169, 136);
+  background-color: rgb(255, 205, 80);
   margin: 5px;
   border-radius: 3px;
   border: 1px dashed rgb(92, 91, 90);
@@ -618,6 +727,7 @@ function choiceAnimal(e) {
 
 .add_link a:hover {
   background-color: rgb(255, 205, 80);
+  border: 3px solid rgb(239, 135, 30);
   color: rgb(0, 0, 0);
 }
 

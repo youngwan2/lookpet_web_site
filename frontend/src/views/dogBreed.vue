@@ -276,11 +276,20 @@ section {
 /* 더보기 버튼 */
 .add-post-btn {
   text-align: center;
+  border: none;
+  border-radius: 3px;
+  color:white;
+  background: brown;
   margin: 3rem auto 0 auto;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   padding: 15px 20px;
   position: relative;
   left: 50%;
   transform: translate(-50%);
+}
+
+.add-post-btn:hover {
+  cursor: pointer;
+  background: rgb(255, 72, 48);
 }
 </style>

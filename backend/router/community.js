@@ -43,7 +43,7 @@ router.post("/board", (req, res) => {
 
 /** 게시글 조회*/
 router.get("/board", (req, res) => {
-  const { page, category } = req.query;
+  const { page, category, search } = req.query;
   console.log(category);
   console.log(page);
   postModel
@@ -51,8 +51,18 @@ router.get("/board", (req, res) => {
     .count()
     .then((count) => {
       if (category === "all") {
+        const regex = new RegExp(`${search}`, "gi");
+        console.log(regex)
         postModel
-          .find({}, { _id: 0, _v: 0 })
+          .find(
+            {
+              $or: [
+                { title: { $regex: regex } },
+                { content: { $regex: regex } },
+              ],
+            },
+            { _id: 0, _v: 0 }
+          )
           .sort({ id: -1 })
           .skip((page * 1 - 1) * 10)
           .limit(10)
@@ -63,10 +73,10 @@ router.get("/board", (req, res) => {
           .catch((error) => {
             console.log("게시글을 가져오던 중 에러가 발생하였습니다.", error);
           });
-      } else if (category==="popular") {
-        
-      }   
-      else {
+      } else if (category === "popular") {
+      } else {
+        const regex = new RegExp(`${search}`, "gi");
+        console.log(regex);
         postModel
           .find({ $and: [{ category: category }] }, { _id: 0, _v: 0 })
           .sort({ id: -1 })
@@ -212,7 +222,7 @@ router.get("/board/:id/like-counter", (req, res) => {
     .then((result) => {
       console.log("좋아요/싫어요 결과:", result);
       // 좋아요/싫어요를 클릭한 유저의 정보를 담아서 보낸다(중복클릭)
-      likeUserModel.findOne({ postId,username }).then((userInfo) => {
+      likeUserModel.findOne({ postId, username }).then((userInfo) => {
         console.log("유저정보:", userInfo);
         res.status(200).json({ result, userInfo });
       });

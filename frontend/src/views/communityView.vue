@@ -9,7 +9,7 @@
             type="text"
             class="board_search"
             v-model="searchVal"
-            @input="boardSearch"
+            @keyup.enter="boardSearch"
           />
         </form>
         <article class="filter_container">
@@ -24,13 +24,9 @@
             <p class="free" data-type="free" @click="getFilteredPostFromDB">
               자유
             </p>
-            <p
-              class="popular"
-              data-type="popular"
-              @click="getFilteredPostFromDB"
-            >
-              자유
-            </p>
+            <!-- <p class="popular" data-type="popular" @click="getFilteredPostFromDB"> -->
+            <!-- 자유 -->
+            <!-- </p> -->
             <p class="all" data-type="all" @click="getFilteredPostFromDB">
               전체
             </p>
@@ -89,6 +85,7 @@ export default {
     return {
       auth: false,
       posts: [],
+      searchKeyword: '',
       category: 'all', // 상단 카테고리 버튼 클릭 시 지정한 요소의 타입이 저장됨
       currentPage: 1,
       perPage: 10,
@@ -128,7 +125,7 @@ export default {
       this.currentPageGroup = Math.ceil(this.currentPage / this.perPage)
       axios
         .get(
-          `http://localhost:3000/board?page=${this.currentPage}&category=${this.category}`
+          `http://localhost:3000/board?page=${this.currentPage}&category=${this.category}&search=${this.searchKeyword}`
         )
         .then((response) => {
           this.totalPageCount = response.data.totalCount
@@ -184,7 +181,8 @@ export default {
 
     /* 게시글 검색  */
     boardSearch(e) {
-      console.log(e.target.value)
+      this.searchKeyword = e.target.value
+      this.getBoardList()
     },
 
     /* 필터된 게시글 목록 가져오기 */

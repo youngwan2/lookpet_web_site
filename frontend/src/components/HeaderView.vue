@@ -47,8 +47,8 @@
             ><br />
             <RouterLink to="/tools/test">멍냥이 지식 테스트</RouterLink
             ><br />
-            <RouterLink to="/tools">반려동물 우울증 테스트</RouterLink
-            ><br />
+            <!-- <RouterLink to="/tools">반려동물 우울증 테스트</RouterLink -->
+            <!-- ><br /> -->
           </ul>
           <ul class="drop_item">
             <p>고객센터</p>
@@ -175,7 +175,7 @@ li:hover {
   margin: 10px;
   color: #949087;
   font-weight: 600;
-  height: 25%;
+  height: 35%;
 }
 /* 메뉴 닫기 버튼 */
 .menu_close_btn {
@@ -216,6 +216,10 @@ li:hover {
   opacity: 1;
 }
 
+.menu:hover .drop_box a {
+  margin: 20px 0;
+}
+
 .dog_foot {
   background-image: url('../assets/dog.png');
   background-position: center;
@@ -231,7 +235,7 @@ li:hover {
 
 .drop_item {
   margin: 10px auto;
-  line-height: 1.45;
+  line-height: 1.8;
   font-size: 15px;
   display: inline-block;
 }

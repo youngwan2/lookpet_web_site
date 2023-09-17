@@ -134,6 +134,46 @@ export default {
   cursor: pointer;
 }
 
+.chat_open_btn::before {
+  content: '';
+  position: absolute;
+  border-left: 20px solid transparent;
+  left: -12px;
+  rotate: -40deg;
+  top: 1.2rem;
+  visibility: hidden;
+  opacity: 0;
+  border-bottom: 20px solid rgb(254, 187, 62);
+}
+
+.chat_open_btn::after {
+  content: 'AI 반려동물 전문가';
+  font-size: 1.05rem;
+  position: absolute;
+  padding: 20px 0;
+  right: 4.8rem;
+  visibility: hidden;
+  opacity: 0;
+  top: -1rem;
+  border-radius: 15px;
+  width: 200px;
+  background: rgb(255, 185, 55);
+}
+
+.chat_open_btn:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+.chat_open_btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal_inner_con {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
 /** 채팅창 컨테이너 */
 .chatbot_container {
   z-index: 1000000;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section class="cat_tip_section">
     <h2 class="title">냥 팁</h2>
     <section class="content_container">
       <div v-for="data in getTip" :key="data.id" class="tip_box">
@@ -30,7 +30,7 @@
         </li>
       </ul>
     </nav>
-  </div>
+  </section>
 </template>
 <script>
 import axios from 'axios'
@@ -122,6 +122,13 @@ export default {
 }
 </script>
 <style scoped>
+
+/* 전체 섹션 */
+.cat_tip_section {
+  max-width: 1500px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
 /* 페이지 타이틀 */
 .title {
   text-align: center;
@@ -153,7 +160,7 @@ export default {
   transition: 0.3s;
   transform: perspective(600px);
   transform-style: preserve-3d;
-  box-shadow: 0 0 1px 2px rgba(250, 159, 74, 0.968);
+  box-shadow: 0 0 1px 2px rgba(192, 162, 134, 0.968);
 }
 @keyframes appear {
   from {
@@ -173,15 +180,16 @@ export default {
 }
 
 .tip_box:hover {
-  transform: translateY(-10px) rotateY(15deg) scale(1.03);
+  transform: translateY(-10px) rotateY(15deg) scale(1.02);
   cursor: pointer;
+  background: rgba(255, 255, 255, 0.635);
 }
 
 .tip_box .category {
   width: 110px;
   text-align: center;
   color: white;
-  background: rgb(246, 177, 113);
+  background: rgb(192, 158, 127);
   border-radius: 10px;
   font-weight: 600;
   font-size: 1.2rem;
@@ -205,7 +213,7 @@ export default {
   align-content: center;
 }
 .page_shifter {
-  border: 1px solid rgba(255, 149, 0, 0.807);
+  border: 1px solid rgba(232, 206, 169, 0.807);
   list-style: none;
   text-align: center;
   width: 25px;
@@ -216,13 +224,13 @@ export default {
 }
 
 .page_shifter:hover {
-  background: rgb(254, 216, 119);
-  color: black;
+  background: rgb(255, 188, 79);
+  color: rgb(255, 255, 255);
   cursor: pointer;
 }
 
 li.focus {
-  background: rgb(251, 195, 53);
+  background: rgb(247, 165, 59);
   color: white;
 }
 </style>

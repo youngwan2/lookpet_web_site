@@ -85,7 +85,7 @@
           <div class="con">
             <img src="../assets/icon/community.svg" />
             <h2 @click="gotoPage('/community')">05.커뮤니티 게시판</h2>
-            <p>게시글을 확인할 수 있습니다.</p>
+            <p>강아지, 고양이, 자유 카테고리별 게시글을 확인할 수 있습니다.</p>
           </div>
         </div>
       </swiper-slide>
@@ -118,7 +118,7 @@
           </div>
         </div>
       </swiper-slide>
-      <swiper-slide class="swiper-slide">
+      <!-- <swiper-slide class="swiper-slide">
         <div class="inner">
           <div class="con">
             <img src="../assets/icon/우울증.png" />
@@ -126,7 +126,7 @@
             <p>우리 반려동물이 얼마나 우울한지 테스트 해 보세요.</p>
           </div>
         </div>
-      </swiper-slide>
+      </swiper-slide> -->
       <!-- 좌우버튼 -->
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
@@ -180,7 +180,7 @@ export default {
   box-sizing: border-box;
   /* background: linear-gradient(45deg, #ac8bef, #2ddbdc); */
   /* background: #6b5d50; */
-  background:#faf6ed url('../assets/bg.png');
+  background:transparent;
 }
 .wrap h2 {
   font-weight: bold;
@@ -270,7 +270,9 @@ export default {
 .wrap .swiper-wrapper .swiper-slide .inner .con img {
   /* border: 3px solid aqua; */
   width: 50%;
-  padding-left: 27%;
+  padding:10px;
+  border-radius: 10px;
+  margin-left: 27%;
 }
 .wrap .swiper-wrapper .swiper-slide .inner .con h2 {
   /* border: 3px solid aqua; */

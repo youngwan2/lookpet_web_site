@@ -1,7 +1,13 @@
 <template>
   <div class="container">
     <h1 class="title">Q n A</h1>
-    <ul class="qna_container">
+
+    <div class="message_con">
+      <h3>준비중 입니다. 이용에 불편을 드려 죄송합니다..</h3>
+      <img src="../../assets/ready.png" alt="준비중..">
+    </div>
+
+    <!-- <ul class="qna_container">
       <li
         class="qna_item"
         :class="state[i]"
@@ -18,7 +24,7 @@
           </li>
         </ul>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 <script>
@@ -155,5 +161,23 @@ li {
   visibility: visible;
   opacity: 1;
   transform: translate(0, 0);
+}
+
+/* 임시 메시지 컨테이너 */
+.message_con {
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(199, 173, 144, 0.302);
+  margin: 0 auto;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.message_con h3 {
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  margin: 15rem auto 0 auto !important;
 }
 </style>
