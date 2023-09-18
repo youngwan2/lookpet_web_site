@@ -188,7 +188,6 @@ export default {
 }
 
 @media screen and (min-width: 769px) {
-
   .detail_info {
     margin-left: 1.5rem;
   }

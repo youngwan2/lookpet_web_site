@@ -91,7 +91,7 @@ export default {
         return alert('제목을 입력해주세요.')
       }
       axios
-        .post('http://localhost:3000/board', this.post)
+        .post('/board', this.post)
         .then((result) => {
           console.log('전송 성공!', result)
         })
@@ -175,14 +175,13 @@ export default {
 .bottom_area {
   position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: 2rem;
   width: 100%;
-  height: 100px;
   background: rgba(155, 154, 154, 0.802);
 }
 
 .complete_btn {
-  border-radius: 25px;
+  border-radius: 5px;
   background: black;
   color: white;
   position: absolute;
@@ -190,7 +189,7 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: 15px;
-  padding: 13px 28px;
+  padding: 10px 25px;
 }
 
 .complete_btn:hover {

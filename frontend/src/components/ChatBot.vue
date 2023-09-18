@@ -120,7 +120,7 @@ export default {
   border: none;
   background-color: transparent;
   position: fixed;
-  right: 31px;
+  right: 19.3px;
   z-index: 10000000;
   bottom: 110px;
   border-radius: 50%;
@@ -309,7 +309,8 @@ ul {
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.127);
   color: black;
   margin: 0 5px;
-  min-width: 200px;
+  min-width: 280px;
+  max-width: 280px;
   border-radius: 10px;
   padding: 10px;
 }
@@ -317,12 +318,13 @@ ul {
 .gpt .profile_contents .content::after {
   content: '';
   position: absolute;
-  left: 30px;
+  z-index: 100;
+  left: 33px;
   bottom: 3px;
   rotate: -3deg;
-  border-right: 25px solid rgb(255, 176, 133);
-  border-top: 13px solid rgba(255, 255, 255, 0);
-  border-bottom: 13px solid rgba(255, 255, 255, 0);
+  border-right: 18px solid rgb(255, 176, 133);
+  border-top: 10px solid rgba(255, 255, 255, 0);
+  border-bottom: 10px solid rgba(255, 255, 255, 0);
 }
 
 /** 유저 */
@@ -345,8 +347,9 @@ ul {
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.127);
   color: white;
   margin: 5px 5px;
-  min-width: 200px;
   border-radius: 10px;
+  min-width: 280px;
+  max-width: 280px;
   padding: 10px;
 }
 
@@ -399,5 +402,24 @@ ul {
 .submit_btn:hover {
   background-color: rgb(215, 142, 102);
   cursor: pointer;
+}
+
+/* 테블릿-모바일 버전 */
+@media screen and (max-width: 786px) {
+  .chatbot_container {
+    right: 3.5rem;
+    z-index: 100000000000;
+    max-width: 330px;
+  }
+
+}
+@media screen and (max-width: 440px) {
+  .chatbot_container {
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 100000000000;
+    max-width: 330px;
+  }
+
 }
 </style>

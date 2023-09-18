@@ -101,9 +101,9 @@ body::-webkit-scrollbar-thumb {
   height: 79px;
   display: flex;
   flex-direction: column;
-  bottom: 13.3rem;
+  bottom: 13.1rem;
 
-  right: 2.8rem;
+  right: 2.05rem;
 }
 
 .shifter_btn_con button {

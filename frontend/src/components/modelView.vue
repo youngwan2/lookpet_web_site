@@ -359,9 +359,9 @@ function choiceAnimal(e) {
   border: none;
   background: transparent;
   border-radius: 10px;
-  right: 20px;
+  right: 5px;
   bottom: 0px;
-  /* z-index: 10000; */
+  z-index: 10000000;
   transform: translate(0, -50%);
 }
 
