@@ -111,7 +111,7 @@ const sendUserInfoToServer = async (updateUserInfo) => {
     return alert('로그인 유저만 허용 됩니다.')
   }
   await axios
-    .post(`http://localhost:3000/${route.value}/like-user`, updateUserInfo)
+    .post(`http://localhost:3000/board/${route.value}/like-user`, updateUserInfo)
     .then((response) => {
       console.log('보낸게 성공했다면:', response.statusText)
     })
@@ -124,7 +124,7 @@ const sendUserInfoToServer = async (updateUserInfo) => {
 const getPostLikeInfoFromServer = () => {
   axios
     .get(
-      `http://localhost:3000/${route.value * 1}/like-counter?username=${
+      `http://localhost:3000/board/${route.value * 1}/like-counter?username=${
         document.cookie.split('=')[1]
       }`
     )

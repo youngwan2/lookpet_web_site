@@ -74,7 +74,7 @@ body::before {
   content: '';
   background-image: url('./assets/bg.png');
   position: fixed;
-  opacity: 0.9;
+  opacity: 1;
   z-index: -1;
   left: 0;
   right: 0;

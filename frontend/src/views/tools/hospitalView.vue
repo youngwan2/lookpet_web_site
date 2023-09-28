@@ -24,6 +24,10 @@
         우리 동네
       </button>
     </div>
+    <!-- 현재 위치 주소 -->
+    <h3 class="hospital_address">
+      {{ address || '여기에 주소가 표시됩니다.' }}
+    </h3>
     <div class="hospital_content">
       <div class="hospital_list">
         <ul>
@@ -40,11 +44,12 @@
       </div>
       <div class="map_box">
         <div class="map" ref="map"></div>
-        <h3>{{ address }}</h3>
       </div>
     </div>
+
+    <!-- 페이지 네이션 -->
     <nav class="pagination_nav">
-      <ul class="pagination_box">
+      <ol class="pagination_box">
         <li class="page_shifter" @click="prevPage" v-show="currentPage !== 1">
           prev
         </li>
@@ -63,7 +68,7 @@
         >
           next
         </li>
-      </ul>
+      </ol>
     </nav>
   </div>
 </template>
@@ -225,7 +230,7 @@ export default {
       this.area = e.target.innerText
       this.currentPage = 1
       this.locArea = ''
-      await this.getAreaInfo()
+      this.getAreaInfo()
     },
     // 각 번호 클릭 시 페이지 이동 함수
     getNextPage(e) {
@@ -241,10 +246,6 @@ export default {
       this.lastPage = this.displayPage * this.currentPageGroup
       this.firstPage = this.lastPage - this.displayPage + 1
 
-      console.log('첫페이지:', this.firstPage)
-      console.log('마지막페이지:', this.lastPage)
-      console.log('현재페이지:', this.currentPage)
-      console.log(this.pageList.length)
       const list = []
       if (this.lastPage >= this.totalPage) {
         this.lastPage = this.totalPage
@@ -253,7 +254,6 @@ export default {
         list.push(i)
       }
       this.pageList = list
-      console.log(this.pageList)
     },
     // 다음 페이지 이동 함수
     nextPage() {
@@ -342,37 +342,50 @@ export default {
     visibility: hidden;
   }
 }
+
+/* 페이지 타이틀 */
 .hospital_title {
-  color: gray;
+  color: #b19191;
   text-align: center;
   margin: 30px;
-  border-bottom: 1px solid gray;
 }
+
+/* 카테고리 박스 */
 .region_box {
-  border-bottom: 1px solid gray;
+  padding: 20px;
+  text-align: center;
+  border: 3px solid rgb(208, 165, 145);
+  margin: 0 auto;
+  max-width: 1375px;
+  border-radius: 10px;
+  background: white;
 }
-.region_menu {
+
+/* 각 카테고리 */
+.region_box .region_menu {
+  box-shadow: 0 0 1px 1px rgb(217, 109, 15);
+  border-radius: 2px;
   border: none;
-  border-radius: 5px;
-  box-shadow: 3px 3px 3px gray;
+  font-size: 14px;
   margin: 0 0 10px 10px;
-  padding: 5px;
-  background: #93d8d0;
-  color: #fff;
+  padding: 10px;
+  background: #ffffff;
+  color: black;
   transition: 0.1s ease-in;
 }
-.region_menu:hover {
+.region_box .region_menu:hover {
   transform: scale(1.01);
+  color: white;
   background: rgb(198, 111, 17);
   box-shadow: 3px 3px 5px gray;
   cursor: pointer;
 }
-.region_menu:active {
+.region_box .region_menu:active {
   transform: scale(1);
   background: rgb(198, 111, 17);
   box-shadow: -1px -1px 3px gray;
 }
-.region_menu.selected {
+.region_box .region_menu.selected {
   background: rgb(198, 111, 17);
   color: #f9ebde;
   box-shadow: -2px -2px 5px gray;
@@ -380,17 +393,17 @@ export default {
 .page_message {
   position: fixed;
   font-size: 14px;
-  bottom: 300px;
   right: 5px;
+  color:black;
+  top: 100px;
   background: rgb(253, 241, 172);
-  box-shadow: inset 1px 1px 5px 2px rgb(245, 219, 69);
   padding: 10px;
   border-radius: 10px;
 }
 /* 페이지네이션 */
 .pagination_nav {
   width: 70%;
-  margin: 10px auto;
+  margin: 30px auto 0 auto;
 }
 .pagination_box {
   display: flex;
@@ -398,75 +411,74 @@ export default {
   align-content: center;
 }
 .page_shifter {
-  border: 1px solid rgba(128, 128, 128, 0.807);
+  border: 3px solid rgb(255, 153, 80);
   list-style: none;
   text-align: center;
-  width: 25px;
-  height: 25px;
-  border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   margin: 3px;
-  padding: 11px 10px 5px 10px;
+  padding: 11px 10px 10px 10px;
 }
 .page_shifter:hover {
-  /* background: rgb(245, 142, 8); */
-  background: #93d8d0;
-  color: #fff;
+  background: rgb(245, 142, 8);
+  color: #ffffff;
   cursor: pointer;
-  transition: 1.2s;
+  transition: 0.3s;
 }
+
+/* 콘텐츠 */
 .hospital_content {
   display: flex;
-}
-.hospital_content {
-  display: flex;
+  max-width: 1420px;
+  margin: 0 auto;
+  justify-content: space-between;
 }
 .hospital_list {
   margin: 0;
-  width: 30%;
+  width: 35%;
   min-width: 250px;
-  /* background: #815854; */
-  /* background:linear-gradient(90deg,beige,rgb(101, 83, 83)); */
-  background: #93d8d0;
-  color: #f9ebde;
-  padding: 10px 0;
+  max-width: 300px;
+  border-radius: 10px;
+  border: 3px solid rgb(208, 165, 145);
+  background: white;
+  color: black;
+
+  padding: 10px 10px;
   overflow: hidden;
 }
 .hospital_name {
-  font-weight: 800;
-  font-size: 1.2em;
-  color: #f9ebde;
+  font-weight: 500;
+  list-style: decimal;
+  line-height: 1.6;
   width: 100%;
-  list-style: none;
+  font-size: 18px;
   transition: 0.1s;
   margin-bottom: 5px;
-  border-bottom: 1px solid #f9ebde;
-  box-shadow: 1px 1px 3px gray;
   transition: 0.3s;
 }
 .hospital_name:hover {
-  transform: translateX(10px);
-  color: #f9ebde;
-  background: rgb(198, 111, 17);
-  box-shadow: 1px 1px 5px gray;
   cursor: pointer;
+  color: brown;
 }
 .hospital_name.selected {
-  transform: translateX(10px);
-  background: rgb(198, 111, 17);
-  color: #f9ebde;
-  box-shadow: -2px -2px 5px gray;
+  border-radius: 5px;
+  background: brown;
+  padding-left: 10px;
+  color: white;
 }
+
+/* 우리 동네 */
 .near_btn {
   border: none;
   border-radius: 10px;
   font-weight: 800;
   font-size: 1.3em;
-  margin-bottom: 5px;
   background: rgb(198, 111, 17);
   color: #f9ebde;
   list-style: none;
   transition: 0.1s;
-  margin: 0 10px;
+  margin: 5px 15px 10px 15px;
   box-shadow: 3px 3px 3px gray;
 }
 .near_btn:hover {
@@ -486,13 +498,24 @@ export default {
   box-shadow: -2px -2px 5px gray;
 }
 .map_box {
-  margin: 20px;
-  width: 100%;
+  margin: 20px 0 20px 30px;
+  width: 90%;
   height: 100%;
 }
 .map {
   margin: auto;
-  height: 500px;
-  margin-bottom: 10px;
+  filter: drop-shadow(0 0 2px rgb(108, 62, 17));
+  height: 700px;
+}
+
+/* 병원 주소 */
+.hospital_address {
+  text-align: center;
+  background: white;
+  margin: 15px auto 15px auto;
+  padding: 30px 10px;
+  border: 3px solid rgb(201, 169, 144);
+  max-width: 1395px;
+  border-radius: 10px;
 }
 </style>
